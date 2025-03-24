@@ -1,7 +1,4 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!29 &1
-OcclusionCullingSettings:
+%YAML 1.1Abilities
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_OcclusionBakeSettings:
@@ -264,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b595d4c7f6764596853e81176336ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundToggleButton: {fileID: 0}
+  _soundToggleButton: {fileID: 0}
 --- !u!1 &458914356
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,8 +359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f543a268fa3b3540836e1dfa8d2051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fixSpeed: 0
-  rotateSpeed: 0
+  _fixSpeed: 0
+  _rotateSpeed: 0
 --- !u!1 &582221364
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,8 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f543a268fa3b3540836e1dfa8d2051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fixSpeed: 0
-  rotateSpeed: 0
+  _fixSpeed: 0
+  _rotateSpeed: 0
 --- !u!1 &852868800
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,8 +633,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1887767413}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_Howtoplay
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMoving, Assembly-CSharp
+        m_MethodName: Goto_Howtoplay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1029,8 +1026,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1887767413}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_Ready
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMoving, Assembly-CSharp
+        m_MethodName: Goto_Ready
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1263,8 +1260,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1887767413}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_Options
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMoving, Assembly-CSharp
+        m_MethodName: Goto_Options
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1327,8 +1324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f543a268fa3b3540836e1dfa8d2051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fixSpeed: 0
-  rotateSpeed: 0
+  _fixSpeed: 0
+  _rotateSpeed: 0
 --- !u!212 &1315191355
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1478,8 +1475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f543a268fa3b3540836e1dfa8d2051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fixSpeed: 0
-  rotateSpeed: 0
+  _fixSpeed: 0
+  _rotateSpeed: 0
 --- !u!1 &1456501851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,8 +1657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f543a268fa3b3540836e1dfa8d2051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fixSpeed: 0
-  rotateSpeed: 0
+  _fixSpeed: 0
+  _rotateSpeed: 0
 --- !u!212 &1501868837
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1902,8 +1899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f543a268fa3b3540836e1dfa8d2051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fixSpeed: 0
-  rotateSpeed: 0
+  _fixSpeed: 0
+  _rotateSpeed: 0
 --- !u!212 &1624012681
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2084,8 +2081,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f543a268fa3b3540836e1dfa8d2051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fixSpeed: 0
-  rotateSpeed: 0
+  _fixSpeed: 0
+  _rotateSpeed: 0
 --- !u!1 &1865402386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,8 +2309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d1aef21fa2e46df9343f7999acf071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicPlayer: {fileID: 2000896078}
-  sfxMenu: {fileID: 0}
+  _musicPlayer: {fileID: 2000896078}
+  _sfxMenu: {fileID: 0}
 --- !u!1 &2000896076
 GameObject:
   m_ObjectHideFlags: 0

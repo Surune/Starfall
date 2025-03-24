@@ -3,159 +3,156 @@ using TMPro;
 using Starfall.Utils;
 using Starfall.Entity;
 using Starfall.Constants;
+using System.Collections;
 
-namespace Starfall.Manager {
-    public class NerfManager {
-        #region Managers
-        private Player _player;
-        private Spawner _spawner;
-        private Timer _timer;
-        private PlayerManager _playerManager;
-        private HPManager _hp;
-        private ExpManager _exp;
-        #endregion
+namespace Starfall.Manager
+{
+    public class NerfManager : MonoBehaviour
+    {
+        Player player => GameManager.Instance.Player;
+        Spawner spawner => GameManager.Instance.Spawner;
+        Timer timer => GameManager.Instance.Timer;
+        PlayerManager playerManager => GameManager.Instance.PlayerManager;
+        HPManager hp => GameManager.Instance.HPManager;
+        ExpManager exp => GameManager.Instance.ExpManager;
 
-        #region Properties
-        public int nerfLevel;
-        public int highestLevel;
-        public GameObject nerftext;
-        public Transform content;
-        public bool hardmode;
-        #endregion
+        public int NerfLevel;
+        public int HighestLevel;
+        public GameObject Nerftext;
+        public Transform Content;
+        public bool Hardmode;
 
-        public NerfManager(
-            Player player,
-            Spawner spawner,
-            Timer timer,
-            PlayerManager playerManager,
-            HPManager hp,
-            ExpManager exp)
+        void Start()
         {
-            _player = player;
-            _spawner = spawner;
-            _timer = timer;
-            _playerManager = playerManager;
-            _hp = hp;
-            _exp = exp;
+            NerfLevel = PlayerPrefs.GetInt("currentLevel", 0);
+            HighestLevel = PlayerPrefs.GetInt("highestLevel", 0);
+            Hardmode = System.Convert.ToBoolean(PlayerPrefs.GetInt("hardMode", 0));
 
-            nerfLevel = PlayerPrefs.GetInt("currentLevel", 0);
-            highestLevel = PlayerPrefs.GetInt("highestLevel", 0);
-            hardmode = System.Convert.ToBoolean(PlayerPrefs.GetInt("hardMode", 0));
-            
-            Invoke("SetSupernova", 0f);
-            if(hardmode) {
-                GameManager.Instance.coinCoefficient += 0.5f;
-                ChoiceButton.hardmode = true;
+            if (Hardmode)
+            {
+                GameManager.Instance.CoinCoefficient += 0.5f;
+                Choice.Hardmode = true;
                 StartCoroutine(SetHardmode());
             }
-            else {
-                ChoiceButton.hardmode = false;
+            else
+            {
+                Choice.Hardmode = false;
             }
+
+            SetSupernova();
         }
 
-        private System.Collections.IEnumerator SetHardmode() {
+        IEnumerator SetHardmode()
+        {
             GameObject choice = GameObject.Find("Choice(Clone)");
-            if (choice != null) {
+            if (choice != null)
+            {
                 yield return new WaitUntil(() => choice == null);
             }
-            
-            if (hardmode) {
+
+            if (Hardmode)
+            {
                 int r = Random.Range(0, ConstantStore.HARDMODE_TEXT_LIST.Length);
-                GameObject obj = Instantiate(nerftext, content);
+                GameObject obj = Instantiate(Nerftext, Content);
                 switch(r) {
                     case 0:
-                        _spawner.meteorCoefficient *= 1.25f;
+                        spawner.MeteorCoefficient *= 1.25f;
                         break;
                     case 1:
-                        _spawner.speedCoefficient += 0.2f;
+                        spawner.SpeedCoefficient += 0.2f;
                         break;
                     case 2:
-                        _spawner.addHP += 2f;
+                        spawner.AddHP += 2f;
                         break;
                     case 3:
-                        _timer.addition -= 1;
+                        timer.Addition -= 1;
                         break;
                 }
                 obj.transform.GetComponent<TextMeshProUGUI>().text = $"- 별의 시련 -\n\n{ConstantStore.HARDMODE_TEXT_LIST[r]}";
-                obj.GetComponent<Tween>().tween();
+                obj.GetComponent<Tween>().DoTween();
             }
         }
 
-        private void SetSupernova() {
-            for (int i = 1; i <= nerfLevel; i++) {
-                switch (i) {
+        void SetSupernova()
+        {
+            for (int i = 1; i <= NerfLevel; i++)
+            {
+                switch (i)
+                {
                     case 20:
-                        _hp.lethal = true;
+                        hp.Lethal = true;
                         break;
                     case 19:
-                        _spawner.damageCoefficient -= 0.05f;
+                        spawner.DamageCoefficient -= 0.05f;
                         break;
                     case 18:
-                        Enemy.itemProb = 1f;
+                        Enemy.ItemProb = 1f;
                         break;
                     case 17:
-                        _player.ChangeSkillCool(_player.skillCooltimeMax + 0.05f);
+                        player.ChangeSkillCool(player.SkillCooltimeMax + 0.05f);
                         break;
                     case 16:
-                        _spawner.spawnSmall = true;
+                        spawner.SpawnSmall = true;
                         break;
                     case 15:
-                        _spawner.spawnRandom = true;
+                        spawner.SpawnRandom = true;
                         break;
                     case 14:
-                        _playerManager.damage -= 0.05f;
+                        playerManager.damage -= 0.05f;
                         break;
                     case 13:
-                        _playerManager.criticalCoefficient -= 0.05f;
-                        _playerManager.criticalProb -= 0.05f;
+                        playerManager.criticalCoefficient -= 0.05f;
+                        playerManager.criticalProb -= 0.05f;
                         break;
                     case 12:
-                        _spawner.addHP += 2;
+                        spawner.AddHP += 2;
                         break;
                     case 11:
-                        _spawner.meteorCoefficient *= 1.25f;
+                        spawner.MeteorCoefficient *= 1.25f;
                         break;
                     case 10:
-                        _spawner.makeMeteor = true;
+                        spawner.MakeMeteor = true;
                         break;
                     case 9:
-                        _playerManager.fixDamage -= 0.05f;
+                        playerManager.fixDamage -= 0.05f;
                         break;
                     case 8:
-                        _player.ChangeSkillCool(_player.skillCooltimeMax * 1.05f);
+                        player.ChangeSkillCool(player.SkillCooltimeMax * 1.05f);
                         break;
                     case 7:
-                        _playerManager.damageCoefficient = 0.95f;
+                        playerManager.damageCoefficient = 0.95f;
                         break;
                     case 6:
-                        _playerManager.criticalProb -= 0.1f;
+                        playerManager.criticalProb -= 0.1f;
                         break;
                     case 5:
-                        _playerManager.criticalCoefficient -= 0.1f;
+                        playerManager.criticalCoefficient -= 0.1f;
                         break;
                     case 4:
-                        _spawner.speedCoefficient += 0.1f;
+                        spawner.SpeedCoefficient += 0.1f;
                         break;
                     case 3:
-                        _timer.addition -= 1;
+                        timer.Addition -= 1;
                         break;
                     case 2:
-                        _exp.expMax += 5;
+                        exp.ExpMax += 5;
                         break;
                     case 1:
-                        _hp.maxHP = 80f;
-                        _hp.currentHP = 80f;
+                        hp.MaxHP = 80f;
+                        hp.CurrentHP = 80f;
                         break;
                     default:
                         break;
                 }
             }
-            _exp.SetText();
+            exp.SetText();
         }
 
-        public void Cleared() {
-            if(nerfLevel == highestLevel && highestLevel < ConstantStore.NERF_TEXT_LIST.Length){
-                PlayerPrefs.SetInt("highestLevel", highestLevel + 1);
+        public void Cleared()
+        {
+            if(NerfLevel == HighestLevel && HighestLevel < ConstantStore.NERF_TEXT_LIST.Length)
+            {
+                PlayerPrefs.SetInt("highestLevel", HighestLevel + 1);
             }
         }
     }

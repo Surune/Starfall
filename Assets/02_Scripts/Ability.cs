@@ -4,153 +4,155 @@ using Starfall.Manager;
 using Starfall.Entity;
 using Starfall.Constants;
 
-public class Ability : MonoBehaviour {
-    # region Managers
-    public Image abilityImage;
-    private static GameObject player;
-    private static GameObject enemyList;
-    private static PoolManager poolManager => GameManager.Instance.PoolManager;
-    private static PlayerManager playerManager => GameManager.Instance.PlayerManager;
-    private static GameStateManager gameStateManager => GameManager.Instance.gameStateManager;
-    private static HPManager hpManager => GameManager.Instance.HPManager;
-    # endregion
+public class Ability : MonoBehaviour
+{
+    static Player Player => GameManager.Instance.Player;
+    static PoolManager PoolManager => GameManager.Instance.PoolManager;
+    static PlayerManager PlayerManager => GameManager.Instance.PlayerManager;
+    static GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
+    static HPManager HpManager => GameManager.Instance.HPManager;
 
-    # region Property
-    public float skillCooltimeMax = 20f;
-    private float skillCooltimeNow = 0f;
-    public int abilityID = 0;
-    public int abilityType = 1;
-    # endregion
+    public Image AbilityImage;
+    public float SkillCooltimeMax = 20f;
+    public int AbilityID = 0;
+    public AbilityType AbilityType = AbilityType.Active;
+    float skillCooltimeNow = 0f;
 
-    void Start() {
-        if (player == null)     player = GameObject.Find("Player");
-        if (enemyList == null)  enemyList = GameObject.Find("Enemies");
-    }
-
-    void Update() {
-        if (abilityType != 0 && gameStateManager.IsPlaying) {
+    void Update()
+    {
+        if (AbilityType != 0 && GameStateManager.IsPlaying)
+        {
             skillCooltimeNow += Time.deltaTime;
-            if (skillCooltimeNow >= skillCooltimeMax) 
+            if (skillCooltimeNow >= SkillCooltimeMax)
+            {
                 Activate();
-            abilityImage.fillAmount = skillCooltimeNow / skillCooltimeMax;
+            }
+            AbilityImage.fillAmount = skillCooltimeNow / SkillCooltimeMax;
         }
     }
 
-    public void Activate() {
+    void Activate()
+    {
         skillCooltimeNow = 0;
-        if (abilityType == 1) {
+        if (AbilityType == AbilityType.Active)
+        {
             GameObject fireball;
-            switch (abilityID) {
+            switch (AbilityID)
+            {
                 case 2:
-                    fireball = poolManager.Get(PoolNumber.Fireball);
+                    fireball = PoolManager.Get(PoolNumber.Fireball);
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    fireball.transform.position = player.transform.position;
-                    fireball.GetComponent<Fireball>().damage = 1f;
+                    fireball.transform.position = Player.transform.position;
+                    fireball.GetComponent<Fireball>().Damage = 1f;
                     break;
                 case 3:
-                    fireball = poolManager.Get(PoolNumber.Fireball);
+                    fireball = PoolManager.Get(PoolNumber.Fireball);
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    fireball.transform.position = player.transform.position;
-                    playerManager.SetFireInfo(fireball.GetComponent<Fireball>());
+                    fireball.transform.position = Player.transform.position;
+                    PlayerManager.SetFireInfo(fireball.GetComponent<Fireball>());
                     break;
                 case 17:
-                    playerManager.DamageAllEnemy(playerManager.damage * playerManager.damageCoefficient + playerManager.fixDamage);
+                    PlayerManager.DamageAllEnemy(PlayerManager.damage * PlayerManager.damageCoefficient + PlayerManager.fixDamage);
                     break;
                 case 21:
-                    fireball = poolManager.Get(PoolNumber.Fireball);
+                    fireball = PoolManager.Get(PoolNumber.Fireball);
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    fireball.transform.position = player.transform.position;
-                    playerManager.SetFireInfo(fireball.GetComponent<Fireball>());
-                    fireball.GetComponent<Fireball>().isFatal = true;
+                    fireball.transform.position = Player.transform.position;
+                    PlayerManager.SetFireInfo(fireball.GetComponent<Fireball>());
+                    fireball.GetComponent<Fireball>().IsFatal = true;
                     break;
                 case 43:
-                    playerManager.fixDamage += 0.05f;
+                    PlayerManager.fixDamage += 0.05f;
                     break;
                 case 45:
-                    hpManager.ChangeHP(+5);
+                    HpManager.ChangeHP(+5);
                     break;
                 case 47:
-                    for (int i = 0; i < 6; i++) {
-                        fireball = poolManager.Get(PoolNumber.Fireball);
-                        fireball.transform.position = player.transform.position;
+                    for (int i = 0; i < 6; i++)
+                    {
+                        fireball = PoolManager.Get(PoolNumber.Fireball);
+                        fireball.transform.position = Player.transform.position;
                         fireball.transform.rotation = Quaternion.Euler(0, 0, 5*i-15);
-                        fireball.GetComponent<Fireball>().damage = 6f;
+                        fireball.GetComponent<Fireball>().Damage = 6f;
                     }
                     break;
                 case 63:
-                    hpManager.GetBarrier(1);
+                    HpManager.GetBarrier(1);
                     break;
                 case 66:
-                    playerManager.criticalProb += 0.025f;
+                    PlayerManager.criticalProb += 0.025f;
                     break;
                 case 70:
-                    playerManager.criticalCoefficient += 0.025f;
+                    PlayerManager.criticalCoefficient += 0.025f;
                     break;
                 case 77:
-                    for (int i = 0; i < 3; i++) {
-                        fireball = poolManager.Get(PoolNumber.Fireball);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        fireball = PoolManager.Get(PoolNumber.Fireball);
                         fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                        fireball.transform.position = player.transform.position;
-                        fireball.GetComponent<Fireball>().damage = 1f;
-                        fireball.GetComponent<Fireball>().udo = true;
+                        fireball.transform.position = Player.transform.position;
+                        fireball.GetComponent<Fireball>().Damage = 1f;
+                        fireball.GetComponent<Fireball>().Udo = true;
                     }
                     break;
                 case 79:
-                    fireball = poolManager.Get(PoolNumber.Fireball);
+                    fireball = PoolManager.Get(PoolNumber.Fireball);
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    fireball.transform.position = player.transform.position;
-                    fireball.GetComponent<Fireball>().damage = 3f;
-                    fireball.GetComponent<Fireball>().penetrate = true;
+                    fireball.transform.position = Player.transform.position;
+                    fireball.GetComponent<Fireball>().Damage = 3f;
+                    fireball.GetComponent<Fireball>().Penetrate = true;
                     break;
                 case 80:
-                    player.GetComponent<Player>().reloading = true;
-                    Invoke("ReloadOff", 0.5f);
+                    Player.GetComponent<Player>().Reloading = true;
+                    Invoke(nameof(ReloadOff), 0.5f);
                     break;
                 case 84:
-                    playerManager.damage += 0.1f;
+                    PlayerManager.damage += 0.1f;
                     break;
                 case 114:
-                    player.GetComponent<Player>().ChangeSkillCool(player.GetComponent<Player>().skillCooltimeMax - 0.01f);
+                    Player.GetComponent<Player>().ChangeSkillCool(Player.GetComponent<Player>().SkillCooltimeMax - 0.01f);
                     break;
                 case 135:
-                    GameManager.Instance.spawner.SpawnItem();
+                    GameManager.Instance.Spawner.SpawnItem();
                     break;
                 default:
                     break;
             }
         }
-        else if (abilityType == 2) {
-            GameObject area = poolManager.Get(PoolNumber.Area);
+        else if (AbilityType == AbilityType.Area)
+        {
+            GameObject area = PoolManager.Get(PoolNumber.Area);
             area.GetComponent<Area>().SetIcon(transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
-            switch (abilityID) {
+            switch (AbilityID)
+            {
                 case 19:
-                    area.transform.position = player.transform.position + new Vector3(0f, 2f, 0f);
-                    area.GetComponent<Area>().duration = 1.5f;
+                    area.transform.position = Player.transform.position + new Vector3(0f, 2f, 0f);
+                    area.GetComponent<Area>().Duration = 1.5f;
                     area.GetComponent<Area>().SetProperty(isFixed : true);
                     break;
                 case 24:
-                    area.transform.position = player.transform.position + new Vector3(0f, 7f, 0f);
-                    area.GetComponent<Area>().duration = 1f;
+                    area.transform.position = Player.transform.position + new Vector3(0f, 7f, 0f);
+                    area.GetComponent<Area>().Duration = 1f;
                     area.GetComponent<Area>().SetProperty(isDamage : true);
                     break;
                 case 55:
-                    area.transform.position = player.transform.position + new Vector3(0f, 6f, 0f);
-                    area.GetComponent<Area>().duration = 1f;
+                    area.transform.position = Player.transform.position + new Vector3(0f, 6f, 0f);
+                    area.GetComponent<Area>().Duration = 1f;
                     area.GetComponent<Area>().SetProperty(isSlow : true);
                     break;
                 case 91:
-                    area.transform.position = player.transform.position + new Vector3(0f, 4f, 0f);
-                    area.GetComponent<Area>().duration = 1f;
+                    area.transform.position = Player.transform.position + new Vector3(0f, 4f, 0f);
+                    area.GetComponent<Area>().Duration = 1f;
                     area.GetComponent<Area>().SetProperty(isSwarm : true);
                     break;
                 case 96:
-                    area.transform.position = player.transform.position + new Vector3(0f, 5f, 0f);
-                    area.GetComponent<Area>().duration = 1f;
+                    area.transform.position = Player.transform.position + new Vector3(0f, 5f, 0f);
+                    area.GetComponent<Area>().Duration = 1f;
                     area.GetComponent<Area>().SetProperty(isUnrelenting : true);
                     break;
                 case 98:
-                    area.transform.position = player.transform.position + new Vector3(0f, 3f, 0f);
-                    area.GetComponent<Area>().duration = 1.5f;
+                    area.transform.position = Player.transform.position + new Vector3(0f, 3f, 0f);
+                    area.GetComponent<Area>().Duration = 1.5f;
                     area.GetComponent<Area>().SetProperty(isCrit : true);
                     break;
                 default:
@@ -159,7 +161,8 @@ public class Ability : MonoBehaviour {
         }
     }
 
-    private void ReloadOff() {
-        player.GetComponent<Player>().reloading = false;
+    void ReloadOff()
+    {
+        Player.GetComponent<Player>().Reloading = false;
     }
 }

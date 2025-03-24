@@ -710,29 +710,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec20303763454c15bb962bcab38ea5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEnabled: 1
+  enemyPrefab: {fileID: 1851736334230490307, guid: 03b0302c5edba234da76c32ab8175b82,
+    type: 3}
+  bossPrefab: {fileID: 86647502627041332, guid: ebc9d9ae5afb74a8581e364677c517b4,
+    type: 3}
   boundary: 0.9
-  EnemyPrefab: {fileID: 1851736334230490307, guid: 03b0302c5edba234da76c32ab8175b82,
-    type: 3}
-  BossPrefab: {fileID: 86647502627041332, guid: ebc9d9ae5afb74a8581e364677c517b4,
-    type: 3}
-  EnemyTypeNum: 7
-  resourceText: {fileID: 169681005}
-  enemydelay: 0.5
-  enemynum: 1
-  speedCoefficient: 1
+  enemyTypeNum: 7
+  ResourceText: {fileID: 169681005}
+  Enemydelay: 0.5
+  Enemynum: 1
+  SpeedCoefficient: 1
   EnemyList: {fileID: 57462594}
   MeteorList: {fileID: 1320525847}
-  damageCoefficient: 1
-  meteorCoefficient: 1
-  disabled: 0
-  makeMeteor: 0
-  spawnSmall: 0
-  spawnRandom: 0
-  addHP: 0
-  _musicplayer: {fileID: 843723511}
-  sfxMeteor: {fileID: 0}
-  colorList: []
+  DamageCoefficient: 1
+  MeteorCoefficient: 1
+  Disabled: 0
+  MakeMeteor: 0
+  SpawnSmall: 0
+  SpawnRandom: 0
+  AddHP: 0
+  Musicplayer: {fileID: 843723511}
+  SfxMeteor: {fileID: 8300000, guid: 1c8a3bd40e8a745deb2e1491db3d64d7, type: 3}
+  ColorList:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.5882353, b: 0.13725491, a: 1}
+  - {r: 1, g: 0.8235294, b: 0, a: 1}
+  - {r: 0.007843138, g: 0.6862745, b: 0.19607843, a: 1}
+  - {r: 0, g: 0.58431375, b: 1, a: 1}
+  - {r: 0, g: 0.19607843, b: 0.5882353, a: 1}
+  - {r: 0.5294118, g: 0, b: 0.8627451, a: 1}
 --- !u!1 &318272336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,25 +1105,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc0fadf91a044feeb254f479b32b35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHP: 0
-  maxHP: 0
-  gameOverDisplay: {fileID: 2416823381450539026, guid: 08389ba2d053d484da07f1f5ee067ac4,
+  CurrentHP: 0
+  MaxHP: 0
+  GameOverDisplay: {fileID: 2416823381450539026, guid: 08389ba2d053d484da07f1f5ee067ac4,
     type: 3}
-  sfxHit: {fileID: 0}
-  sfxBarrier: {fileID: 0}
-  hpText: {fileID: 0}
-  barrierText: {fileID: 0}
-  barrier: 0
-  meatshield: 0
-  porcupine: 0
-  blunt: 0
-  our_l: 0
-  our_r: 0
-  lethal: 0
-  carving: 0
-  virgo: 0
-  berserk: 0
-  capricon: 0
+  SfxHit: {fileID: 8300000, guid: d5c91d0a36d0f7e44b0de8ec82bb1708, type: 3}
+  SfxBarrier: {fileID: 8300000, guid: 9256433073f2d4524abb85981eb77b8c, type: 3}
+  _barrierText: {fileID: 2224814347470038104}
+  Barrier: 0
+  Meatshield: 0
+  Porcupine: 0
+  Blunt: 0
+  Our_l: 0
+  Our_r: 0
+  Lethal: 0
+  Carving: 0
+  Virgo: 0
+  Berserk: 0
+  Capricon: 0
 --- !u!1 &633136695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,8 +1208,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 633136700}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_Start
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMovementManager, Assembly-CSharp
+        m_MethodName: Goto_Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1264,8 +1269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d1aef21fa2e46df9343f7999acf071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicPlayer: {fileID: 4702295498612032044}
-  sfxMenu: {fileID: 0}
+  _musicPlayer: {fileID: 4702295498612032044}
+  _sfxMenu: {fileID: 8300000, guid: a7af9085809a92b42b6654ab08808de7, type: 3}
 --- !u!1 &642390534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,7 +1652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b97c324219847b0a04986cbfb7971c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalScore: 0
+  TotalScore: 0
   scoreText: {fileID: 843723513}
   musicPlayer: {fileID: 843723511}
 --- !u!114 &843723513
@@ -2104,7 +2109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f9c36a90cdf4c5ca274237e5f7abb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
+  Prefabs:
   - {fileID: 1851736334230490307, guid: 03b0302c5edba234da76c32ab8175b82, type: 3}
   - {fileID: 1130846348432410, guid: 4c57b4ca872b423479e5ec7222d938f3, type: 3}
   - {fileID: 4438178500209724171, guid: 1927dbe7ac1924306831b169b0c88472, type: 3}
@@ -2113,7 +2118,7 @@ MonoBehaviour:
   - {fileID: 6044313753920903279, guid: 0755ad393ce214d498d39b3c9cec91a5, type: 3}
   - {fileID: 4330153163452173825, guid: 91b51a5ad0e1742f097d087970ebbf39, type: 3}
   - {fileID: 5053073556053301791, guid: c125ab0a9a2514d3f893d4556b843b0d, type: 3}
-  contents:
+  Contents:
   - {fileID: 57462596}
   - {fileID: 642390536}
   - {fileID: 642390536}
@@ -2257,50 +2262,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480069367}
   m_CullTransparentMesh: 1
---- !u!1 &1630733436
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1630733437}
-  - component: {fileID: 1630733438}
-  m_Layer: 0
-  m_Name: BackendManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1630733437
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630733436}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2072019953}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1630733438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630733436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb019afcacb67498ea3d930d3d982492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1686277749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,15 +2313,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1137473af88044c03bfc47a165045909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Coins: 0
+  ExpCurrent: 0
+  ExpMax: 10
   resourceText: {fileID: 1686277752}
-  expCurrent: 0
-  expMax: 10
   musicPlayer: {fileID: 1686277754}
-  sfxBonus: {fileID: 0}
-  sfxExp: {fileID: 0}
-  choicePrefab: {fileID: 0}
-  coins: 0
-  hextech: 0
+  sfxBonus: {fileID: 8300000, guid: 1035940f3e4d24ef18ac18f30f738ac7, type: 3}
+  sfxExp: {fileID: 8300000, guid: 640883152c6294d47b72eb0999df5193, type: 3}
+  choicePrefab: {fileID: 3548057871866741776, guid: 78de2513facd344e1809abcd7093a101,
+    type: 3}
+  Hextech: 0
 --- !u!114 &1686277752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2566,6 +2528,7 @@ GameObject:
   - component: {fileID: 1819767168}
   - component: {fileID: 1819767170}
   - component: {fileID: 1819767169}
+  - component: {fileID: 1819767171}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -2604,24 +2567,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4aadd741778734e93e58c9e9740557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeMax: 0
-  text: {fileID: 169681005}
-  waveNum: 0
-  roundNum: 0
-  bossPerWave: 7
-  waiting: 0
-  waitTimeMax: 0
-  addition: 0
-  spawner: {fileID: 169681007}
-  EnemyList: {fileID: 57462594}
-  colors:
+  WaveNum: 1
+  RoundNum: 1
+  Waiting: 0
+  WaitTimeMax: 3
+  Addition: 0
+  MusicPlayer: {fileID: 1819767171}
+  _text: {fileID: 169681005}
+  _timeMax: 1
+  _enemyList: {fileID: 57462594}
+  _colors:
   - {r: 1, g: 1, b: 1, a: 0.98039216}
   - {r: 1, g: 0.11764706, b: 0, a: 1}
   - {r: 0, g: 0.7735849, b: 0.014948435, a: 1}
-  fillarea: {fileID: 0}
-  sfxWave: {fileID: 0}
-  sfxBoss: {fileID: 0}
-  sfxFinalBoss: {fileID: 0}
+  _fillarea: {fileID: 0}
+  _sfxWave: {fileID: 8300000, guid: a37b41a2962c0421c92f89c5b5dae5f2, type: 3}
+  _sfxBoss: {fileID: 8300000, guid: d5e9f5f62996b4988aa3ff6c429174e7, type: 3}
+  _sfxFinalBoss: {fileID: 8300000, guid: 347b43d76f982472caa2e161f59c8e42, type: 3}
 --- !u!222 &1819767170
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2630,6 +2592,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819767167}
   m_CullTransparentMesh: 1
+--- !u!82 &1819767171
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819767167}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1843363679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2934,12 +2992,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160de978680874d19a5cf67c2f6c55d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxEnemyHit: {fileID: 0}
-  sfxEnemyCritical: {fileID: 0}
-  sfxEnemyKilled: {fileID: 0}
-  sfxAreaStart: {fileID: 0}
-  sfxAreaEnd: {fileID: 0}
-  sfxItem: {fileID: 0}
+  Exp: {fileID: 8780054885968118663, guid: 91b51a5ad0e1742f097d087970ebbf39, type: 3}
+  MusicPlayer: {fileID: 1848563855}
+  sfxEnemyHit: {fileID: 8300000, guid: d5c91d0a36d0f7e44b0de8ec82bb1708, type: 3}
+  sfxEnemyCritical: {fileID: 8300000, guid: a827d56a1c759a44b8e9848d0667c702, type: 3}
+  sfxEnemyKilled: {fileID: 8300000, guid: 523a4bf1a56bb4c728e08b9c9197d5e3, type: 3}
+  sfxAreaStart: {fileID: 8300000, guid: 4e3ba739aa768444fb4d92f0ee82f441, type: 3}
+  sfxAreaEnd: {fileID: 8300000, guid: 12ffbea3c1bdc493ea00381ca54efef1, type: 3}
+  sfxItem: {fileID: 8300000, guid: 8fc919dda459b4519bf4198d2bf2b1c7, type: 3}
 --- !u!1 &1875896769
 GameObject:
   m_ObjectHideFlags: 0
@@ -3013,6 +3073,7 @@ GameObject:
   - component: {fileID: 2072019953}
   - component: {fileID: 2072019951}
   - component: {fileID: 2072019954}
+  - component: {fileID: 2072019955}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3032,25 +3093,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbcb0e4e866f243798154d11d2439244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundManager: {fileID: 0}
+  SoundManager: {fileID: 2072019955}
   EffectManager: {fileID: 1848563856}
   PoolManager: {fileID: 1399615634}
   PlayerManager: {fileID: 6067767659313916453}
   AbilityManager: {fileID: 7706429923122834924}
   NerfManager: {fileID: 8801550702983329501}
   Player: {fileID: 114533110205664265}
-  timer: {fileID: 1819767169}
-  exp: {fileID: 1686277751}
+  Timer: {fileID: 1819767169}
+  ExpManager: {fileID: 1686277751}
   ScoreManager: {fileID: 843723512}
-  Backend: {fileID: 1630733438}
-  spawner: {fileID: 169681007}
+  Spawner: {fileID: 169681007}
   HPManager: {fileID: 524184713}
-  enemyList: {fileID: 57462596}
-  fireballList: {fileID: 642390536}
-  activeChoiceNum: 0
-  activeEnemyNum: 0
+  EnemyList: {fileID: 57462596}
+  FireballList: {fileID: 642390536}
+  ActiveChoiceNum: 0
+  ActiveEnemyNum: 0
   AbilityNumbers: 
-  coinCoefficient: 1
+  CoinCoefficient: 1
 --- !u!4 &2072019953
 Transform:
   m_ObjectHideFlags: 0
@@ -3066,7 +3126,6 @@ Transform:
   m_Children:
   - {fileID: 3381314068775272254}
   - {fileID: 1399615633}
-  - {fileID: 1630733437}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2072019954
@@ -3165,6 +3224,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2072019955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072019949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b595d4c7f6764596853e81176336ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundToggleButton: {fileID: 0}
 --- !u!1 &2090745006
 GameObject:
   m_ObjectHideFlags: 0
@@ -3428,12 +3500,12 @@ GameObject:
   - component: {fileID: 414417969473313711}
   - component: {fileID: 1070144888248790635}
   - component: {fileID: 6067767659313916454}
+  - component: {fileID: 6067767659313916453}
   - component: {fileID: 114533110205664265}
   - component: {fileID: 6067767659313916452}
   - component: {fileID: 4702295498612032044}
   - component: {fileID: 50773416375634481}
   - component: {fileID: 437816762682396677}
-  - component: {fileID: 6067767659313916453}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3530,13 +3602,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529a3388d4cc17e4994d6a3cc6045371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCooltimeMax: 0
-  speed: 1
-  reloading: 0
-  barrier: {fileID: 321157554437509704}
-  sfxPlayerHit: {fileID: 0}
-  sfxShoot: {fileID: 0}
-  killNum: 0
+  Barrier: {fileID: 321157554437509704}
+  MusicPlayer: {fileID: 4702295498612032044}
+  SkillCooltimeMax: 0.3
+  Speed: 1
+  Reloading: 0
+  sfxPlayerHit: {fileID: 8300000, guid: d5c91d0a36d0f7e44b0de8ec82bb1708, type: 3}
+  sfxShoot: {fileID: 8300000, guid: 129a395714ce5be44936a3215a8a0dc0, type: 3}
+  KillNum: 0
 --- !u!114 &114644722811448998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4140,8 +4213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4254e45bcec45794faa7f1eb8cfacf6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 1341987290564989}
-  trans: {fileID: 414417969473313711}
+  Character: {fileID: 1341987290564989}
+  Trans: {fileID: 414417969473313711}
 --- !u!114 &6067767659313916453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4164,16 +4237,16 @@ MonoBehaviour:
   fatalProb: 0
   shotSpeedCoefficient: 1
   criticalCount: 0
-  wingPrefab: {fileID: 0}
-  wingTransform: {fileID: 0}
-  wings: []
-  abilityManager: {fileID: 0}
   statikk: 0
   aquaris: 0
   repair: 0
   jera: 0
   dagaz: 0
   reinforce: 0
+  Wings: []
+  _wingPrefab: {fileID: 1052885400797702919, guid: 6421f791da15e472e8b1fc7ad72335c6,
+    type: 3}
+  _wingTransform: {fileID: 1875896770}
 --- !u!114 &6067767659313916454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4233,14 +4306,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390176ab0d0ce4ec382b0a9914d3f9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityPrefab: {fileID: 0}
-  abilityCSVFile: 
-  abilitySprites: []
-  abilities: []
-  synergy: 
-  SynergySprites: []
-  SynergyColors: []
-  content: {fileID: 3358611857695525003}
+  AbilitySprites: []
+  Abilities: []
+  Synergy: 
+  SynergySprites:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 3350c2d438e124dad8fec1142c47c76c, type: 3}
+  - {fileID: 21300000, guid: 6e85b907571244c628444eab0e6e7c4f, type: 3}
+  - {fileID: 21300000, guid: af628e0ce65179044af90c82d30f7554, type: 3}
+  - {fileID: 21300000, guid: b854ca05ea7cf4eb6950c9800cb71d3c, type: 3}
+  - {fileID: 21300000, guid: 958d7e1d7e519894a9b487d20c5c7fe6, type: 3}
+  - {fileID: 21300000, guid: 75fee08c8fd2e4ba8bf6f9ed5d782d7d, type: 3}
+  - {fileID: 21300000, guid: ac6a91a4d659d4bbf81ebc731d72559c, type: 3}
+  - {fileID: 21300000, guid: aee02cebb20a047179ba4cf1cc6a8d0a, type: 3}
+  - {fileID: 21300000, guid: 888073f3d4804214aaf1ea654a58d084, type: 3}
+  - {fileID: 21300000, guid: f164167ee53d3477ea13b11ebd83191c, type: 3}
+  SynergyColors:
+  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.5882353, b: 0.13725491, a: 1}
+  - {r: 1, g: 0.8235294, b: 0, a: 1}
+  - {r: 0.007843138, g: 0.6862745, b: 0.19607843, a: 1}
+  - {r: 0.019607844, g: 0.4862745, b: 0.8392157, a: 1}
+  - {r: 0.019607844, g: 0.20784314, b: 0.58431375, a: 1}
+  - {r: 0.5294118, g: 0, b: 0.8627451, a: 1}
+  - {r: 1, g: 0.39215687, b: 1, a: 1}
+  - {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  - {r: 0.29411766, g: 0.29411766, b: 0.29411766, a: 1}
   assassination: 0
   penetrate: 0
   luckySeven: 0
@@ -4265,9 +4357,13 @@ MonoBehaviour:
   fifth: 0
   fracture: 0
   firm: 0
-  synergyRequirement: 0400000004000000040000000400000004000000040000000400000004000000040000000400000004000000
-  _musicplayer: {fileID: 7706429923122834925}
-  sfxSynergy: {fileID: 0}
+  SynergyRequirement: 0400000004000000040000000400000004000000040000000400000004000000040000000400000004000000
+  abilityPrefab: {fileID: 1559321089039302683, guid: 04b4d0527b121c345ae06ff679816ea0,
+    type: 3}
+  abilityCSVFileName: new_abilities
+  content: {fileID: 3358611857695525003}
+  musicPlayer: {fileID: 7706429923122834925}
+  sfxSynergy: {fileID: 8300000, guid: 474e9b74904aa44f08e385b57c93edd2, type: 3}
 --- !u!82 &7706429923122834925
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4379,7 +4475,7 @@ MonoBehaviour:
   text: {fileID: 718499749}
   content: {fileID: 0}
   ability: {fileID: 1559321089039302683, guid: 04b4d0527b121c345ae06ff679816ea0, type: 3}
-  myCamera: {fileID: 2090745009}
+  MyCamera: {fileID: 2090745009}
 --- !u!114 &8801550702983329501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4392,12 +4488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c706f9d8311404898b758c82d52706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nerfLevel: 0
-  highestLevel: 0
-  nerftext: {fileID: 8862272478103617085, guid: 37b401bb73f5c4d2aaccd8f5f41f38be,
+  NerfLevel: 0
+  HighestLevel: 0
+  Nerftext: {fileID: 8862272478103617085, guid: 37b401bb73f5c4d2aaccd8f5f41f38be,
     type: 3}
-  content: {fileID: 318272340}
-  hardmode: 0
+  Content: {fileID: 318272340}
+  Hardmode: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

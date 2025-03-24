@@ -1,33 +1,22 @@
-namespace Starfall.Manager {
-    public enum GameState {
-        Gameplay,
-        Paused
-    }
+using Starfall.Constants;
 
-    public class GameStateManager {
-        public static GameStateManager Instance {
-            get {
-                if (instance == null)
-                    instance = new GameStateManager();
-
-                return instance;
-            }
-        }
+namespace Starfall.Manager
+{
+    public class GameStateManager
+    {
+        public static GameStateManager Instance { get; private set; }
 
         public bool IsPlaying => currentGameState == GameState.Gameplay;
+        GameState currentGameState;
 
-        private GameState currentGameState;
-        public delegate void GameStateChangeHandler(GameState newGameState);
-        public event GameStateChangeHandler OnGameStateChanged;
+        public GameStateManager()
+        {
+            Instance = this;
+        }
 
-        private static GameStateManager instance;
-
-        public void SetState(GameState newGameState) {
-            if (newGameState == currentGameState)
-                return;
-
+        public void SetState(GameState newGameState)
+        {
             currentGameState = newGameState;
-            OnGameStateChanged?.Invoke(newGameState);
         }
     }
 }

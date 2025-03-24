@@ -1,38 +1,45 @@
 using UnityEngine;
 using Starfall.Manager;
+using Starfall.Entity;
 
 [RequireComponent(typeof(ParticleSystem))]
-public class Exp : MonoBehaviour {
-    private static Transform player;
-    private static ExpManager expmanager => GameManager.Instance.exp;
-    private static int speed = 10;
-    private ParticleSystem particle;
-    private ParticleSystem.Particle[] particleList;
-    public int exp_amount = 0;
+public class Exp : MonoBehaviour
+{
+    static Player Player => GameManager.Instance.Player;
+    static ExpManager Expmanager => GameManager.Instance.ExpManager;
+    static readonly int Speed = 10;
+    ParticleSystem particle;
+    ParticleSystem.Particle[] particleList;
+    public int ExpAmount = 0;
 
-    void Start() {
-        if (player == null) 
-            player = GameObject.Find("Player").transform;
+    void Start()
+    {
         particle = GetComponent<ParticleSystem>();
         particleList = new ParticleSystem.Particle[particle.main.maxParticles];
     }
 
-    void Update() {
-        if (GameStateManager.Instance.IsPlaying) {
+    void Update()
+    {
+        if (GameStateManager.Instance.IsPlaying)
+        {
             int particleCount = particle.GetParticles(particleList);
 
             for (int i = 0; i < particleCount; i++)
-                particleList[i].position = Vector3.Lerp(particleList[i].position, player.position, Time.smoothDeltaTime * speed);
+            {
+                particleList[i].position = Vector3.Lerp(particleList[i].position, Player.transform.position, Time.smoothDeltaTime * Speed);
+            }
 
-            this.transform.position = Vector3.Lerp(transform.position, player.position, Time.smoothDeltaTime * speed);
+            transform.position = Vector3.Lerp(transform.position, Player.transform.position, Time.smoothDeltaTime * Speed);
 
             particle.SetParticles(particleList, particleCount);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.transform.tag == "Player") {
-            expmanager.GetExp(exp_amount);
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            Expmanager.GetExp(ExpAmount);
             gameObject.SetActive(false);
         }
     }

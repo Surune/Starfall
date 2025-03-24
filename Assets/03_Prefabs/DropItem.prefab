@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6288709864988461334}
+  - component: {fileID: 902970152736878662}
   - component: {fileID: -5980155582199244443}
   - component: {fileID: -2211121194055406371}
   - component: {fileID: 6838251497296511432}
   - component: {fileID: 7184158513845603501}
-  - component: {fileID: 902970152736878662}
   m_Layer: 6
   m_Name: DropItem
   m_TagString: Item
@@ -34,13 +34,31 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.25, y: 0.25}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &902970152736878662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053073556053301791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282983ea372a14f51b9eb1156bdb87c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite: {fileID: 6838251497296511432}
+  ItemSprites:
+  - {fileID: 21300000, guid: c8d9112a271c04e9a94f9c1513a2d639, type: 3}
+  - {fileID: 21300000, guid: 870bf5e5f905146a5a6ed28a76127528, type: 3}
+  - {fileID: 21300000, guid: 8db81de163ba247e986b646da9697b32, type: 3}
+  - {fileID: 21300000, guid: 1fe7a787e76734496b1fbc308d4425f4, type: 3}
+  Type: 0
 --- !u!114 &-5980155582199244443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,8 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f543a268fa3b3540836e1dfa8d2051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fix_speed: 1
-  rotate_speed: 360
+  _fixSpeed: 0
+  _rotateSpeed: 0
 --- !u!114 &-2211121194055406371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,9 +85,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf204cb4951bb49f2b9a12ad1e9a3e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: -1, z: 0}
-  speed: 5
-  continuous: 0
+  _direction: {x: 0, y: -1, z: 0}
+  _speed: 5
+  Continuous: 0
 --- !u!212 &6838251497296511432
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -167,22 +185,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.3}
   m_EdgeRadius: 0
---- !u!114 &902970152736878662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053073556053301791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282983ea372a14f51b9eb1156bdb87c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spr: {fileID: 6838251497296511432}
-  itemSprites:
-  - {fileID: 21300000, guid: c8d9112a271c04e9a94f9c1513a2d639, type: 3}
-  - {fileID: 21300000, guid: 870bf5e5f905146a5a6ed28a76127528, type: 3}
-  - {fileID: 21300000, guid: 8db81de163ba247e986b646da9697b32, type: 3}
-  - {fileID: 21300000, guid: 1fe7a787e76734496b1fbc308d4425f4, type: 3}
-  type: 0

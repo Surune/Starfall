@@ -1,19 +1,27 @@
 using UnityEngine;
 
-namespace Starfall.Utils {
-    public class AutoRotate : MonoBehaviour {
-        [SerializeField] private bool fixSpeed;
-        [SerializeField] private float rotateSpeed;
+namespace Starfall.Utils
+{
+    public class AutoRotate : MonoBehaviour
+    {
+        [SerializeField] bool _fixSpeed;
+        [SerializeField] float _rotateSpeed;
 
-        void Start() {
-            if (!fixSpeed) {
-                rotateSpeed = Random.value * 50f;
+        void Start()
+        {
+            if (!_fixSpeed)
+            {
+                _rotateSpeed = Random.value * 50f;
             }
-            if (Random.value > 0.5f) rotateSpeed = -rotateSpeed;
+            if (Random.value > 0.5f)
+            {
+                _rotateSpeed = -_rotateSpeed;
+            }
         }
 
-        void Update() {
-            transform.Rotate(new Vector3(0, 0, 1f) * Time.deltaTime * rotateSpeed);
+        void Update()
+        {
+            transform.Rotate(_rotateSpeed * Time.deltaTime * Vector3.forward);
         }
     }
 }

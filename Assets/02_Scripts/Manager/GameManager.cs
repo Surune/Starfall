@@ -1,40 +1,40 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Starfall.Entity;
 
-namespace Starfall.Manager {
-    public class GameManager : MonoBehaviour {
+namespace Starfall.Manager
+{
+    public class GameManager : MonoBehaviour
+    {
         public static GameManager Instance;
-        public GameStateManager gameStateManager => GameStateManager.Instance;
-        public SoundManager soundManager;
+        public GameStateManager GameStateManager;
+        public SoundManager SoundManager;
         public EffectManager EffectManager;
         public PoolManager PoolManager;
         public PlayerManager PlayerManager;
         public AbilityManager AbilityManager;
         public NerfManager NerfManager;
         public Player Player;
-        public Timer timer;
-        public ExpManager exp;
+        public Timer Timer;
+        public ExpManager ExpManager;
         public ScoreManager ScoreManager;
-        public BackendManager Backend;
-        public Spawner spawner;
+        public BackendManager BackendManager;
+        public Spawner Spawner;
         public HPManager HPManager;
-        
-        public Transform enemyList = null!;
-        public Transform fireballList = null!;
-        [HideInInspector] public int activeChoiceNum = 0;
-        [HideInInspector] public int activeEnemyNum = 0;
-        [HideInInspector] public List<int> AbilityNumbers = new List<int>();
-        public float coinCoefficient = 1f;
 
-        void Awake() {
+        public Transform EnemyList = null!;
+        public Transform FireballList = null!;
+        [HideInInspector] public int ActiveChoiceNum = 0;
+        [HideInInspector] public int ActiveEnemyNum = 0;
+        [HideInInspector] public List<int> AbilityNumbers = new();
+        public float CoinCoefficient = 1f;
+
+        void Awake()
+        {
             Instance = this;
-            PoolManager = new();
-            soundManager = new();
-            EffectManager = new(PoolManager);
-            PlayerManager = new(Player, HPManager, EffectManager, exp, AbilityManager);
-            AbilityManager = new(PlayerManager, HPManager, timer);
-            NerfManager = new(Player, spawner, timer, PlayerManager, HPManager, exp);
+            BackendManager = new();
+            GameStateManager = new();
 
             // 업그레이드 적용
             // 모듈 1 : 공격력 +0.02
@@ -46,21 +46,23 @@ namespace Starfall.Manager {
             // 모듈 4 : 새로고침 횟수 추가
             PlayerManager.refresh += PlayerPrefs.GetInt("module_4");
             // 모듈 6 : 코인 획득량 + 1%
-            coinCoefficient += 0.01f * PlayerPrefs.GetInt("module_6");
+            CoinCoefficient += 0.01f * PlayerPrefs.GetInt("module_6");
             // 모듈 7 : 적 체력 -0.05
-            spawner.addHP -= PlayerPrefs.GetInt("module_7") * 0.05f;
+            Spawner.AddHP -= PlayerPrefs.GetInt("module_7") * 0.05f;
             // 모듈 8 : 적 속도 -0.5%
-            spawner.speedCoefficient -= PlayerPrefs.GetInt("module_8", 0) * 0.005f ;
-            soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-            soundManager.ApplyMute();
+            Spawner.SpeedCoefficient -= PlayerPrefs.GetInt("module_8", 0) * 0.005f ;
+            SoundManager.ApplyMute();
         }
 
-        public static Transform FindClosestTransform(List<Transform> t_list, Vector3 pos) {
+        public static Transform FindClosestTransform(List<Transform> t_list, Vector3 pos)
+        {
             Transform tMin = null;
             float minDist = Mathf.Infinity;
-            foreach (Transform t in t_list) {
+            foreach (Transform t in t_list)
+            {
                 float dist = Vector3.Distance(t.position, pos);
-                if (dist < minDist) {
+                if (dist < minDist)
+                {
                     tMin = t;
                     minDist = dist;
                 }
@@ -68,41 +70,43 @@ namespace Starfall.Manager {
             return tMin;
         }
 
-        public static List<Transform> GetAllChilds(Transform _t) {
-            List<Transform> ts = new List<Transform>();
-            foreach (Transform t in _t) {
-                if(t.gameObject.activeSelf == true) {
-                    ts.Add(t);
-                }
-            }
-            return ts;
+        public static List<Transform> GetAllChilds(Transform _t)
+        {
+            return _t.Cast<Transform>().Where(t => t.gameObject.activeSelf == true).ToList();
         }
 
-        public void GameOver(int coin) {
+        public void GameOver(int coin)
+        {
             GetComponent<AudioSource>().Pause();
             GetCoin(0);
-            Backend.UploadGameData(false);
+            BackendManager.UploadGameData(false);
         }
 
-        public void GameClear(int coin) {
+        public void GameClear(int coin)
+        {
             GetComponent<AudioSource>().Pause();
             NerfManager.Cleared();
             GetCoin(coin);
-            Backend.UploadGameData(true);
+            BackendManager.UploadGameData(true);
         }
 
-        public void GetCoin(int bonus) {
-            int nowscore = (int)ScoreManager.totalScore;
-            
-            if (bonus != 0) {
-                coinCoefficient += 0.05f * NerfManager.nerfLevel;
-                nowscore = Mathf.CeilToInt(nowscore * (1 + 0.05f * NerfManager.nerfLevel));
+        void GetCoin(int bonus)
+        {
+            var nowscore = (int)ScoreManager.TotalScore;
+
+            if (bonus != 0)
+            {
+                CoinCoefficient += 0.05f * NerfManager.NerfLevel;
+                nowscore = Mathf.CeilToInt(nowscore * (1 + 0.05f * NerfManager.NerfLevel));
             }
-            int coins = Mathf.CeilToInt((exp.coins + bonus) * coinCoefficient);
-            if (nowscore > PlayerPrefs.GetInt("HighScore")) PlayerPrefs.SetInt("HighScore", nowscore);
+            var coins = Mathf.CeilToInt((ExpManager.Coins + bonus) * CoinCoefficient);
+            if (nowscore > PlayerPrefs.GetInt("HighScore"))
+            {
+                PlayerPrefs.SetInt("HighScore", nowscore);
+            }
             PlayerPrefs.SetInt("NowScore", nowscore);
             PlayerPrefs.SetInt("Coin", coins);
-            int totalcoin = PlayerPrefs.GetInt("TotalCoin") + coins;
+            var totalcoin = PlayerPrefs.GetInt("TotalCoin") + coins;
             PlayerPrefs.SetInt("TotalCoin", totalcoin);
             PlayerPrefs.Save();
         }

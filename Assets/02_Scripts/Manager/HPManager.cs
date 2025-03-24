@@ -2,105 +2,146 @@
 using UnityEngine.UI;
 using TMPro;
 using Starfall.Entity;
+using Starfall.Constants;
 
-namespace Starfall.Manager {
-    public class HPManager : MonoBehaviour {
-        #region Manager
-        private PlayerManager playerManager =>  GameManager.Instance.PlayerManager;
-        private GameStateManager gameStateManager => GameManager.Instance.gameStateManager;
-        private Player player => GameManager.Instance.Player;
-        #endregion
+namespace Starfall.Manager
+{
+    public class HPManager : MonoBehaviour
+    {
+        PlayerManager PlayerManager =>  GameManager.Instance.PlayerManager;
+        GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
+        Player Player => GameManager.Instance.Player;
 
-        private Slider healthSlider;
-        public float currentHP;
-        public float maxHP;
-        private AudioSource musicPlayer;
-        public GameObject gameOverDisplay;
-        public AudioClip sfxHit;
-        public AudioClip sfxBarrier;
-        [SerializeField] private TextMeshProUGUI hpText;
-        [SerializeField] private TextMeshProUGUI barrierText;
-        public int barrier = 0;
-        [HideInInspector] public bool meatshield = false;
-        [HideInInspector] public bool porcupine = false;
-        [HideInInspector] public bool blunt = false;
-        [HideInInspector] public bool our_l = false;
-        [HideInInspector] public bool our_r = false;
-        [HideInInspector] public bool lethal = false;
-        [HideInInspector] public bool carving = false;
-        [HideInInspector] public bool virgo = false;
-        [HideInInspector] public bool berserk = false;
-        [HideInInspector] public bool capricon = false;
+        Slider _healthSlider;
+        AudioSource MusicPlayer => Player.MusicPlayer;
+        public float CurrentHP;
+        public float MaxHP;
+        public GameObject GameOverDisplay;
+        public AudioClip SfxHit;
+        public AudioClip SfxBarrier;
+        [SerializeField] TextMeshProUGUI _barrierText;
+        public int Barrier = 0;
+        [HideInInspector] public bool Meatshield = false;
+        [HideInInspector] public bool Porcupine = false;
+        [HideInInspector] public bool Blunt = false;
+        [HideInInspector] public bool Our_l = false;
+        [HideInInspector] public bool Our_r = false;
+        [HideInInspector] public bool Lethal = false;
+        [HideInInspector] public bool Carving = false;
+        [HideInInspector] public bool Virgo = false;
+        [HideInInspector] public bool Berserk = false;
+        [HideInInspector] public bool Capricon = false;
 
-
-        void Start () {
-            healthSlider = GetComponent<Slider>();
-            maxHP = 100f;
-            currentHP = maxHP;
-            barrier = 0;
-            healthSlider.value = currentHP;
-            musicPlayer = GameObject.Find("Player").GetComponent<AudioSource>();
+        void Start()
+        {
+            _healthSlider = GetComponent<Slider>();
+            MaxHP = 100f;
+            CurrentHP = MaxHP;
+            Barrier = 0;
+            _healthSlider.value = CurrentHP;
             PlayerPrefs.SetFloat("nowdeck", 0f);
-            barrierText = player.barrier.GetComponent<TextMeshProUGUI>();
         }
 
-        public void SetHealthBar() {
-            healthSlider.maxValue = maxHP;
-            healthSlider.value = currentHP;
-            hpText.text = currentHP + " / " + maxHP;
+        public void SetHealthBar()
+        {
+            _healthSlider.maxValue = MaxHP;
+            _healthSlider.value = CurrentHP;
         }
 
-        public void GetBarrier(int num) {
-            barrier += num;
-            player.barrier.SetActive(true);
-            barrierText.text = "" + barrier;
+        public void GetBarrier(int num)
+        {
+            Barrier += num;
+            Player.Barrier.SetActive(true);
+            _barrierText.text = "" + Barrier;
         }
 
-        public bool ChangeHP(int delta){
-            if (currentHP + delta >= 0) {
-                currentHP += delta;
+        public bool ChangeHP(int delta)
+        {
+            if (CurrentHP + delta >= 0)
+            {
+                CurrentHP += delta;
                 SetHealthBar();
                 return true;
             }
-            else {
-                currentHP = 1;
+            else
+            {
+                CurrentHP = 1;
                 SetHealthBar();
                 return false;
             }
         }
 
-        public void GetDamage(int delta) {
-            if (delta < 0) {
-                if (barrier > 0) {
-                    barrier -= 1;
-                    barrierText.text = "" + barrier;
-                    if (barrier == 0) {
-                        player.barrier.SetActive(false);
+        public void GetDamage(int delta)
+        {
+            if (delta < 0)
+            {
+                if (Barrier > 0)
+                {
+                    Barrier -= 1;
+                    _barrierText.text = "" + Barrier;
+                    if (Barrier == 0)
+                    {
+                        Player.Barrier.SetActive(false);
                     }
-                    if (meatshield) ChangeHP(+10);
-                    if (blunt) playerManager.damage += 0.2f;
-                    if (our_l) playerManager.criticalProb += 0.1f;
-                    if (our_r) playerManager.criticalCoefficient += 0.1f;
-                    if (carving) player.ChangeSkillCool(player.skillCooltimeMax * 0.9f);
-                    if (capricon) GameManager.Instance.spawner.SpawnItem();
+                    if (Meatshield)
+                    {
+                        ChangeHP(+10);
+                    }
+                    if (Blunt)
+                    {
+                        PlayerManager.damage += 0.2f;
+                    }
+                    if (Our_l)
+                    {
+                        PlayerManager.criticalProb += 0.1f;
+                    }
+                    if (Our_r)
+                    {
+                        PlayerManager.criticalCoefficient += 0.1f;
+                    }
+                    if (Carving)
+                    {
+                        Player.ChangeSkillCool(Player.SkillCooltimeMax * 0.9f);
+                    }
+                    if (Capricon)
+                    {
+                        GameManager.Instance.Spawner.SpawnItem();
+                    }
                     delta = 0;
-                    musicPlayer.PlayOneShot(sfxBarrier);
+                    MusicPlayer.PlayOneShot(SfxBarrier);
                 }
-                else {
-                    if (berserk) playerManager.damage += 0.05f;
-                    if (virgo) delta = delta > 10 ? 10 : delta;
-                    if (porcupine) playerManager.DamageAllEnemy(-delta);
-                    musicPlayer.PlayOneShot(sfxHit);
-                    if (lethal) currentHP = 0;
+                else
+                {
+                    if (Berserk)
+                    {
+                        PlayerManager.damage += 0.05f;
+                    }
+                    if (Virgo)
+                    {
+                        delta = delta > 10 ? 10 : delta;
+                    }
+                    if (Porcupine)
+                    {
+                        PlayerManager.DamageAllEnemy(-delta);
+                    }
+                    MusicPlayer.PlayOneShot(SfxHit);
+                    if (Lethal)
+                    {
+                        CurrentHP = 0;
+                    }
                 }
             }
-            currentHP += delta;
-            if (currentHP >= maxHP) currentHP = maxHP;
+            CurrentHP += delta;
+            if (CurrentHP >= MaxHP)
+            {
+                CurrentHP = MaxHP;
+            }
 
-            if (currentHP <= 0) {
+            if (CurrentHP <= 0)
+            {
                 GameManager.Instance.GameOver(0);
-                gameStateManager.SetState(GameState.Paused);
-                Instantiate(gameOverDisplay, new Vector3(0f, 0f, 0f), Quaternion.identity);
+                GameStateManager.SetState(GameState.Paused);
+                Instantiate(GameOverDisplay, new Vector3(0f, 0f, 0f), Quaternion.identity);
             }
             SetHealthBar();
         }

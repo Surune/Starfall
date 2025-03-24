@@ -1,22 +1,28 @@
 using UnityEngine;
 using Starfall.Manager;
+using Starfall.Constants;
+using UnityEngine.Serialization;
 
-public class Pause : MonoBehaviour {
-    [SerializeField] private GameObject text;
-    [SerializeField] private GameObject content;
-    [SerializeField] private GameObject ability;
-    public Camera myCamera;
+public class Pause : MonoBehaviour
+{
+    [SerializeField] GameObject text;
+    [SerializeField] GameObject content;
+    [SerializeField] GameObject ability;
+    public Camera MyCamera;
 
-    public void PauseOnClick() {
-        if (GameStateManager.Instance.IsPlaying) {
+    public void PauseOnClick()
+    {
+        if (GameStateManager.Instance.IsPlaying)
+        {
             GameStateManager.Instance.SetState(GameState.Paused);
             text.SetActive(true);
-            myCamera.cullingMask = ~( (1 << 3) | (1 << 6) );
+            MyCamera.cullingMask = ~( (1 << 3) | (1 << 6) );
         }
-        else {
+        else
+        {
             GameStateManager.Instance.SetState(GameState.Gameplay);
             text.SetActive(false);
-            myCamera.cullingMask = -1;
+            MyCamera.cullingMask = -1;
         }
     }
 }

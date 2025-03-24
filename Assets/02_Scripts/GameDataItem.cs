@@ -2,26 +2,28 @@ using BackEnd;
 using System;
 using System.Collections.Generic;
 
-public class GameDataItem {
-    public string gameVersion;
-    public bool isCleared;
-    public List<int> abilities = new List<int>();
+public class GameDataItem
+{
+    readonly string gameVersion;
+    readonly bool isCleared;
+    readonly List<int> abilities;
 
-    public GameDataItem(string version, bool cleared, List<int> ab_nums)
+    public GameDataItem(string version, bool cleared, List<int> abilityIds)
     {
         gameVersion = version;
         isCleared = cleared;
-        abilities = ab_nums;
+        abilities = abilityIds;
     }
 
     public Param ToParam()
     {
-        Param param = new Param();
-
-        param.Add("gameVersion", gameVersion);
-        param.Add("isCleared", isCleared);
-        param.Add("abilities", abilities);
-        param.Add("lastUpdate", DateTime.UtcNow);
+        Param param = new()
+        {
+            { "gameVersion", gameVersion },
+            { "isCleared", isCleared },
+            { "abilities", abilities },
+            { "lastUpdate", DateTime.UtcNow }
+        };
 
         return param;
     }

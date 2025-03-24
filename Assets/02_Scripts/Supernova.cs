@@ -4,56 +4,67 @@ using TMPro;
 using Starfall.Manager;
 using Starfall.Constants;
 
-public class Supernova : MonoBehaviour {
-    public Button leftButton; // 각 레벨 버튼을 저장할 배열
-    public Button rightButton;
-    public TextMeshProUGUI descriptionText;
-    public TextMeshProUGUI levelText;
-    
-    private int highestLevel;
-    private int currentLevel = 0;
+public class Supernova : MonoBehaviour
+{
+    public Button LeftButton; // 각 레벨 버튼을 저장할 배열
+    public Button RightButton;
+    public TextMeshProUGUI DescriptionText;
+    public TextMeshProUGUI LevelText;
 
-    private void Start() {
+    int highestLevel;
+    int currentLevel = 0;
+
+    void Start()
+    {
         highestLevel = PlayerPrefs.GetInt("highestLevel", 0);
-        if (highestLevel == 0) {
+        if (highestLevel == 0)
+        {
             PlayerPrefs.SetInt("currentLevel", 0);
-            leftButton.gameObject.SetActive(false);
-            rightButton.gameObject.SetActive(false);
+            LeftButton.gameObject.SetActive(false);
+            RightButton.gameObject.SetActive(false);
         }
-        else {
+        else
+        {
             currentLevel = highestLevel;
             PlayerPrefs.SetInt("currentLevel", currentLevel);
-            rightButton.interactable = false;  
+            RightButton.interactable = false;
         }
         SetText();
     }
 
-    public void SetText() {
-        levelText.text = $"SUPERNOVA\nCODE-{currentLevel}";
-        if(currentLevel == 0) {
-            descriptionText.text = "NOTHING WILL HAPPEN";
+    void SetText()
+    {
+        LevelText.text = $"SUPERNOVA\nCODE-{currentLevel}";
+        if(currentLevel == 0)
+        {
+            DescriptionText.text = "NOTHING WILL HAPPEN";
         }
-        else {
-            descriptionText.text = $"{ConstantStore.NERF_TEXT_LIST[currentLevel-1]}\n클리어 시 코인, 점수 {5 * currentLevel}%";
+        else
+        {
+            DescriptionText.text = $"{ConstantStore.NERF_TEXT_LIST[currentLevel-1]}\n클리어 시 코인, 점수 {5 * currentLevel}%";
         }
     }
 
-    public void LeftClicked() {
+    public void LeftClicked()
+    {
         currentLevel -= 1;
-        rightButton.interactable = true;
+        RightButton.interactable = true;
         PlayerPrefs.SetInt("currentLevel", currentLevel);
-        if (currentLevel == 0) {
-            leftButton.interactable = false;
+        if (currentLevel == 0)
+        {
+            LeftButton.interactable = false;
         }
         SetText();
     }
 
-    public void RightClicked() {
+    public void RightClicked()
+    {
         currentLevel += 1;
-        leftButton.interactable = true;
+        LeftButton.interactable = true;
         PlayerPrefs.SetInt("currentLevel", currentLevel);
-        if (currentLevel == highestLevel) {
-            rightButton.interactable = false;
+        if (currentLevel == highestLevel)
+        {
+            RightButton.interactable = false;
         }
         SetText();
     }

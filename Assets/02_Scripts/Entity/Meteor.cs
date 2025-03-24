@@ -1,31 +1,33 @@
 using UnityEngine;
 using Starfall.Manager;
 
-namespace Starfall.Entity {
-    public class Meteor : MonoBehaviour {
-        #region Manager
-        private static HPManager hpManager => GameManager.Instance.HPManager;
-        #endregion
-        private static Vector3 moveDirection = new Vector3(0, -1, 0);
-        public float speed = 10f;
-        private int damage;
+namespace Starfall.Entity
+{
+    public class Meteor : MonoBehaviour
+    {
+        static HPManager HpManager => GameManager.Instance.HPManager;
+        public float Speed = 10f;
+        Vector3 moveDirection = Vector3.down;
+        int damage;
 
-        void Start() {
-            damage = GameManager.Instance.timer.waveNum;
+        void OnEnable()
+        {
+            damage = GameManager.Instance.Timer.WaveNum;
         }
 
-        void OnEnable() {
-            damage = GameManager.Instance.timer.waveNum;
-        }
-
-        void Update() {
+        void Update()
+        {
             if (gameObject.activeSelf && GameStateManager.Instance.IsPlaying)
-                transform.position += moveDirection * speed * Time.deltaTime;
+            {
+                transform.position += moveDirection * (Speed * Time.deltaTime);
+            }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision) {
-            if (collision.transform.tag == "Player") {
-                hpManager.GetDamage(-damage);
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.transform.CompareTag("Player"))
+            {
+                HpManager.GetDamage(-damage);
                 gameObject.SetActive(false);
             }
         }

@@ -514,8 +514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d1aef21fa2e46df9343f7999acf071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicPlayer: {fileID: 565088096}
-  sfxMenu: {fileID: 0}
+  _musicPlayer: {fileID: 565088096}
+  _sfxMenu: {fileID: 0}
 --- !u!82 &565088096
 AudioSource:
   m_ObjectHideFlags: 0
@@ -624,8 +624,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91620a768414404791172686aeb2e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceText: {fileID: 770090310}
-  coins: 0
+  ResourceText: {fileID: 770090310}
+  Coins: 0
 --- !u!1 &658921244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,10 +1800,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828f83673a66742989fc6d802104323a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  characterName: {fileID: 795270634}
-  description: {fileID: 796262906}
-  colorList: []
+  CharacterName: {fileID: 795270634}
+  Description: {fileID: 796262906}
+  Image: {fileID: 0}
+  ColorList: []
 --- !u!114 &1264680561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2161,10 +2161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58698ec724fc45b892378fb3ff8caee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftButton: {fileID: 1120893976}
-  rightButton: {fileID: 1193366108}
-  descriptionText: {fileID: 796262906}
-  levelText: {fileID: 1210061425}
+  LeftButton: {fileID: 1120893976}
+  RightButton: {fileID: 1193366108}
+  DescriptionText: {fileID: 796262906}
+  LevelText: {fileID: 1210061425}
 --- !u!1001 &1540112472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2688,8 +2688,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 565088095}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_Start
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMoving, Assembly-CSharp
+        m_MethodName: Goto_Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2850,9 +2850,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971d3a0ebe36e47e4bd30ca6e559ef73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btn: {fileID: 1902872573}
-  resourceText: {fileID: 367935089}
-  description: {fileID: 1375883934}
+  Button: {fileID: 1902872573}
+  ResourceText: {fileID: 367935089}
+  Description: {fileID: 1375883934}
 --- !u!1 &2130960249
 GameObject:
   m_ObjectHideFlags: 0
@@ -3206,8 +3206,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 565088095}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_MainGame
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMoving, Assembly-CSharp
+        m_MethodName: Goto_MainGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

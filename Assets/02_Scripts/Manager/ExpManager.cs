@@ -1,50 +1,62 @@
 using UnityEngine;
 using TMPro;
+using Starfall.Constants;
 
-namespace Starfall.Manager {
-    public class ExpManager : MonoBehaviour {
-        [SerializeField] private TextMeshProUGUI resourceText;
-        public float expCurrent = 0;
-        public int expMax = 10;
-        [SerializeField] private AudioSource musicPlayer;
-        [SerializeField] private AudioClip sfxBonus;
-        [SerializeField] private AudioClip sfxExp;
-        [SerializeField] private GameObject choicePrefab;
-        public int coins;
-        [HideInInspector] public bool hextech = false;
+namespace Starfall.Manager
+{
+    public class ExpManager : MonoBehaviour
+    {
+        public int Coins;
+        public float ExpCurrent = 0;
+        public int ExpMax = 10;
+        [SerializeField] TextMeshProUGUI resourceText;
+        [SerializeField] AudioSource musicPlayer;
+        [SerializeField] AudioClip sfxBonus;
+        [SerializeField] AudioClip sfxExp;
+        [SerializeField] GameObject choicePrefab;
+        [HideInInspector] public bool Hextech = false;
 
-        private void Start() {
-            coins = 0;
-            expCurrent = 0;
-            expMax = 10;
-            expCurrent += PlayerPrefs.GetInt("module_5");
-            //SetText();
+        void Start()
+        {
+            Coins = 0;
+            ExpCurrent = 0;
+            ExpMax = 10;
+            ExpCurrent += PlayerPrefs.GetInt("module_5");
+            SetText();
         }
 
-        public void SetText() {
-            resourceText.text = (int)expCurrent + "/" + expMax;
+        public void SetText()
+        {
+            resourceText.text = $"{(int)ExpCurrent}/{ExpMax}";
         }
 
-        public void GetExp(int num) {
-            expCurrent += num;
+        public void GetExp(int num)
+        {
+            ExpCurrent += num;
 
-            if (expCurrent >= expMax) {
-                if (hextech) GameManager.Instance.PlayerManager.refresh += 1;
+            if (ExpCurrent >= ExpMax)
+            {
+                if (Hextech)
+                {
+                    GameManager.Instance.PlayerManager.refresh += 1;
+                }
                 LevelUp();
             }
-            else {
+            else
+            {
                 musicPlayer.PlayOneShot(sfxExp);
             }
             SetText();
         }
 
-        public void LevelUp() {
+        public void LevelUp()
+        {
             GameStateManager.Instance.SetState(GameState.Paused);
-            expCurrent -= expMax;
-            expMax += 5;
-            Instantiate(choicePrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
+            ExpCurrent -= ExpMax;
+            ExpMax += 5;
+            Instantiate(choicePrefab, Vector3.zero, Quaternion.identity);
             musicPlayer.PlayOneShot(sfxBonus);
-            coins += 5;
+            Coins += 5;
             SetText();
         }
     }

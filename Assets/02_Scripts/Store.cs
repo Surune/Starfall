@@ -2,28 +2,32 @@ using UnityEngine;
 using TMPro;
 using Starfall.Manager;
 
-public class Store : MonoBehaviour {
-    public TextMeshProUGUI resourceText;
-    public int coins;
+public class Store : MonoBehaviour
+{
+    public TextMeshProUGUI ResourceText;
+    public int Coins;
 
-    void Start() {
-        GameObject.Find("SoundManager").GetComponent<SoundManager>().ApplyMute();
-        coins = PlayerPrefs.GetInt("TotalCoin");
-        resourceText = GameObject.Find("Coin").GetComponent<TextMeshProUGUI>();
+    void Start()
+    {
+        GameManager.Instance.SoundManager.ApplyMute();
+        Coins = PlayerPrefs.GetInt("TotalCoin");
+        ResourceText = GameObject.Find("Coin").GetComponent<TextMeshProUGUI>();
         SetText();
     }
 
-    public void SetText() {
-        coins = PlayerPrefs.GetInt("TotalCoin");
-        resourceText.text = "Coins : " + coins;
+    public void SetText()
+    {
+        Coins = PlayerPrefs.GetInt("TotalCoin");
+        ResourceText.text = $"Coins : {Coins}";
     }
 
-    public void DestroyOnClick() {
-        //SetText();
-        Destroy(this.gameObject);
+    public void DestroyOnClick()
+    {
+        Destroy(gameObject);
     }
 
-    public void InstantiateOnClick(GameObject prefab) {
-        Instantiate(prefab, this.transform);
+    public void InstantiateOnClick(GameObject prefab)
+    {
+        Instantiate(prefab, transform);
     }
 }

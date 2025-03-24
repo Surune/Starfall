@@ -3,25 +3,28 @@ using UnityEngine.UI;
 using TMPro;
 using Starfall.Constants;
 
-public class Character : MonoBehaviour {
-    public Image image;
-    public TextMeshProUGUI characterName;
-    public TextMeshProUGUI description;
-    public static int currentPilot;
+public class Character : MonoBehaviour
+{
+    public static int CurrentPilot;
+    public TextMeshProUGUI CharacterName;
+    public TextMeshProUGUI Description;
+    public Image Image;
 
-    private string[] nameList => ConstantStore.CHARACTER_NAME_LIST;
-    private string[] descriptionList => ConstantStore.CHARACTER_DESCRIPTION_LiST;
-    
-    public Color[] colorList;
+    string[] NameList => ConstantStore.CHARACTER_NAME_LIST;
+    string[] DescriptionList => ConstantStore.CHARACTER_DESCRIPTION_LiST;
 
-    private void Start() {
+    public Color[] ColorList;
+
+    void Start()
+    {
         SetText();
     }
 
-    public void SetText() {
-        currentPilot = PlayerPrefs.GetInt("currentPilot", 1);
-        characterName.text = nameList[currentPilot-1];
-        //description.text = desclist[currentPilot-1];
-        image.color = colorList[currentPilot-1];
+    public void SetText()
+    {
+        CurrentPilot = PlayerPrefs.GetInt("currentPilot", 1);
+        CharacterName.text = NameList[CurrentPilot-1];
+        Description.text = DescriptionList[CurrentPilot-1];
+        Image.color = ColorList[CurrentPilot-1];
     }
 }

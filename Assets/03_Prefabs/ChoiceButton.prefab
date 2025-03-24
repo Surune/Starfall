@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7724247925560029563}
   - component: {fileID: 3828984490654968901}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: AbilityIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3164308266955840195}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -108,7 +107,6 @@ RectTransform:
   m_Children:
   - {fileID: 2123847697101799327}
   m_Father: {fileID: 3164308266955840195}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -184,7 +182,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3164308266955840195}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -298,6 +295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3164308266955840195}
+  - component: {fileID: 2067719391824014583}
   - component: {fileID: 3721012079765217016}
   - component: {fileID: 8635115971119377922}
   - component: {fileID: 5396439615826227106}
@@ -323,18 +321,37 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6522896481509290504}
-  - {fileID: 6365192022474630906}
-  - {fileID: 110138381266014467}
   - {fileID: 435406113768096013}
   - {fileID: 4621708213396068398}
+  - {fileID: 6365192022474630906}
+  - {fileID: 110138381266014467}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2067719391824014583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786514878427594109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7cbaaf28edc4e1e8a8f5a1d6690295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIcon: {fileID: 3828984490654968901}
+  nameText: {fileID: 1886256321003604032}
+  descriptionText: {fileID: 712399923614704078}
+  synergy1Background: {fileID: 5148013498335314777}
+  synergy1Icon: {fileID: 5939153280408350110}
+  synergy2Background: {fileID: 8904051357517822640}
+  synergy2Icon: {fileID: 2459797925237457586}
+  tween: {fileID: -6062250665175911862}
 --- !u!222 &3721012079765217016
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -429,8 +446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96bb11b4adba4413ac174d89d7e97a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 786514878427594109}
-  tweentime: 0.1
+  _obj: {fileID: 0}
+  _tweenTime: 0
 --- !u!114 &2297779464724770258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,7 +494,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3164308266955840195}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -614,7 +630,6 @@ RectTransform:
   m_Children:
   - {fileID: 8998745514002331968}
   m_Father: {fileID: 3164308266955840195}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -671,7 +686,7 @@ GameObject:
   - component: {fileID: 389502369755062053}
   - component: {fileID: 2459797925237457586}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Synergy2Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,7 +705,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 110138381266014467}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -747,7 +761,7 @@ GameObject:
   - component: {fileID: 5387326847991382392}
   - component: {fileID: 5939153280408350110}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Synergy1Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -766,7 +780,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6365192022474630906}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

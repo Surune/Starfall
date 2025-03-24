@@ -34,7 +34,6 @@ RectTransform:
   m_Children:
   - {fileID: 5488072419002811201}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -94,8 +93,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5488072418828161519}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_Start
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMoving, Assembly-CSharp
+        m_MethodName: Goto_Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -117,8 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d1aef21fa2e46df9343f7999acf071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicPlayer: {fileID: 5488072418828161525}
-  sfx_menu: {fileID: 8300000, guid: a7af9085809a92b42b6654ab08808de7, type: 3}
+  _musicPlayer: {fileID: 0}
+  _sfxMenu: {fileID: 0}
 --- !u!82 &5488072418828161525
 AudioSource:
   m_ObjectHideFlags: 0
@@ -247,7 +246,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5488072418828161517}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -303,7 +301,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!222 &5488072419002811203

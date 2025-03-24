@@ -1,22 +1,26 @@
 using UnityEngine;
 using TMPro;
 using Starfall.Manager;
+using UnityEngine.Serialization;
 
-public class SynergyList : MonoBehaviour {
-    #region Manager
-    private static AbilityManager abilityManager => GameManager.Instance.AbilityManager;
-    #endregion
-    
-    [SerializeField] private TextMeshProUGUI[] texts;
-    [SerializeField] private string[] descriptions;
-    [SerializeField] private TextMeshProUGUI descriptionText;
+public class SynergyList : MonoBehaviour
+{
+    static AbilityManager AbilityManager => GameManager.Instance.AbilityManager;
 
-    private void Start() {
-        for(int i = 0; i < texts.Length; i++)
-            texts[i].text = abilityManager.synergy[i+1].ToString() + "/" + abilityManager.synergy[i];
+    [SerializeField] TextMeshProUGUI[] texts;
+    [SerializeField] string[] descriptions;
+    [SerializeField] TextMeshProUGUI descriptionText;
+
+    void Start()
+    {
+        for (int i = 0; i < texts.Length; i++)
+        {
+            texts[i].text = $"{AbilityManager.Synergy[i+1].ToString()}/{AbilityManager.Synergy[i]}";
+        }
     }
 
-    public void OnImageClick(int i) {
+    public void OnImageClick(int i)
+    {
         descriptionText.text = descriptions[i];
     }
 }

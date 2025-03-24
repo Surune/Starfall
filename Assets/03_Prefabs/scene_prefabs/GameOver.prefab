@@ -38,7 +38,6 @@ RectTransform:
   - {fileID: 2416823383210059093}
   - {fileID: 2416823381658495990}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -178,7 +177,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2416823381450539027}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -301,8 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7688ad19749c33c45a94e574b137756d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreText: {fileID: 2416823381591141583}
-  sfx_emerge: {fileID: 8300000, guid: d3ffd01af15cab049991e8e6170567c6, type: 3}
+  scoreText: {fileID: 0}
+  sfxEmerge: {fileID: 0}
 --- !u!1 &2416823381658495977
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +334,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2416823381450539027}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -396,8 +393,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2416823381658495988}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_Start
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMoving, Assembly-CSharp
+        m_MethodName: Goto_Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -419,8 +416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d1aef21fa2e46df9343f7999acf071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicPlayer: {fileID: 0}
-  sfx_menu: {fileID: 8300000, guid: a7af9085809a92b42b6654ab08808de7, type: 3}
+  _musicPlayer: {fileID: 0}
+  _sfxMenu: {fileID: 0}
 --- !u!114 &2416823381658495984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,7 +541,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2416823381450539027}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -604,8 +600,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2416823383210059102}
-        m_TargetAssemblyTypeName: SceneMoving, Assembly-CSharp
-        m_MethodName: goto_Ready
+        m_TargetAssemblyTypeName: Starfall.Manager.SceneMoving, Assembly-CSharp
+        m_MethodName: Goto_MainGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -627,8 +623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d1aef21fa2e46df9343f7999acf071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicPlayer: {fileID: 0}
-  sfx_menu: {fileID: 8300000, guid: a7af9085809a92b42b6654ab08808de7, type: 3}
+  _musicPlayer: {fileID: 0}
+  _sfxMenu: {fileID: 0}
 --- !u!114 &2416823383210059101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +746,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2416823381450539027}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}

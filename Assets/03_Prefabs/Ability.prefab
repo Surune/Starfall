@@ -33,7 +33,6 @@ RectTransform:
   - {fileID: 4226774987176886860}
   - {fileID: 6764142967009331005}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -60,10 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca837dbb50b433b4b8d5fd05fdf87484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img_Skill: {fileID: 7410924493592741599}
-  skillcool_max: 3
-  ability_num: 0
-  ability_type: 1
+  AbilityImage: {fileID: 6045356690711974738}
+  SkillCooltimeMax: 20
+  AbilityID: 0
+  AbilityType: 1
 --- !u!1 &4992367736048529208
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +94,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1559321089039302682}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -171,7 +169,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1559321089039302682}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

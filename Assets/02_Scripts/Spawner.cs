@@ -4,135 +4,144 @@ using Starfall.Manager;
 using Starfall.Entity;
 using Starfall.Constants;
 
-public class Spawner : MonoBehaviour {
-    #region Manager
-    private static GameStateManager gameStateManager => GameManager.Instance.gameStateManager;
-    private static PoolManager poolManager => GameManager.Instance.PoolManager;
-    #endregion
+public class Spawner : MonoBehaviour
+{
+    static GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
+    static PoolManager PoolManager => GameManager.Instance.PoolManager;
+    static Timer Timer => GameManager.Instance.Timer;
 
-    public bool spawnEnabled = true;
-    [SerializeField] private float boundary;
-    [SerializeField] private GameObject EnemyPrefab;
-    [SerializeField] private GameObject BossPrefab;
-    [SerializeField] private int EnemyTypeNum;
-    public TextMeshProUGUI resourceText;
-    public float enemydelay;
-    public int enemynum = 1;
-    public float speedCoefficient = 1f;
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject bossPrefab;
+    [SerializeField] float boundary;
+    [SerializeField] int enemyTypeNum;
+    public TextMeshProUGUI ResourceText;
+    public float Enemydelay;
+    public int Enemynum = 1;
+    public float SpeedCoefficient = 1f;
     public GameObject EnemyList;
     public GameObject MeteorList;
-    private Timer timer;
-    private float maxX, maxY;
-    private const float mindelay = 0.005f;
-    private static float[] speedList = {1.25f, 2f, 7f, 1.25f, 1.25f, 1.5f, 2f};
-    public float damageCoefficient = 1f;
-    public float meteorCoefficient = 1f;
-    [HideInInspector] public bool disabled = false;
-    [HideInInspector] public bool makeMeteor = false;
-    [HideInInspector] public bool spawnSmall = false;
-    [HideInInspector] public bool spawnRandom = false;
-    public float addHP = 0f;
-    public AudioSource _musicplayer;
-    public AudioClip sfxMeteor;
+    float maxX, maxY;
+    const float Mindelay = 0.005f;
+    static readonly float[] SpeedList = {1.25f, 2f, 7f, 1.25f, 1.25f, 1.5f, 2f};
+    public float DamageCoefficient = 1f;
+    public float MeteorCoefficient = 1f;
+    [HideInInspector] public bool Disabled = false;
+    [HideInInspector] public bool MakeMeteor = false;
+    [HideInInspector] public bool SpawnSmall = false;
+    [HideInInspector] public bool SpawnRandom = false;
+    public float AddHP = 0f;
+    public AudioSource Musicplayer;
+    public AudioClip SfxMeteor;
+    public Color[] ColorList;
 
-    public Color[] colorList;
-
-    void Start() {
-        InvokeRepeating("SpawnEnemy", 0, enemydelay);
-        EnemyList = GameObject.Find("Enemies");
-        timer = GameObject.Find("Timer").GetComponent<Timer>();
+    void Start()
+    {
+        InvokeRepeating(nameof(SpawnEnemy), 0, Enemydelay);
         maxX = EnemyList.GetComponent<RectTransform>().rect.width/2 * boundary;
         maxY = EnemyList.GetComponent<RectTransform>().rect.height/2;
 
-        speedCoefficient = 1f;
-        
-        GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
-    }
-    
-    void OnDestroy() {
-        GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+        SpeedCoefficient = 1f;
     }
 
-    public void ChangeSpawnDelay(float newcooltime) {
-        if (newcooltime < mindelay) newcooltime = mindelay;
-        enemydelay = newcooltime;
-        CancelInvoke("SpawnEnemy");
-        InvokeRepeating("SpawnEnemy", 0, enemydelay);
+    public void ChangeSpawnDelay(float newcooltime)
+    {
+        if (newcooltime < Mindelay)
+        {
+            newcooltime = Mindelay;
+        }
+        Enemydelay = newcooltime;
+        CancelInvoke(nameof(SpawnEnemy));
+        InvokeRepeating(nameof(SpawnEnemy), 0, Enemydelay);
     }
 
-    public GameObject SpawnMeteor() {
-        if (!disabled) {
-            _musicplayer.PlayOneShot(sfxMeteor);
-            var meteor = poolManager.Get(PoolNumber.Meteor);
+    public GameObject SpawnMeteor()
+    {
+        if (!Disabled)
+        {
+            Musicplayer.PlayOneShot(SfxMeteor);
+            var meteor = PoolManager.Get(PoolNumber.Meteor);
             meteor.transform.position = new Vector3(GameManager.Instance.Player.transform.position.x, maxY, 0f);
-            meteor.GetComponent<Meteor>().speed *= meteorCoefficient;
+            meteor.GetComponent<Meteor>().Speed *= MeteorCoefficient;
             return meteor;
         }
         else
+        {
             return null;
+        }
     }
 
-    public GameObject SpawnFinalBoss() {
-        foreach(Transform t in GameManager.GetAllChilds(EnemyList.transform)){
+    public GameObject SpawnFinalBoss()
+    {
+        foreach (var t in GameManager.GetAllChilds(EnemyList.transform))
+        {
             t.gameObject.SetActive(false);
         }
-        var enemy = Instantiate(BossPrefab, new Vector3(0f, maxY, 0f), Quaternion.identity);
+        var enemy = Instantiate(bossPrefab, new Vector3(0f, maxY, 0f), Quaternion.identity);
         enemy.transform.SetParent(EnemyList.transform);
-        GameManager.Instance.activeEnemyNum += 1;
+        GameManager.Instance.ActiveEnemyNum += 1;
         return enemy;
     }
 
-    public Enemy SpawnEnemyWithType(int type, Vector3 pos) {
-        var enemy = poolManager.Get(PoolNumber.Enemy);
-        enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().color = colorList[type];
+    Enemy SpawnEnemyWithType(int type, Vector3 pos)
+    {
+        var enemy = PoolManager.Get(PoolNumber.Enemy);
+        enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().color = ColorList[type];
         enemy.transform.position = pos;
-        if(!spawnSmall)
-            enemy.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+        if (SpawnSmall)
+        {
+            enemy.transform.localScale = Vector3.one;
+        }
         else
-            enemy.transform.localScale = new Vector3(1f, 1f, 1f);
-        
+        {
+            enemy.transform.localScale = Vector3.one * 1.2f;
+        }
+
         var e = enemy.GetComponent<Enemy>();
-        e.maxspeed = speedList[type] * speedCoefficient;
+        e.Maxspeed = SpeedList[type] * SpeedCoefficient;
         e.SetType(type);
         return e;
     }
 
-    public void SpawnItem() {
-        var item = poolManager.Get(PoolNumber.Item);
+    public void SpawnItem()
+    {
+        var item = PoolManager.Get(PoolNumber.Item);
         item.transform.position = new Vector3(Random.Range(-maxX, maxX), maxY, 0f);
-        item.GetComponent<DropItem>().SetType(Random.Range(0, 4));
+        item.GetComponent<DropItem>().SetType((ItemType)Random.Range(0, 4));
     }
 
-    private void SpawnEnemy() {
-        if (!gameStateManager.IsPlaying)
+    void SpawnEnemy()
+    {
+        if (!GameStateManager.IsPlaying || Enemynum <= 0)
+        {
             return;
+        }
 
-        int ran = 0;
-        if (!spawnRandom) {
-            ran = Random.Range(0, timer.waveNum < EnemyTypeNum ? timer.waveNum : EnemyTypeNum);
+        int ran;
+        if (!SpawnRandom)
+        {
+            ran = Random.Range(0, Timer.WaveNum < enemyTypeNum ? Timer.WaveNum : enemyTypeNum);
         }
-        else {
-            ran = Random.Range(0, EnemyTypeNum);
+        else
+        {
+            ran = Random.Range(0, enemyTypeNum);
         }
-        
+
         var enemy = SpawnEnemyWithType(ran, new Vector3(Random.Range(-maxX, maxX), maxY, 0f));
-        if (timer.roundNum % timer.bossPerWave != 0) {
-            enemy.isBoss = false;
-            enemy.expAmount = 1;
+        if (Timer.RoundNum % ConstantStore.BossPerWave != 0)
+        {
+            enemy.IsBoss = false;
+            enemy.ExpAmount = 1;
         }
-        else {
+        else
+        {
             enemy.MakeBoss();
-            enemy.expAmount = timer.waveNum + 1;
+            enemy.ExpAmount = Timer.WaveNum + 1;
         }
-        enemy.makeMeteor = makeMeteor;
-        enemy.maxHP = enemy.maxHP + addHP > 1 ? enemy.maxHP + addHP : 1f;
-        enemy.currentHP = enemy.maxHP;
+        enemy.MakeMeteor = MakeMeteor;
+        enemy.MaxHP = enemy.MaxHP + AddHP > 1 ? enemy.MaxHP + AddHP : 1f;
+        enemy.CurrentHP = enemy.MaxHP;
         enemy.SetHPText();
-        enemynum -= 1;
-        GameManager.Instance.activeEnemyNum++;
-    }
-
-    private void OnGameStateChanged(GameState newGameState) {
-        spawnEnabled = (newGameState == GameState.Gameplay);
+        Enemynum--;
+        GameManager.Instance.ActiveEnemyNum++;
     }
 }

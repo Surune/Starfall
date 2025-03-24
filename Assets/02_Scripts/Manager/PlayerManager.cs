@@ -1,17 +1,22 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Starfall.Entity;
+using Starfall.Constants;
+using Random = UnityEngine.Random;
 
-namespace Starfall.Manager {
-    public class PlayerManager {
-        #region Managers
-        private readonly Player _player;
-        private readonly HPManager _hp;
-        private readonly EffectManager _effect;
-        private readonly ExpManager _exp;
-        private readonly AbilityManager _ability;
-        #endregion
+namespace Starfall.Manager
+{
+    public class PlayerManager : MonoBehaviour
+    {
+        Player player => GameManager.Instance.Player;
+        HPManager hp => GameManager.Instance.HPManager;
+        EffectManager effect => GameManager.Instance.EffectManager;
+        ExpManager exp => GameManager.Instance.ExpManager;
+        AbilityManager ability => GameManager.Instance.AbilityManager;
+        Spawner spawner => GameManager.Instance.Spawner;
 
+        static GameObject EnemyList => GameManager.Instance.Spawner.EnemyList;
         public SpriteRenderer spr;
         public int refresh = 0;
         public float fixDamage = 0f;
@@ -21,125 +26,143 @@ namespace Starfall.Manager {
         public float criticalCoefficient = 1.5f;
         public float fatalProb = 0f;
         public float shotSpeedCoefficient = 1f;
-        private int shotnum = 0;
         public int criticalCount = 0;
-        private Transform EnemyList;
-        public GameObject wingPrefab;
-        public Transform wingTransform;
-        public List<Wing> wings;
-        private Spawner spawner;
-        private Timer timer;
         public bool statikk = false;
         public bool aquaris = false;
         public bool repair = false;
         public bool jera = false;
         public bool dagaz = false;
         public bool reinforce = false;
+        public List<Wing> Wings;
 
-        public PlayerManager(
-            Player player, 
-            HPManager hp, 
-            EffectManager effect, 
-            ExpManager exp,
-            AbilityManager ability)
+        [SerializeField] GameObject _wingPrefab;
+        [SerializeField] Transform _wingTransform;
+        int shotnum = 0;
+
+        void Start()
         {
-            _player = player;
-            _hp = hp;
-            _effect = effect;
-            _exp = exp;
-            _ability = ability;
-
-            EnemyList = GameObject.Find("Enemies").transform;
-            timer = GameObject.Find("Tsimer").GetComponent<Timer>();
-            spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
-
             SetPlayer();
         }
 
-        private void SetPlayer() {
-            int currentPlayer = PlayerPrefs.GetInt("currentPilot", 1);
-            switch (currentPlayer) {
+        void SetPlayer()
+        {
+            var currentPlayer = PlayerPrefs.GetInt("currentPilot", 1);
+            switch (currentPlayer)
+            {
                 case 1:
                     spr.color = Color.white;
-                    _exp.coins = -5;
-                    _exp.expCurrent = _exp.expMax;
-                    _exp.LevelUp();
+                    exp.Coins = -5;
+                    exp.ExpCurrent = exp.ExpMax;
+                    exp.LevelUp();
                     break;
                 case 2:
-                    spr.color = spawner.colorList[0];
+                    spr.color = spawner.ColorList[0];
                     criticalProb += 0.2f;
                     break;
                 case 3:
-                    spr.color = spawner.colorList[2];
-                    _player.ChangeSkillCool(_player.skillCooltimeMax * 0.8f);
+                    spr.color = spawner.ColorList[2];
+                    player.ChangeSkillCool(player.SkillCooltimeMax * 0.8f);
                     break;
                 case 4:
-                    spr.color = spawner.colorList[3];
-                    _hp.GetBarrier(5);
+                    spr.color = spawner.ColorList[3];
+                    hp.GetBarrier(5);
                     break;
                 case 5:
-                    spr.color = spawner.colorList[4];
+                    spr.color = spawner.ColorList[4];
                     damage += 1f;
                     break;
                 case 6:
-                    spr.color = spawner.colorList[6];
-                    GameManager.Instance.coinCoefficient += 0.5f;
+                    spr.color = spawner.ColorList[6];
+                    GameManager.Instance.CoinCoefficient += 0.5f;
                     break;
             }
             if (currentPlayer != 1)
+            {
                 GameStateManager.Instance.SetState(GameState.Gameplay);
-            _exp.SetText();
+            }
+            exp.SetText();
         }
-        
-        public void DamageAllEnemy(float dmg) {
-            _effect
-.PlayEnemySound(isCritical : false, isKilled : false);
-            foreach (Transform t in GameManager.GetAllChilds(EnemyList)) {
-                if (t.gameObject.tag == "Enemy") {
+
+        public void DamageAllEnemy(float dmg)
+        {
+            effect.PlayEnemySound(isCritical : false, isKilled : false);
+            foreach (Transform t in GameManager.GetAllChilds(EnemyList.transform))
+            {
+                if (t.gameObject.CompareTag("Enemy"))
+                {
                     t.gameObject.GetComponent<Enemy>().GetDamage(dmg, critical : false, mute : true);
                 }
             }
         }
 
-        public void MakeCritical(Fireball fireball) {
-            fireball.isCritical = true;
-            fireball.damage *= criticalCoefficient;
-            fireball.burst = _ability.burst;
-            if (_ability.nuker && criticalProb >= 1f) fireball.damage *= criticalProb;
-            if (_ability.assassination)    fireball.penetrate = true;
-        }
-
-        public void SetFireInfo(Fireball fireball) {
-            shotnum++;
-            if (statikk && shotnum % 50 == 0) 
-                DamageAllEnemy(damage * damageCoefficient + fixDamage);
-            if (aquaris) fireball.isCritical = true;
-            float rand = Random.value;
-            if (rand <= fatalProb) fireball.isFatal = true;
-            else fireball.isFatal = false;
-            
-            fireball.damage = damage;
-            if (rand <= criticalProb || (_ability.luckySeven && shotnum % 7 == 0))
-                MakeCritical(fireball);
-            else
-                fireball.isCritical = false;
-            
-            if (_ability.third && shotnum % 3 == 0) fireball.damage += 0.3f;
-            fireball.damage *= damageCoefficient;
-            if (_ability.penetrate) {
-                fireball.penetrate = true;
+        public void MakeCritical(Fireball fireball)
+        {
+            fireball.IsCritical = true;
+            fireball.Damage *= criticalCoefficient;
+            fireball.Burst = ability.burst;
+            if (ability.nuker && criticalProb >= 1f)
+            {
+                fireball.Damage *= criticalProb;
             }
-            fireball.psychosink = _ability.psychosink;
-            fireball.beingstronger = _ability.beingstronger;
-            fireball.udo = _ability.udo;
-            fireball.freezing = _ability.freezing;
-            fireball.damage += fixDamage;
+            if (ability.assassination)
+            {
+                fireball.Penetrate = true;
+            }
         }
 
-        public void GetWing(int num) {
-            for(int i = 0; i < num; i++) {
-                var w = Instantiate(wingPrefab, wingTransform);
-                wings.Add(w.GetComponent<Wing>());
+        public void SetFireInfo(Fireball fireball)
+        {
+            shotnum++;
+            if (statikk && shotnum % 50 == 0)
+            {
+                DamageAllEnemy(damage * damageCoefficient + fixDamage);
+            }
+            if (aquaris)
+            {
+                fireball.IsCritical = true;
+            }
+            float rand = Random.value;
+            if (rand <= fatalProb)
+            {
+                fireball.IsFatal = true;
+            }
+            else
+            {
+                fireball.IsFatal = false;
+            }
+
+            fireball.Damage = damage;
+            if (rand <= criticalProb || (ability.luckySeven && shotnum % 7 == 0))
+            {
+                MakeCritical(fireball);
+            }
+            else
+            {
+                fireball.IsCritical = false;
+            }
+
+            if (ability.third && shotnum % 3 == 0)
+            {
+                fireball.Damage += 0.3f;
+            }
+            fireball.Damage *= damageCoefficient;
+            if (ability.penetrate)
+            {
+                fireball.Penetrate = true;
+            }
+            fireball.Psychosink = ability.psychosink;
+            fireball.Beingstronger = ability.beingstronger;
+            fireball.Udo = ability.udo;
+            fireball.Freezing = ability.freezing;
+            fireball.Damage += fixDamage;
+        }
+
+        public void GetWing(int num)
+        {
+            for (int i = 0; i < num; i++)
+            {
+                var w = Instantiate(_wingPrefab, _wingTransform);
+                Wings.Add(w.GetComponent<Wing>());
             }
         }
     }

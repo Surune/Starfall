@@ -2,106 +2,124 @@ using UnityEngine;
 using TMPro;
 using Starfall.Manager;
 using Starfall.Constants;
-    
-namespace Starfall.Entity {
-    public class Boss : MonoBehaviour {
-        #region Managers
-        private static EffectManager effectManager => GameManager.Instance.EffectManager;
-        private static AbilityManager abilityManager => GameManager.Instance.AbilityManager;
-        private static PoolManager poolManager => GameManager.Instance.PoolManager;
-        private static Player player => GameManager.Instance.Player;        
-        #endregion
-        
-        private static AudioSource musicPlayer;
-        public GameObject gameClearDisplay;
-        [SerializeField] private TextMeshProUGUI resourceText;
-        public bool isBoss = true;
-        public float maxspeed = 1f;
-        private float speed;
-        public float slowTime = 0f;
-        private float accumulatedDamage = 0f;
-        public float coeff = 1f;    //damage coefficient
-        private Vector3 moveDirection = new Vector3(0, -1, 0);
-        [SerializeField] private AudioClip sfxHit;
-        [SerializeField] private AudioClip sfxCritical;
+using UnityEngine.Serialization;
 
-        void Start () {
-            if(musicPlayer == null)
-                musicPlayer = GameObject.Find("Effects").GetComponent<AudioSource>();
-            GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
-            enabled = GameStateManager.Instance.IsPlaying;
-            resourceText.text = "" + Mathf.CeilToInt(accumulatedDamage);
-            speed = maxspeed;
+namespace Starfall.Entity
+{
+    public class Boss : MonoBehaviour
+    {
+        static EffectManager EffectManager => GameManager.Instance.EffectManager;
+        static AbilityManager AbilityManager => GameManager.Instance.AbilityManager;
+        static PoolManager PoolManager => GameManager.Instance.PoolManager;
+        static Player Player => GameManager.Instance.Player;
+        static AudioSource MusicPlayer => EffectManager.MusicPlayer;
+        public GameObject GameClearDisplay;
+        public bool IsBoss = true;
+        public float Maxspeed = 1f;
+        public float SlowTime = 0f;
+        public float Coeff = 1f;    //damage coefficient
+        float speed;
+        float accumulatedDamage = 0f;
+        Vector3 _moveDirection = Vector3.down;
+        [SerializeField] TextMeshProUGUI resourceText;
+        [SerializeField] AudioClip sfxHit;
+        [SerializeField] AudioClip sfxCritical;
+
+        void Start()
+        {
+            resourceText.text = Mathf.CeilToInt(accumulatedDamage).ToString();
+            speed = Maxspeed;
         }
 
-        void OnDestroy() {
-            GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
-        }
-
-        public bool GetDamage(float dmg, bool critical = false, bool mute = false) {
-            dmg *= coeff;
+        public bool GetDamage(float dmg, bool critical = false, bool mute = false)
+        {
+            dmg *= Coeff;
             accumulatedDamage += dmg;
-            effectManager.SetDamageEffect(transform.position, dmg, critical);
-            if (critical && abilityManager.psychosense){
-                GameObject fireball = poolManager.Get(PoolNumber.Fireball);
-                fireball.transform.position = player.transform.position;
+            EffectManager.SetDamageEffect(transform.position, dmg, critical);
+            if (critical && AbilityManager.psychosense)
+            {
+                GameObject fireball = PoolManager.Get(PoolNumber.Fireball);
+                fireball.transform.position = Player.transform.position;
                 fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                fireball.GetComponent<Fireball>().damage = 3f;
+                fireball.GetComponent<Fireball>().Damage = 3f;
             }
-            
-            var p = poolManager.Get(PoolNumber.Effect);
+
+            var p = PoolManager.Get(PoolNumber.Effect);
             p.transform.position = transform.position;
-            
+
             resourceText.text = "" + Mathf.CeilToInt(accumulatedDamage);
-            if (!mute) {
-                if (!critical) musicPlayer.PlayOneShot(sfxHit);
-                else    musicPlayer.PlayOneShot(sfxCritical);
+            if (!mute)
+            {
+                if (!critical) MusicPlayer.PlayOneShot(sfxHit);
+                else    MusicPlayer.PlayOneShot(sfxCritical);
             }
             return false;
         }
 
-        private void OnTriggerEnter2D(Collider2D collision) {
-            if (collision.transform.tag == "Area") {
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.transform.CompareTag("Area"))
+            {
                 var collidedarea = collision.gameObject.GetComponent<Area>();
-                if (collidedarea.slow) speed = maxspeed * 0.75f;
-                if (collidedarea.damage) accumulatedDamage -= Time.deltaTime;
-            }
-            else if (collision.transform.tag == "Player") {
-                gameObject.SetActive(false);
-                GameManager.Instance.activeEnemyNum -= 1;
-                GameManager.Instance.GameClear(Mathf.CeilToInt(accumulatedDamage * 0.01f));
-                GameStateManager.Instance.SetState(GameState.Paused);
-                Instantiate(gameClearDisplay, new Vector3(0f, 0f, 0f), Quaternion.identity);
-            }
-        }
-        
-        private void OnTriggerStay2D(Collider2D collision) {
-            if (collision.transform.tag == "Area") {
-                var collidedarea = collision.gameObject.GetComponent<Area>();
-                if (collidedarea.slow) speed = maxspeed * 0.75f;
-                if (collidedarea.damage) accumulatedDamage -= Time.deltaTime;
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision) {
-            if (collision.transform.tag == "Area")
-                speed = maxspeed;
-        }
-
-        void Update () {
-            if (slowTime > 0f) {
-                slowTime -= Time.deltaTime;
-                speed = maxspeed * 0.75f;
-                if (slowTime <= 0f) {
-                    slowTime = 0f;
-                    speed = maxspeed;
+                if (collidedarea.Slow)
+                {
+                    speed = Maxspeed * 0.75f;
+                }
+                if (collidedarea.Damage)
+                {
+                    accumulatedDamage -= Time.deltaTime;
                 }
             }
-            transform.Translate(moveDirection * speed * Time.deltaTime);
+            else if (collision.transform.CompareTag("Player"))
+            {
+                gameObject.SetActive(false);
+                GameManager.Instance.ActiveEnemyNum -= 1;
+                GameManager.Instance.GameClear(Mathf.CeilToInt(accumulatedDamage * 0.01f));
+                GameStateManager.Instance.SetState(GameState.Paused);
+                Instantiate(GameClearDisplay, Vector3.zero, Quaternion.identity);
+            }
         }
 
-        private void OnGameStateChanged(GameState newGameState) {
-            enabled = (newGameState == GameState.Gameplay);
+        void OnTriggerStay2D(Collider2D collision)
+        {
+            if (collision.transform.CompareTag("Area"))
+            {
+                var collidedarea = collision.gameObject.GetComponent<Area>();
+                if (collidedarea.Slow)
+                {
+                    speed = Maxspeed * 0.75f;
+                }
+                if (collidedarea.Damage)
+                {
+                    accumulatedDamage -= Time.deltaTime;
+                }
+            }
+        }
+
+        void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.transform.CompareTag("Area"))
+            {
+                speed = Maxspeed;
+            }
+        }
+
+        void Update()
+        {
+            if (GameStateManager.Instance.IsPlaying)
+            {
+                if (SlowTime > 0f)
+                {
+                    SlowTime -= Time.deltaTime;
+                    speed = Maxspeed * 0.75f;
+                    if (SlowTime <= 0f)
+                    {
+                        SlowTime = 0f;
+                        speed = Maxspeed;
+                    }
+                }
+                transform.Translate(_moveDirection * speed * Time.deltaTime);
+            }
         }
     }
 }

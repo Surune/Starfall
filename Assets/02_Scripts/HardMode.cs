@@ -2,40 +2,49 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class HardMode : MonoBehaviour {
-    public Toggle btn;
-    public TextMeshProUGUI resourceText;
-    public GameObject description;
-    private bool cleared;
-    private bool hardmode;
+public class HardMode : MonoBehaviour
+{
+    public Toggle Button;
+    public TextMeshProUGUI ResourceText;
+    public GameObject Description;
 
-    private void Start() {
+    bool cleared;
+    bool hardmode;
+
+    void Start()
+    {
         cleared = System.Convert.ToBoolean(PlayerPrefs.GetInt("highestLevel", 0));
         hardmode = System.Convert.ToBoolean(PlayerPrefs.GetInt("hardMode", 0));
-        if (hardmode){
-            btn.isOn = true;
-            resourceText.text = "HARD MODE";
-            description.SetActive(true);
+        if (hardmode)
+        {
+            Button.isOn = true;
+            ResourceText.text = "HARD MODE";
+            Description.SetActive(true);
         }
     }
 
-    public void onValueChanged(){
-        if(btn.isOn) {
-            if (cleared) {
-                resourceText.text = "HARD MODE";
-                description.SetActive(true);
+    public void OnValueChanged()
+    {
+        if(Button.isOn)
+        {
+            if (cleared)
+            {
+                ResourceText.text = "HARD MODE";
+                Description.SetActive(true);
                 PlayerPrefs.SetInt("hardMode", 1);
             }
-            else {
-                btn.isOn = false;
-                description.SetActive(true);
-                description.GetComponent<TextMeshProUGUI>().text = "1회 클리어 시 개방";
+            else
+            {
+                Button.isOn = false;
+                Description.SetActive(true);
+                Description.GetComponent<TextMeshProUGUI>().text = "1회 클리어 시 개방";
                 PlayerPrefs.SetInt("hardMode", 0);
             }
         }
-        else {
-            resourceText.text = "NORMAL MODE";
-            description.SetActive(false);
+        else
+        {
+            ResourceText.text = "NORMAL MODE";
+            Description.SetActive(false);
             PlayerPrefs.SetInt("hardMode", 0);
         }
         PlayerPrefs.Save();

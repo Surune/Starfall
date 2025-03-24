@@ -1,18 +1,23 @@
 using UnityEngine;
 
-namespace Starfall.Utils {
-    public class AutoInactivator : MonoBehaviour {
-        [SerializeField] private float cooltime;
+namespace Starfall.Utils
+{
+    public class AutoInactivator : MonoBehaviour
+    {
+        [SerializeField] float _cooltime;
 
-        void Start() {
-            Invoke("destroythis", cooltime);
+        void Start()
+        {
+            Invoke(nameof(InactiavteSelf), _cooltime);
         }
 
-        private void OnEnable() {
-            Invoke("destroythis", cooltime);
+        void OnEnable()
+        {
+            Invoke(nameof(InactiavteSelf), _cooltime);
         }
 
-        void destroythis() {
+        void InactiavteSelf()
+        {
             gameObject.SetActive(false);
         }
     }

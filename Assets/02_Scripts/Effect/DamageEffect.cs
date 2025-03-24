@@ -2,27 +2,32 @@
 using TMPro;
 using Starfall.Manager;
 
-namespace Starfall.Effect {
-    public class DamageEffect : MonoBehaviour {
-        #region Manager
-        private static GameStateManager gameStateManager => GameManager.Instance.gameStateManager;
-        #endregion
-        
-        public float delay;
-        public TextMeshProUGUI resourceText;
-        [HideInInspector] public float accumulatedTime;
+namespace Starfall.Effect
+{
+    public class DamageEffect : MonoBehaviour
+    {
+        static GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
 
-        void Update () {
-            if (!gameObject.activeSelf || !gameStateManager.IsPlaying)
+        public float Delay;
+        public TextMeshProUGUI ResourceText;
+        public float AccumulatedTime;
+
+        void Update()
+        {
+            if (!gameObject.activeSelf || !GameStateManager.IsPlaying)
+            {
                 return;
+            }
 
-            accumulatedTime += Time.deltaTime;
-            if (accumulatedTime > delay) {
+            AccumulatedTime += Time.deltaTime;
+            if (AccumulatedTime > Delay)
+            {
                 gameObject.SetActive(false);
             }
-            else {
-                var orig = resourceText.color;
-                resourceText.color = new Color(orig.r, orig.g, orig.b, 1 - (accumulatedTime / delay));
+            else
+            {
+                var orig = ResourceText.color;
+                ResourceText.color = new Color(orig.r, orig.g, orig.b, 1 - (AccumulatedTime / Delay));
             }
         }
     }

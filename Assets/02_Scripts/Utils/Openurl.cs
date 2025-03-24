@@ -1,11 +1,14 @@
 using UnityEngine;
 
-namespace Starfall.Utils {
-    public class Openurl {
-        [SerializeField] private string url;
+namespace Starfall.Utils
+{
+    public class Openurl
+    {
+        [SerializeField] readonly string _url;
 
-        public void openLink() {
-            Application.OpenURL(url);
+        public void OpenLink()
+        {
+            Application.OpenURL(_url);
         }
     }
 }

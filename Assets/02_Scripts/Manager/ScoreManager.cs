@@ -1,20 +1,23 @@
 using UnityEngine;
 using TMPro;
 
-namespace Starfall.Manager {
-    public class ScoreManager : MonoBehaviour {
-        public float totalScore = 0;
-        
-        [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private AudioSource musicPlayer;
+namespace Starfall.Manager
+{
+    public class ScoreManager : MonoBehaviour
+    {
+        public float TotalScore = 0;
+        [SerializeField] TextMeshProUGUI scoreText;
+        [SerializeField] AudioSource musicPlayer;
 
-        private void SetScoreText() {
-            scoreText.text = "" + (int)totalScore;
+        void SetScoreText()
+        {
+            scoreText.text = ((int)TotalScore).ToString();
         }
 
-        public void GetScore(int num) {
-            totalScore += num;
-            PlayerPrefs.SetInt("NowScore", Mathf.RoundToInt(totalScore));
+        public void GetScore(int num)
+        {
+            TotalScore += num;
+            PlayerPrefs.SetInt("NowScore", Mathf.RoundToInt(TotalScore));
 
             SetScoreText();
         }

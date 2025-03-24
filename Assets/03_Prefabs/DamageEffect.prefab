@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7446867909643530318}
   - component: {fileID: 838949154973533505}
-  - component: {fileID: 2126802551295927512}
   - component: {fileID: 7339198763389193411}
+  - component: {fileID: 2126802551295927512}
   m_Layer: 5
   m_Name: DamageEffect
   m_TagString: effect
@@ -32,7 +32,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -47,6 +46,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8435049869435219418}
   m_CullTransparentMesh: 1
+--- !u!114 &7339198763389193411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8435049869435219418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81158b8d6ae464b3c8325e911de192de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Delay: 0
+  ResourceText: {fileID: 2126802551295927512}
+  AccumulatedTime: 0
 --- !u!114 &2126802551295927512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,18 +151,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7339198763389193411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8435049869435219418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81158b8d6ae464b3c8325e911de192de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: 0.25
-  resourceText: {fileID: 2126802551295927512}
-  acc_time: 0
