@@ -6,15 +6,13 @@ using UnityEngine.Serialization;
 
 public class Module : MonoBehaviour
 {
+    static SFXManager SfxManager => GameManager.Instance.SfxManager;
     [SerializeField] int type;
     [SerializeField] TextMeshProUGUI priceText;
     [SerializeField] TextMeshProUGUI levelText;
     public Button button;
     [SerializeField] TextMeshProUGUI annaeText;
     [SerializeField] TextMeshProUGUI descriptionText;
-    AudioSource MusicPlayer => GameManager.Instance.Player.MusicPlayer;
-    [SerializeField] AudioClip sfxUpgrade;
-    [SerializeField] AudioClip sfxFail;
     TextMeshProUGUI CoinText;
     int price;
     int level;
@@ -112,12 +110,12 @@ public class Module : MonoBehaviour
                 module.SetPriceText();
             }
             CoinText.text = $"Coins : {coins}";
-            MusicPlayer.PlayOneShot(sfxUpgrade);
+            SfxManager.PlayUpgrade();
         }
         else
         {
             SetAnnaeText("코인이 부족합니다.", Color.red);
-            MusicPlayer.PlayOneShot(sfxFail);
+            SfxManager.PlayFail();
         }
     }
 }

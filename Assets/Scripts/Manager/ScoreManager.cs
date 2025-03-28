@@ -7,7 +7,6 @@ namespace Starfall.Manager
     {
         public float TotalScore = 0;
         [SerializeField] TextMeshProUGUI scoreText;
-        [SerializeField] AudioSource musicPlayer;
 
         void SetScoreText()
         {

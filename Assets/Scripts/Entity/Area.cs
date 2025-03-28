@@ -9,6 +9,7 @@ namespace Starfall.Entity
     {
         static EffectManager EffectManager => GameManager.Instance.EffectManager;
         static PlayerManager PlayerManager => GameManager.Instance.PlayerManager;
+        static SFXManager SfxManager => GameManager.Instance.SfxManager;
 
         public GameObject Iconimage;
         public Image Durationimage;
@@ -25,7 +26,7 @@ namespace Starfall.Entity
         void OnEnable()
         {
             SetProperty();
-            EffectManager.PlayAreaSound(start : true);
+            SfxManager.PlayAreaSound(start : true);
             Enemies = new List<GameObject>();
             currentTime = 0f;
         }
@@ -104,7 +105,7 @@ namespace Starfall.Entity
                             if(Enemies[i] != null)  Enemies[i].GetComponent<Enemy>().SlowTime = 3f;
                         }
                     }
-                    EffectManager.PlayAreaSound(start : false);
+                    SfxManager.PlayAreaSound(start : false);
                     gameObject.SetActive(false);
                 }
                 else

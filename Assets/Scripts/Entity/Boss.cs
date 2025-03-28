@@ -9,10 +9,10 @@ namespace Starfall.Entity
     public class Boss : MonoBehaviour
     {
         static EffectManager EffectManager => GameManager.Instance.EffectManager;
+        static SFXManager SfxManager => GameManager.Instance.SfxManager;
         static AbilityManager AbilityManager => GameManager.Instance.AbilityManager;
         static PoolManager PoolManager => GameManager.Instance.PoolManager;
         static Player Player => GameManager.Instance.Player;
-        static AudioSource MusicPlayer => EffectManager.MusicPlayer;
         public GameObject GameClearDisplay;
         public bool IsBoss = true;
         public float Maxspeed = 1f;
@@ -22,8 +22,6 @@ namespace Starfall.Entity
         float accumulatedDamage = 0f;
         Vector3 _moveDirection = Vector3.down;
         [SerializeField] TextMeshProUGUI resourceText;
-        [SerializeField] AudioClip sfxHit;
-        [SerializeField] AudioClip sfxCritical;
 
         void Start()
         {
@@ -50,8 +48,7 @@ namespace Starfall.Entity
             resourceText.text = "" + Mathf.CeilToInt(accumulatedDamage);
             if (!mute)
             {
-                if (!critical) MusicPlayer.PlayOneShot(sfxHit);
-                else    MusicPlayer.PlayOneShot(sfxCritical);
+                SfxManager.PlayEnemySound(isCritical: critical);
             }
             return false;
         }

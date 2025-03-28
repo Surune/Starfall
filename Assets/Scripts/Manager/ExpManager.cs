@@ -6,13 +6,12 @@ namespace Starfall.Manager
 {
     public class ExpManager : MonoBehaviour
     {
+        static SFXManager sfx => GameManager.Instance.SfxManager;
         public int Coins;
         public float ExpCurrent = 0;
         public int ExpMax = 10;
         [SerializeField] TextMeshProUGUI resourceText;
         [SerializeField] AudioSource musicPlayer;
-        [SerializeField] AudioClip sfxBonus;
-        [SerializeField] AudioClip sfxExp;
         [SerializeField] GameObject choicePrefab;
         [HideInInspector] public bool Hextech = false;
 
@@ -44,7 +43,7 @@ namespace Starfall.Manager
             }
             else
             {
-                musicPlayer.PlayOneShot(sfxExp);
+                sfx.PlayExp();
             }
             SetText();
         }
@@ -55,7 +54,7 @@ namespace Starfall.Manager
             ExpCurrent -= ExpMax;
             ExpMax += 5;
             Instantiate(choicePrefab, Vector3.zero, Quaternion.identity);
-            musicPlayer.PlayOneShot(sfxBonus);
+            sfx.PlayBonus();
             Coins += 5;
             SetText();
         }

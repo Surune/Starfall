@@ -11,6 +11,7 @@ namespace Starfall.Manager
         public GameStateManager GameStateManager;
         public SoundManager SoundManager;
         public EffectManager EffectManager;
+        public SFXManager SfxManager;
         public PoolManager PoolManager;
         public PlayerManager PlayerManager;
         public AbilityManager AbilityManager;

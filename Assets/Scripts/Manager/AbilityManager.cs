@@ -14,6 +14,7 @@ namespace Starfall.Manager
         HPManager hp => GameManager.Instance.HPManager;
         Spawner spawner => GameManager.Instance.Spawner;
         ExpManager exp => GameManager.Instance.ExpManager;
+        SFXManager sfx => GameManager.Instance.SfxManager;
         PlayerManager playerManager => GameManager.Instance.PlayerManager;
         Timer timer => GameManager.Instance.Timer;
 
@@ -56,8 +57,6 @@ namespace Starfall.Manager
         [SerializeField] GameObject abilityPrefab;
         [SerializeField] string abilityCSVFileName;
         [SerializeField] GameObject content;
-        [SerializeField] AudioSource musicPlayer;
-        [SerializeField] AudioClip sfxSynergy;
 
         void Start()
         {
@@ -76,7 +75,7 @@ namespace Starfall.Manager
                 return;
             }
 
-            musicPlayer.PlayOneShot(sfxSynergy);
+            sfx.PlaySynergy();
             switch (synergyType)
             {
                 case 1:

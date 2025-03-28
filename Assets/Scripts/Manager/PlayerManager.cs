@@ -12,6 +12,7 @@ namespace Starfall.Manager
         Player player => GameManager.Instance.Player;
         HPManager hp => GameManager.Instance.HPManager;
         EffectManager effect => GameManager.Instance.EffectManager;
+        SFXManager SfxManager => GameManager.Instance.SfxManager;
         ExpManager exp => GameManager.Instance.ExpManager;
         AbilityManager ability => GameManager.Instance.AbilityManager;
         Spawner spawner => GameManager.Instance.Spawner;
@@ -85,7 +86,7 @@ namespace Starfall.Manager
 
         public void DamageAllEnemy(float dmg)
         {
-            effect.PlayEnemySound(isCritical : false, isKilled : false);
+            SfxManager.PlayEnemySound(isCritical : false, isKilled : false);
             foreach (Transform t in GameManager.GetAllChilds(EnemyList.transform))
             {
                 if (t.gameObject.CompareTag("Enemy"))

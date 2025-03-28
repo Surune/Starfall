@@ -9,6 +9,7 @@ namespace Starfall.Entity
         static HPManager HpManager => GameManager.Instance.HPManager;
         static PlayerManager PlayerManager => GameManager.Instance.PlayerManager;
         static EffectManager EffectManager => GameManager.Instance.EffectManager;
+        static SFXManager SfxManager => GameManager.Instance.SfxManager;
         public SpriteRenderer Sprite;
         public Sprite[] ItemSprites;
         public ItemType Type = 0;
@@ -38,23 +39,23 @@ namespace Starfall.Entity
                         PlayerManager.DamageAllEnemy(PlayerManager.damage * PlayerManager.damageCoefficient + PlayerManager.fixDamage);
                         break;
                 }
-                if(PlayerManager.repair)
+                if (PlayerManager.repair)
                 {
                     HpManager.ChangeHP(10);
                 }
-                if(PlayerManager.jera)
+                if (PlayerManager.jera)
                 {
                     PlayerManager.damage += 0.2f;
                 }
-                if(PlayerManager.dagaz)
+                if (PlayerManager.dagaz)
                 {
                     HpManager.GetBarrier(1);
                 }
-                if(PlayerManager.reinforce)
+                if (PlayerManager.reinforce)
                 {
                     PlayerManager.criticalProb += 0.1f;
                 }
-                EffectManager.PlayItemSound();
+                SfxManager.PlayItemSound();
                 gameObject.SetActive(false);
             }
         }

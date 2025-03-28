@@ -1109,8 +1109,6 @@ MonoBehaviour:
   MaxHP: 0
   GameOverDisplay: {fileID: 2416823381450539026, guid: 08389ba2d053d484da07f1f5ee067ac4,
     type: 3}
-  SfxHit: {fileID: 8300000, guid: d5c91d0a36d0f7e44b0de8ec82bb1708, type: 3}
-  SfxBarrier: {fileID: 8300000, guid: 9256433073f2d4524abb85981eb77b8c, type: 3}
   _barrierText: {fileID: 2224814347470038104}
   Barrier: 0
   Meatshield: 0
@@ -1654,7 +1652,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalScore: 0
   scoreText: {fileID: 843723513}
-  musicPlayer: {fileID: 843723511}
 --- !u!114 &843723513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2318,8 +2315,6 @@ MonoBehaviour:
   ExpMax: 10
   resourceText: {fileID: 1686277752}
   musicPlayer: {fileID: 1686277754}
-  sfxBonus: {fileID: 8300000, guid: 1035940f3e4d24ef18ac18f30f738ac7, type: 3}
-  sfxExp: {fileID: 8300000, guid: 640883152c6294d47b72eb0999df5193, type: 3}
   choicePrefab: {fileID: 3548057871866741776, guid: 78de2513facd344e1809abcd7093a101,
     type: 3}
   Hextech: 0
@@ -2835,6 +2830,7 @@ GameObject:
   - component: {fileID: 1848563852}
   - component: {fileID: 1848563855}
   - component: {fileID: 1848563856}
+  - component: {fileID: 1848563858}
   m_Layer: 3
   m_Name: Effects
   m_TagString: Effect
@@ -2993,13 +2989,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Exp: {fileID: 8780054885968118663, guid: 91b51a5ad0e1742f097d087970ebbf39, type: 3}
-  MusicPlayer: {fileID: 1848563855}
+--- !u!114 &1848563858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848563851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9760d6deec954a2b8416739ecdfa9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 1848563855}
   sfxEnemyHit: {fileID: 8300000, guid: d5c91d0a36d0f7e44b0de8ec82bb1708, type: 3}
   sfxEnemyCritical: {fileID: 8300000, guid: a827d56a1c759a44b8e9848d0667c702, type: 3}
   sfxEnemyKilled: {fileID: 8300000, guid: 523a4bf1a56bb4c728e08b9c9197d5e3, type: 3}
   sfxAreaStart: {fileID: 8300000, guid: 4e3ba739aa768444fb4d92f0ee82f441, type: 3}
   sfxAreaEnd: {fileID: 8300000, guid: 12ffbea3c1bdc493ea00381ca54efef1, type: 3}
   sfxItem: {fileID: 8300000, guid: 8fc919dda459b4519bf4198d2bf2b1c7, type: 3}
+  sfxSynergy: {fileID: 8300000, guid: 474e9b74904aa44f08e385b57c93edd2, type: 3}
+  sfxBonus: {fileID: 8300000, guid: 1035940f3e4d24ef18ac18f30f738ac7, type: 3}
+  sfxExp: {fileID: 8300000, guid: 640883152c6294d47b72eb0999df5193, type: 3}
+  sfxShoot: {fileID: 8300000, guid: 129a395714ce5be44936a3215a8a0dc0, type: 3}
+  sfxUpgrade: {fileID: 8300000, guid: 1035940f3e4d24ef18ac18f30f738ac7, type: 3}
+  sfxFail: {fileID: 8300000, guid: 16b879c2ee864bb43b7a92db6641ffaa, type: 3}
+  sfxPurchase: {fileID: 8300000, guid: 1035940f3e4d24ef18ac18f30f738ac7, type: 3}
+  sfxSelect: {fileID: 8300000, guid: 77dc52b4b7ba341f7916e098d5ba3f59, type: 3}
+  sfxBarrier: {fileID: 8300000, guid: 9256433073f2d4524abb85981eb77b8c, type: 3}
+  sfxHit: {fileID: 8300000, guid: d5c91d0a36d0f7e44b0de8ec82bb1708, type: 3}
 --- !u!1 &1875896769
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,6 +3113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundManager: {fileID: 2072019955}
   EffectManager: {fileID: 1848563856}
+  SfxManager: {fileID: 1848563858}
   PoolManager: {fileID: 1399615634}
   PlayerManager: {fileID: 6067767659313916453}
   AbilityManager: {fileID: 7706429923122834924}
@@ -3603,12 +3622,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Barrier: {fileID: 321157554437509704}
-  MusicPlayer: {fileID: 4702295498612032044}
   SkillCooltimeMax: 0.3
   Speed: 1
   Reloading: 0
-  sfxPlayerHit: {fileID: 8300000, guid: d5c91d0a36d0f7e44b0de8ec82bb1708, type: 3}
-  sfxShoot: {fileID: 8300000, guid: 129a395714ce5be44936a3215a8a0dc0, type: 3}
   KillNum: 0
 --- !u!114 &114644722811448998
 MonoBehaviour:
@@ -4362,8 +4378,6 @@ MonoBehaviour:
     type: 3}
   abilityCSVFileName: new_abilities
   content: {fileID: 3358611857695525003}
-  musicPlayer: {fileID: 7706429923122834925}
-  sfxSynergy: {fileID: 8300000, guid: 474e9b74904aa44f08e385b57c93edd2, type: 3}
 --- !u!82 &7706429923122834925
 AudioSource:
   m_ObjectHideFlags: 0

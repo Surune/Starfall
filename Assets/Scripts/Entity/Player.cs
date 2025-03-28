@@ -11,17 +11,13 @@ namespace Starfall.Entity
         static PlayerManager PlayerManager => GameManager.Instance.PlayerManager;
         static PoolManager PoolManager => GameManager.Instance.PoolManager;
         static GameObject EnemyList => GameManager.Instance.Spawner.EnemyList;
+        static SFXManager Sfx => GameManager.Instance.SfxManager;
 
         public GameObject Barrier;
-        public AudioSource MusicPlayer;
         public float SkillCooltimeMax;
+        readonly float minDelay = 0.0005f;
         public float Speed = 1f;
         [HideInInspector] public bool Reloading;
-
-        readonly float minDelay = 0.0005f;
-        [SerializeField] AudioClip sfxPlayerHit;
-        [SerializeField] AudioClip sfxShoot;
-
         [HideInInspector] public int KillNum = 0;
 
         void Awake()
@@ -61,7 +57,7 @@ namespace Starfall.Entity
                 return;
             }
 
-            MusicPlayer.PlayOneShot(sfxShoot);
+            Sfx.PlayShoot();
             if (AbilityManager.awaken || AbilityManager.fracture)
             {
                 var fireball_l = PoolManager.Get(PoolNumber.Fireball);

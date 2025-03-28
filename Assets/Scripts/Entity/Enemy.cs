@@ -12,6 +12,7 @@ namespace Starfall.Entity
         static ScoreManager ScoreManager => GameManager.Instance.ScoreManager;
         static ExpManager ExpManager => GameManager.Instance.ExpManager;
         static EffectManager EffectManager => GameManager.Instance.EffectManager;
+        static SFXManager SfxManager => GameManager.Instance.SfxManager;
         static PlayerManager PlayerManager => GameManager.Instance.PlayerManager;
         static AbilityManager AbilityManager => GameManager.Instance.AbilityManager;
         static GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
@@ -123,11 +124,11 @@ namespace Starfall.Entity
             {
                 if (critical)
                 {
-                    EffectManager.PlayEnemySound(isCritical : true);
+                    SfxManager.PlayEnemySound(isCritical : true);
                 }
                 else
                 {
-                    EffectManager.PlayEnemySound();
+                    SfxManager.PlayEnemySound();
                 }
             }
             if (dead && AbilityManager.noxious)
@@ -202,10 +203,9 @@ namespace Starfall.Entity
                 var effect = PoolManager.Get(PoolNumber.DamageEffect);
                 effect.transform.position = transform.position;
                 effect.transform.localScale = transform.localScale;
-                /*
-                var p = effectManager.GetComponent<ParticleSystem>().main;
+
+                var p = EffectManager.GetComponent<ParticleSystem>().main;
                 p.startColor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
-                */
 
                 EffectManager.Exp.ExpAmount = ExpAmount;
                 if (fatal == true && AbilityManager.firm)

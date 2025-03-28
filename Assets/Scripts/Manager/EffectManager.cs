@@ -10,13 +10,6 @@ namespace Starfall.Manager
         PoolManager pool => GameManager.Instance.PoolManager;
 
         public Exp Exp;
-        public AudioSource MusicPlayer;
-        [SerializeField] AudioClip sfxEnemyHit;
-        [SerializeField] AudioClip sfxEnemyCritical;
-        [SerializeField] AudioClip sfxEnemyKilled;
-        [SerializeField] AudioClip sfxAreaStart;
-        [SerializeField] AudioClip sfxAreaEnd;
-        [SerializeField] AudioClip sfxItem;
 
         public void SetDamageEffect(Vector3 pos, float dmg, bool isCritical = false, bool isFatal = false, bool isHeal = false)
         {
@@ -48,39 +41,6 @@ namespace Starfall.Manager
             effect.AccumulatedTime = 0f;
             effect.ResourceText.text = text;
             effect.ResourceText.color = color;
-        }
-
-        public void PlayEnemySound(bool isCritical = false, bool isKilled = false)
-        {
-            if (isKilled)
-            {
-                MusicPlayer.PlayOneShot(sfxEnemyKilled);
-            }
-            else if (isCritical)
-            {
-                MusicPlayer.PlayOneShot(sfxEnemyCritical);
-            }
-            else
-            {
-                MusicPlayer.PlayOneShot(sfxEnemyHit);
-            }
-        }
-
-        public void PlayAreaSound(bool start)
-        {
-            if (start)
-            {
-                MusicPlayer.PlayOneShot(sfxAreaStart);
-            }
-            else
-            {
-                MusicPlayer.PlayOneShot(sfxAreaEnd);
-            }
-        }
-
-        public void PlayItemSound()
-        {
-            MusicPlayer.PlayOneShot(sfxItem);
         }
     }
 }

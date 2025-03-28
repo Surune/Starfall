@@ -10,15 +10,13 @@ namespace Starfall.Manager
     {
         PlayerManager PlayerManager =>  GameManager.Instance.PlayerManager;
         GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
+        SFXManager SfxManager => GameManager.Instance.SfxManager;
         Player Player => GameManager.Instance.Player;
 
         Slider _healthSlider;
-        AudioSource MusicPlayer => Player.MusicPlayer;
         public float CurrentHP;
         public float MaxHP;
         public GameObject GameOverDisplay;
-        public AudioClip SfxHit;
-        public AudioClip SfxBarrier;
         [SerializeField] TextMeshProUGUI _barrierText;
         public int Barrier = 0;
         [HideInInspector] public bool Meatshield = false;
@@ -108,7 +106,7 @@ namespace Starfall.Manager
                         GameManager.Instance.Spawner.SpawnItem();
                     }
                     delta = 0;
-                    MusicPlayer.PlayOneShot(SfxBarrier);
+                    SfxManager.PlayBarrier();
                 }
                 else
                 {
@@ -124,7 +122,8 @@ namespace Starfall.Manager
                     {
                         PlayerManager.DamageAllEnemy(-delta);
                     }
-                    MusicPlayer.PlayOneShot(SfxHit);
+
+                    SfxManager.PlayHit();
                     if (Lethal)
                     {
                         CurrentHP = 0;
