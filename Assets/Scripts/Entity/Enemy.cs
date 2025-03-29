@@ -204,9 +204,6 @@ namespace Starfall.Entity
                 effect.transform.position = transform.position;
                 effect.transform.localScale = transform.localScale;
 
-                var p = EffectManager.GetComponent<ParticleSystem>().main;
-                p.startColor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
-
                 EffectManager.Exp.ExpAmount = ExpAmount;
                 if (fatal == true && AbilityManager.firm)
                 {
