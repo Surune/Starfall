@@ -8,9 +8,17 @@ namespace Starfall.Effect
     {
         static GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
 
-        public float Delay;
-        public TextMeshProUGUI ResourceText;
-        public float AccumulatedTime;
+        [SerializeField] TextMeshProUGUI ResourceText;
+        float AccumulatedTime;
+		float Delay;
+
+        public void SetEffectText(string text, Color color)
+        {
+			Delay = 0.25f;
+            AccumulatedTime = 0f;
+            ResourceText.text = text;
+            ResourceText.color = color;
+        }
 
         void Update()
         {
