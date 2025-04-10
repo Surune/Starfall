@@ -20,57 +20,12 @@ namespace Starfall.Manager
         public int HighestLevel;
         public GameObject Nerftext;
         public Transform Content;
-        public bool Hardmode;
 
         void Start()
         {
             NerfLevel = PlayerPrefs.GetInt("currentLevel", 0);
             HighestLevel = PlayerPrefs.GetInt("highestLevel", 0);
-            Hardmode = System.Convert.ToBoolean(PlayerPrefs.GetInt("hardMode", 0));
-
-            if (Hardmode)
-            {
-                GameManager.Instance.CoinCoefficient += 0.5f;
-                Choice.Hardmode = true;
-                StartCoroutine(SetHardmode());
-            }
-            else
-            {
-                Choice.Hardmode = false;
-            }
-
             SetSupernova();
-        }
-
-        IEnumerator SetHardmode()
-        {
-            GameObject choice = GameObject.Find("Choice(Clone)");
-            if (choice != null)
-            {
-                yield return new WaitUntil(() => choice == null);
-            }
-
-            if (Hardmode)
-            {
-                int r = Random.Range(0, ConstantStore.HARDMODE_TEXT_LIST.Length);
-                GameObject obj = Instantiate(Nerftext, Content);
-                switch(r) {
-                    case 0:
-                        spawner.MeteorCoefficient *= 1.25f;
-                        break;
-                    case 1:
-                        spawner.SpeedCoefficient += 0.2f;
-                        break;
-                    case 2:
-                        spawner.AddHP += 2f;
-                        break;
-                    case 3:
-                        timer.Addition -= 1;
-                        break;
-                }
-                obj.transform.GetComponent<TextMeshProUGUI>().text = $"- 별의 시련 -\n\n{ConstantStore.HARDMODE_TEXT_LIST[r]}";
-                obj.GetComponent<Tween>().DoTween();
-            }
         }
 
         void SetSupernova()

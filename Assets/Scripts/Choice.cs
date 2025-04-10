@@ -15,7 +15,6 @@ public class Choice : MonoBehaviour
     static EffectManager EffectManager => GameManager.Instance.EffectManager;
     static GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
 
-    public static bool Hardmode = false;
     static List<int> SelectedNumbers => GameManager.Instance.AbilityNumbers;
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject refreshButton;
@@ -34,8 +33,6 @@ public class Choice : MonoBehaviour
 
         SetRefreshText();
         SetChoicenum();
-
-        buttons[3].gameObject.SetActive(Hardmode);
 
         info.text = "현재까지 처치한 적 " + Player.KillNum
                     + "\n공격력 " + PlayerManager.damage + " / 공격력 계수 " + PlayerManager.damageCoefficient
