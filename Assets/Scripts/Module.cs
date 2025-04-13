@@ -10,15 +10,14 @@ public class Module : MonoBehaviour
     [SerializeField] int type;
     [SerializeField] TextMeshProUGUI priceText;
     [SerializeField] TextMeshProUGUI levelText;
-    public Button button;
-    [SerializeField] TextMeshProUGUI annaeText;
     [SerializeField] TextMeshProUGUI descriptionText;
+    public Button button;
     TextMeshProUGUI CoinText;
     int price;
     int level;
 
     static readonly string[] ModuleTextList = {"공격력\n", "치명타 확률\n", "치명타 대미지\n", "새로고침\n", "시작 경험치\n", "코인 획득량\n", "적 체력\n", "적 속도\n"};
-    static readonly int[] MaxLevelList = {50, 50, 50, 5, 10, 50, 20, 20};
+    static readonly int[] MaxLevelList = {100, 100, 100, 3, 10, 50, 20, 20};
     static readonly int[] PriceList = {10, 10, 10, 100, 30, 20, 25, 25};
 
     void Start()
@@ -28,13 +27,12 @@ public class Module : MonoBehaviour
         SetLevelText();
         SetPriceText();
         SetDescriptionText();
-        SetAnnaeText("", new Color(1.0f, 0.0f, 0.0f, 1.0f));
         button.onClick.AddListener(UpgradeModule);
     }
 
     public void SetLevelText()
     {
-        levelText.text = $"LV. {level} / {MaxLevelList[type-1]}";
+        levelText.text = $"LV. {level}/{MaxLevelList[type-1]}";
     }
 
     public void SetPriceText()
@@ -59,12 +57,6 @@ public class Module : MonoBehaviour
                 button.interactable = true;
             }
         }
-    }
-
-    public void SetAnnaeText(string s, Color c)
-    {
-        annaeText.color = c;
-        annaeText.text = s;
     }
 
     public void SetDescriptionText()
@@ -103,7 +95,6 @@ public class Module : MonoBehaviour
             SetLevelText();
             SetPriceText();
             SetDescriptionText();
-            SetAnnaeText("업그레이드 완료", Color.green);
 
             foreach (Module module in FindObjectsOfType<Module>())
             {
@@ -114,7 +105,6 @@ public class Module : MonoBehaviour
         }
         else
         {
-            SetAnnaeText("코인이 부족합니다.", Color.red);
             SfxManager.PlayFail();
         }
     }
