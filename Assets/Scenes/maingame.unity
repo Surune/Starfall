@@ -3007,7 +3007,6 @@ GameObject:
   - component: {fileID: 2072019953}
   - component: {fileID: 2072019951}
   - component: {fileID: 2072019954}
-  - component: {fileID: 2072019955}
   - component: {fileID: 2072019957}
   - component: {fileID: 2072019956}
   m_Layer: 0
@@ -3029,7 +3028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbcb0e4e866f243798154d11d2439244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundManager: {fileID: 2072019955}
   EffectManager: {fileID: 1848563856}
   SfxManager: {fileID: 1848563858}
   PoolManager: {fileID: 2072019956}
@@ -3159,19 +3157,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2072019955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072019949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b595d4c7f6764596853e81176336ffa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _soundToggleButton: {fileID: 0}
 --- !u!114 &2072019956
 MonoBehaviour:
   m_ObjectHideFlags: 0

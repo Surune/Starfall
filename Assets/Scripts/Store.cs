@@ -9,7 +9,6 @@ public class Store : MonoBehaviour
 
     void Start()
     {
-        GameManager.Instance.SoundManager.ApplyMute();
         Coins = PlayerPrefs.GetInt("TotalCoin");
         ResourceText = GameObject.Find("Coin").GetComponent<TextMeshProUGUI>();
         SetText();

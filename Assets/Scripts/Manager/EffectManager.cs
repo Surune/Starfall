@@ -9,8 +9,6 @@ namespace Starfall.Manager
     {
         PoolManager pool => GameManager.Instance.PoolManager;
 
-        public Exp Exp;
-
         public void SetDamageEffect(Vector3 pos, float dmg, bool isCritical = false, bool isFatal = false, bool isHeal = false)
         {
             var myVector = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);

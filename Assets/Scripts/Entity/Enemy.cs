@@ -204,14 +204,13 @@ namespace Starfall.Entity
                 effect.transform.position = transform.position;
                 effect.transform.localScale = transform.localScale;
 
-                EffectManager.Exp.ExpAmount = ExpAmount;
                 if (fatal == true && AbilityManager.firm)
                 {
-                    EffectManager.Exp.ExpAmount += 1;
+                    ExpAmount += 1;
                 }
                 if (AbilityManager.burning && type == EnemyType.Red)
                 {
-                    EffectManager.Exp.ExpAmount += 1;
+                    ExpAmount += 1;
                 }
 
                 if (AbilityManager.echo)
@@ -228,6 +227,7 @@ namespace Starfall.Entity
                 }
 
                 //effect.PlayEnemySound(isKilled : true);
+				ExpManager.GetExp(ExpAmount);
                 ScoreManager.GetScore(ExpAmount);
                 if (Random.Range(0, 100) < ItemProb)
                 {

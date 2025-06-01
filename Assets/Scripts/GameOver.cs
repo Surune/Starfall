@@ -9,7 +9,6 @@ public class GameOver : MonoBehaviour
 
     void Start()
     {
-        GameManager.Instance.SoundManager.gameObject.GetComponent<AudioSource>().PlayOneShot(sfxEmerge);
         string text = $"Now Score : {PlayerPrefs.GetInt("NowScore")}";
         text += $"\n\nHigh Score : {PlayerPrefs.GetInt("HighScore")}";
         text += $"\n\nCoins : {PlayerPrefs.GetInt("TotalCoin")} (+{PlayerPrefs.GetInt("Coin")})";

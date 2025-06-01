@@ -9,7 +9,6 @@ namespace Starfall.Manager
     {
         public static GameManager Instance;
         public GameStateManager GameStateManager;
-        public SoundManager SoundManager;
         public EffectManager EffectManager;
         public SFXManager SfxManager;
         public PoolManager PoolManager;
@@ -51,8 +50,7 @@ namespace Starfall.Manager
             // 모듈 7 : 적 체력 -0.05
             Spawner.AddHP -= PlayerPrefs.GetInt("module_7") * 0.05f;
             // 모듈 8 : 적 속도 -0.5%
-            Spawner.SpeedCoefficient -= PlayerPrefs.GetInt("module_8", 0) * 0.005f ;
-            SoundManager.ApplyMute();
+            Spawner.SpeedCoefficient -= PlayerPrefs.GetInt("module_8", 0) * 0.005f;
         }
 
         public static Transform FindClosestTransform(List<Transform> t_list, Vector3 pos)
