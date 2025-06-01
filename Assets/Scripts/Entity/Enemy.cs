@@ -27,7 +27,7 @@ namespace Starfall.Entity
         public float CurrentHP = 2f;
         [HideInInspector] public int ExpAmount = 0;
         [HideInInspector] public bool MakeMeteor = false;
-        public static float DamageCoefficient = 1f;    //damage coefficient
+        public static float DamageCoefficient = 1f;
         public static float ItemProb = 3f;
 
         static readonly float[] BaseHPList = {0f, 1f, 1f, 1f, 1f, 1f, 1f};
