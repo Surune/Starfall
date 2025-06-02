@@ -2589,7 +2589,7 @@ MonoBehaviour:
   - {fileID: 1320525849}
   - {fileID: 642390536}
   - {fileID: 1848563854}
-  - {fileID: 1848563854}
+  - {fileID: 642390536}
 --- !u!114 &2072019957
 MonoBehaviour:
   m_ObjectHideFlags: 0

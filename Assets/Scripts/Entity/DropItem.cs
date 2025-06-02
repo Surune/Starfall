@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Starfall.Manager;
 using Starfall.Constants;
 
@@ -10,14 +11,14 @@ namespace Starfall.Entity
         static PlayerManager PlayerManager => GameManager.Instance.PlayerManager;
         static EffectManager EffectManager => GameManager.Instance.EffectManager;
         static SFXManager SfxManager => GameManager.Instance.SfxManager;
-        public SpriteRenderer Sprite;
+        public Image Image;
         public Sprite[] ItemSprites;
         public ItemType Type = 0;
-        
+
         public void SetType(ItemType n)
         {
             Type = n;
-            Sprite.sprite = ItemSprites[(int)n];
+            Image.sprite = ItemSprites[(int)n];
         }
 
         void OnTriggerEnter2D(Collider2D other)
