@@ -8,7 +8,8 @@ namespace Starfall.Manager
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
-        public GameStateManager GameStateManager;
+        public GameStateManager GameStateManager = new ();
+        public BackendManager BackendManager;
         public EffectManager EffectManager;
         public SFXManager SfxManager;
         public PoolManager PoolManager;
@@ -19,7 +20,6 @@ namespace Starfall.Manager
         public Timer Timer;
         public ExpManager ExpManager;
         public ScoreManager ScoreManager;
-        public BackendManager BackendManager;
         public Spawner Spawner;
         public HPManager HPManager;
 
@@ -33,8 +33,7 @@ namespace Starfall.Manager
         void Awake()
         {
             Instance = this;
-            BackendManager = new();
-            GameStateManager = new();
+            BackendManager = new BackendManager();
 
             // 업그레이드 적용
             // 모듈 1 : 공격력 +0.02

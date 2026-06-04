@@ -21,6 +21,7 @@ namespace Starfall.Manager
         public List<Dictionary<string, object>> AbilityList;
         public Sprite[] AbilitySprites;
         public List<GameObject> Abilities;
+        public int AbilityCount => AbilityList.Count;
         int abilityCount;
 
         [HideInInspector] public int[] Synergy;
@@ -420,9 +421,9 @@ namespace Starfall.Manager
                     playerManager.reinforce = true;
                     break;
                 case 82: //resonance
-                    Choiced((int)Random.Range(0, AbilitySprites.Length));
-                    Choiced((int)Random.Range(0, AbilitySprites.Length));
-                    Choiced((int)Random.Range(0, AbilitySprites.Length));
+                    Choiced(Random.Range(0, AbilityCount));
+                    Choiced(Random.Range(0, AbilityCount));
+                    Choiced(Random.Range(0, AbilityCount));
                     return;
                 case 83: //rogue
                     player.ChangeSkillCool(player.SkillCooltimeMax * 0.85f);

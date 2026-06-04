@@ -18,7 +18,7 @@ public class Choice : MonoBehaviour
     static List<int> SelectedNumbers => GameManager.Instance.AbilityNumbers;
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject refreshButton;
-    [SerializeField] TextMeshProUGUI info;
+    [SerializeField] TMP_Text info;
     [SerializeField] ChoiceButton[] buttons;
     [SerializeField] int[] btnnums;
     [SerializeField] AudioClip sfxRefresh;
@@ -47,7 +47,7 @@ public class Choice : MonoBehaviour
         {
             while (true)
             {
-                btnnums[i] = Random.Range(0, AbilityManager.AbilitySprites.Length);
+                btnnums[i] = Random.Range(0, AbilityManager.AbilityCount);
                 var isSame = SelectedNumbers.Contains(btnnums[i]);
 
                 for (var j = 0; j < i; j++)
@@ -85,7 +85,7 @@ public class Choice : MonoBehaviour
 
     void SetRefreshText()
     {
-        refreshButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "새로고침 (" + PlayerManager.refresh + "회 남음)";
+        refreshButton.transform.GetChild(0).GetComponent<TMP_Text>().text = $"새로고침 {PlayerManager.refresh}회 남음)";
         if (PlayerManager.refresh <= 0)
         {
             refreshButton.GetComponent<Button>().interactable = false;
