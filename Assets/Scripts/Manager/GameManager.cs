@@ -9,7 +9,6 @@ namespace Starfall.Manager
     {
         public static GameManager Instance;
         public GameStateManager GameStateManager = new ();
-        public BackendManager BackendManager;
         public EffectManager EffectManager;
         public SFXManager SfxManager;
         public PoolManager PoolManager;
@@ -33,7 +32,6 @@ namespace Starfall.Manager
         void Awake()
         {
             Instance = this;
-            BackendManager = new BackendManager();
 
             // 업그레이드 적용
             // 모듈 1 : 공격력 +0.02
@@ -77,7 +75,6 @@ namespace Starfall.Manager
         {
             GetComponent<AudioSource>().Pause();
             GetCoin(0);
-            BackendManager.UploadGameData(false);
         }
 
         public void GameClear(int coin)
@@ -85,7 +82,6 @@ namespace Starfall.Manager
             GetComponent<AudioSource>().Pause();
             NerfManager.Cleared();
             GetCoin(coin);
-            BackendManager.UploadGameData(true);
         }
 
         void GetCoin(int bonus)
