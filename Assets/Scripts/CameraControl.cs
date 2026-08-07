@@ -24,7 +24,7 @@ public class CameraControl : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, _playerPosition, OffsetSmoothing * Time.deltaTime);
 
-        if (Mathf.Abs(Player.GetComponent<Rigidbody2D>().velocity.x) > 0f)
+        if (Mathf.Abs(Player.GetComponent<Rigidbody2D>().linearVelocity.x) > 0f)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1f, 1f, 1f), OffsetSmoothing * Time.deltaTime);
             Camera.main.orthographicSize = Sizewhilemovement*transform.localScale.x;
@@ -37,7 +37,7 @@ public class CameraControl : MonoBehaviour
 
     void SizeUpCamera()
     {
-        if (Mathf.Abs(Player.GetComponent<Rigidbody2D>().velocity.x) < 0.1f)
+        if (Mathf.Abs(Player.GetComponent<Rigidbody2D>().linearVelocity.x) < 0.1f)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(Sizebeforemovement / Sizewhilemovement, Sizebeforemovement / Sizewhilemovement, 1f), OffsetSmoothing * Time.deltaTime);
             Camera.main.orthographicSize = Sizewhilemovement * transform.localScale.x;
