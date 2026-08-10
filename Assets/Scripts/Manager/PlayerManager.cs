@@ -11,14 +11,11 @@ namespace Starfall.Manager
     {
         Player player => GameManager.Instance.Player;
         HPManager hp => GameManager.Instance.HPManager;
-        EffectManager effect => GameManager.Instance.EffectManager;
         SFXManager SfxManager => GameManager.Instance.SfxManager;
         ExpManager exp => GameManager.Instance.ExpManager;
         AbilityManager ability => GameManager.Instance.AbilityManager;
-        Spawner spawner => GameManager.Instance.Spawner;
 
         static GameObject EnemyList => GameManager.Instance.Spawner.EnemyList;
-        public SpriteRenderer spr;
         public int refresh = 0;
         public float fixDamage = 0f;
         public float damage = 1f;
@@ -51,29 +48,23 @@ namespace Starfall.Manager
             switch (currentPlayer)
             {
                 case 1:
-                    spr.color = Color.white;
                     exp.Coins = -5;
                     exp.ExpCurrent = exp.ExpMax;
                     exp.LevelUp();
                     break;
                 case 2:
-                    spr.color = spawner.ColorList[0];
                     criticalProb += 0.2f;
                     break;
                 case 3:
-                    spr.color = spawner.ColorList[2];
                     player.ChangeSkillCool(player.SkillCooltimeMax * 0.8f);
                     break;
                 case 4:
-                    spr.color = spawner.ColorList[3];
                     hp.GetBarrier(5);
                     break;
                 case 5:
-                    spr.color = spawner.ColorList[4];
                     damage += 1f;
                     break;
                 case 6:
-                    spr.color = spawner.ColorList[6];
                     GameManager.Instance.CoinCoefficient += 0.5f;
                     break;
             }
@@ -122,17 +113,11 @@ namespace Starfall.Manager
             {
                 fireball.IsCritical = true;
             }
-            float rand = Random.value;
-            if (rand <= fatalProb)
-            {
-                fireball.IsFatal = true;
-            }
-            else
-            {
-                fireball.IsFatal = false;
-            }
 
+            var rand = Random.value;
+            fireball.IsFatal = rand <= fatalProb;
             fireball.Damage = damage;
+
             if (rand <= criticalProb || (ability.luckySeven && shotnum % 7 == 0))
             {
                 MakeCritical(fireball);

@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Starfall.Manager;
 using Starfall.Constants;
-using UnityEngine.Serialization;
+using UnityEngine.InputSystem;
 
 namespace Starfall.Entity
 {
@@ -15,19 +16,33 @@ namespace Starfall.Entity
 
         public GameObject Barrier;
         public float SkillCooltimeMax;
-        readonly float minDelay = 0.0005f;
-        public float Speed = 1f;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private List<Sprite> sprites;
+        [SerializeField] private float speed = 3f;
+        [SerializeField] private InputActionReference move;
         [HideInInspector] public bool Reloading;
         [HideInInspector] public int KillNum = 0;
 
-        void Awake()
+        const float MinDelay = 0.0005f;
+
+        private void Awake()
         {
             InvokeRepeating(nameof(Shoot), 0f, SkillCooltimeMax);
         }
 
+        private void Update()
+        {
+            var moveDir = (Vector3)move.action.ReadValue<Vector2>();
+            transform.position += moveDir * (Time.deltaTime * speed);
+        }
+
         public void ChangeSkillCool(float newcooltime)
         {
-            if (newcooltime <= minDelay) newcooltime = minDelay;
+            if (newcooltime <= MinDelay)
+            {
+                newcooltime = MinDelay;
+            }
+
             SkillCooltimeMax = newcooltime;
             CancelInvoke(nameof(Shoot));
             InvokeRepeating(nameof(Shoot), 0f, SkillCooltimeMax);
@@ -35,8 +50,8 @@ namespace Starfall.Entity
 
         public void Magnetism(Transform center)
         {
-            float minDist = 1.5f;
-            foreach (Transform t in GameManager.GetAllChilds(EnemyList.transform))
+            var minDist = 1.5f;
+            foreach (var t in GameManager.GetAllChilds(EnemyList.transform))
             {
                 if (t == center)
                 {
@@ -83,10 +98,10 @@ namespace Starfall.Entity
 
         public void Explode(Transform center, float coeff = 1f)
         {
-            for (int i = -2; i <= 2; i++)
+            for (var i = -2; i <= 2; i++)
             {
                 var fireball = PoolManager.Get(PoolNumber.Fireball);
-                fireball.transform.rotation = Quaternion.Euler(0, 0, 360/8*i);
+                fireball.transform.rotation = Quaternion.Euler(0, 0, 45 * i);
                 fireball.GetComponent<Fireball>().Damage = PlayerManager.damage * PlayerManager.damageCoefficient * coeff;
                 PlayerManager.SetFireInfo(fireball.GetComponent<Fireball>());
                 fireball.transform.position = center.position;
@@ -95,7 +110,7 @@ namespace Starfall.Entity
 
         public void Echoshot(int shotnum)
         {
-            for (int i = 0; i < shotnum; i++)
+            for (var i = 0; i < shotnum; i++)
             {
                 Invoke(nameof(Shoot), 0.1f * i);
             }

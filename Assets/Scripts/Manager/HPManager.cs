@@ -17,7 +17,7 @@ namespace Starfall.Manager
         public float CurrentHP;
         public float MaxHP;
         public GameObject GameOverDisplay;
-        [SerializeField] TextMeshProUGUI _barrierText;
+        [SerializeField] private TMP_Text barrierCount;
         public int Barrier = 0;
         [HideInInspector] public bool Meatshield = false;
         [HideInInspector] public bool Porcupine = false;
@@ -50,7 +50,7 @@ namespace Starfall.Manager
         {
             Barrier += num;
             Player.Barrier.SetActive(true);
-            _barrierText.text = "" + Barrier;
+            barrierCount.text = Barrier.ToString();
         }
 
         public bool ChangeHP(int delta)
@@ -76,7 +76,7 @@ namespace Starfall.Manager
                 if (Barrier > 0)
                 {
                     Barrier -= 1;
-                    _barrierText.text = "" + Barrier;
+                    barrierCount.text = Barrier.ToString();
                     if (Barrier == 0)
                     {
                         Player.Barrier.SetActive(false);
