@@ -857,10 +857,10 @@ RectTransform:
   - {fileID: 66425143106904484}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 150}
-  m_SizeDelta: {x: 0, y: 5}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4029639185641028559
 CanvasRenderer:
@@ -915,8 +915,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Barrier: {fileID: 8924247385278304201}
   SkillCooltimeMax: 0.3
-  spriteRenderer: {fileID: 0}
-  sprites: []
   speed: 3
   move: {fileID: -1680190386980627800, guid: d1b664c115db3164aac2e85d274c6de6, type: 3}
   Reloading: 0

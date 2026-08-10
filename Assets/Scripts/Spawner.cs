@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject bossPrefab;
     [SerializeField] float boundary;
     [SerializeField] int enemyTypeNum;
-    public TextMeshProUGUI ResourceText;
+    public TMP_Text ResourceText;
     public float Enemydelay;
     public int Enemynum = 1;
     public float SpeedCoefficient = 1f;
@@ -22,17 +22,15 @@ public class Spawner : MonoBehaviour
     public GameObject MeteorList;
     float maxX, maxY;
     const float Mindelay = 0.005f;
-    static readonly float[] SpeedList = {1.25f, 2f, 7f, 1.25f, 1.25f, 1.5f, 2f};
     public float DamageCoefficient = 1f;
     public float MeteorCoefficient = 1f;
-    [HideInInspector] public bool Disabled = false;
-    [HideInInspector] public bool MakeMeteor = false;
-    [HideInInspector] public bool SpawnSmall = false;
-    [HideInInspector] public bool SpawnRandom = false;
     public float AddHP = 0f;
     public AudioSource Musicplayer;
     public AudioClip SfxMeteor;
-    public Color[] ColorList;
+    [SerializeField] EnemyData[] enemyDataList;
+    [HideInInspector] public bool Disabled = false;
+    [HideInInspector] public bool MakeMeteor = false;
+    [HideInInspector] public bool SpawnRandom = false;
 
     void Start()
     {
@@ -82,23 +80,16 @@ public class Spawner : MonoBehaviour
         return enemy;
     }
 
-    Enemy SpawnEnemyWithType(int type, Vector3 pos)
+    private Enemy SpawnEnemyWithType(int type, Vector3 pos)
     {
         var enemy = PoolManager.Get(PoolNumber.Enemy);
-        enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().color = ColorList[type];
-        enemy.transform.position = pos;
-        if (SpawnSmall)
-        {
-            enemy.transform.localScale = Vector3.one;
-        }
-        else
-        {
-            enemy.transform.localScale = Vector3.one * 1.2f;
-        }
+        var enemyData = enemyDataList[type];
+        enemy.transform.localPosition = pos;
+        enemy.transform.localScale = Vector3.one;
 
         var e = enemy.GetComponent<Enemy>();
-        e.Maxspeed = SpeedList[type] * SpeedCoefficient;
-        e.SetType(type);
+        e.Maxspeed = enemyData.Speed * SpeedCoefficient;
+        e.SetType(enemyData);
         return e;
     }
 
@@ -140,7 +131,6 @@ public class Spawner : MonoBehaviour
         enemy.MakeMeteor = MakeMeteor;
         enemy.MaxHP = enemy.MaxHP + AddHP > 1 ? enemy.MaxHP + AddHP : 1f;
         enemy.CurrentHP = enemy.MaxHP;
-        enemy.SetHPText();
         Enemynum--;
         GameManager.Instance.ActiveEnemyNum++;
     }

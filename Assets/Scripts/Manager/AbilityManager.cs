@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -573,7 +574,8 @@ namespace Starfall.Manager
                     player.ChangeSkillCool(player.SkillCooltimeMax + 0.05f);
                     break;
                 case 123: //gemini
-                    spawner.SpawnSmall = true;
+                    throw new NotImplementedException("spawnsmall");
+                    //spawner.SpawnSmall = true;
                     timer.Addition += 3;
                     break;
                 case 124: //ophiuchus

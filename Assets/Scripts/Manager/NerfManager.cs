@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 using Starfall.Utils;
@@ -47,7 +48,8 @@ namespace Starfall.Manager
                         player.ChangeSkillCool(player.SkillCooltimeMax + 0.05f);
                         break;
                     case 16:
-                        spawner.SpawnSmall = true;
+                        throw new NotImplementedException("spawnsmall");
+                        //spawner.SpawnSmall = true;
                         break;
                     case 15:
                         spawner.SpawnRandom = true;

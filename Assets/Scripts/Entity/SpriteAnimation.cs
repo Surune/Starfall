@@ -14,6 +14,14 @@ public class SpriteAnimation : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    public void SetSprites(List<Sprite> newSprites)
+    {
+        sprites = newSprites;
+        spriteIndex = 0;
+        frameCount = 0;
+        spriteRenderer.sprite = sprites[spriteIndex];
+    }
+
     private void FixedUpdate()
     {
         frameCount++;

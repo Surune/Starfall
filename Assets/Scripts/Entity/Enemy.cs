@@ -3,7 +3,6 @@ using UnityEngine;
 using TMPro;
 using Starfall.Manager;
 using Starfall.Constants;
-using UnityEngine.Serialization;
 
 namespace Starfall.Entity
 {
@@ -30,44 +29,29 @@ namespace Starfall.Entity
         public static float DamageCoefficient = 1f;
         public static float ItemProb = 3f;
 
-        static readonly float[] BaseHPList = {0f, 1f, 1f, 1f, 1f, 1f, 1f};
-        static readonly float[] StageHPList = {1f, 0.75f, 0.1f, 1f, 1.4f, 1.5f, 1.6f};
-        [SerializeField] SpriteRenderer sprite;
-        [SerializeField] EnemyType type;
-        [SerializeField] TextMeshProUGUI resourceText;
-        [SerializeField] Vector3 moveDirection = Vector3.down;
-        float _speed;
+        [SerializeField] private EnemyType type;
+        [SerializeField] private SpriteAnimation spriteAnimation;
+        [SerializeField] private Vector3 moveDirection = Vector3.down;
+        private EnemyData enemyData;
+        private float speed;
 
-        void Start()
+        private void Start()
         {
             enabled = GameStateManager.IsPlaying;
-            SetHPText();
         }
 
-        public void SetHPText()
+        public void SetType(EnemyData data)
         {
-            resourceText.text = Mathf.CeilToInt(CurrentHP).ToString();
-        }
-
-        // type_num = 0 ~ 6
-        public void SetType(int type_num)
-        {
-            type = (EnemyType)type_num;
-            MaxHP = BaseHPList[type_num] + StageHPList[type_num] * (GameManager.Instance.Timer.WaveNum * GameManager.Instance.Timer.WaveNum + GameManager.Instance.Timer.RoundNum - 1);
+            enemyData = data;
+            type = enemyData.Type;
+            spriteAnimation.SetSprites(enemyData.Sprites);
+            MaxHP = enemyData.BaseHP + enemyData.StageHP * (GameManager.Instance.Timer.WaveNum * GameManager.Instance.Timer.WaveNum + GameManager.Instance.Timer.RoundNum - 1);
             CurrentHP = MaxHP;
-            _speed = Maxspeed;
-            SetHPText();
+            speed = Maxspeed;
             if (type == EnemyType.Blue)
             {
                 var worldpos = Camera.main.WorldToViewportPoint(transform.position);
-                if (worldpos.x < 0.5f)
-                {
-                    moveDirection = new Vector3(0.5f, -1, 0);
-                }
-                else
-                {
-                    moveDirection = new Vector3(-0.5f, -1, 0);
-                }
+                moveDirection = worldpos.x < 0.5f ? new Vector3(0.5f, -1, 0) : new Vector3(-0.5f, -1, 0);
             }
             else
             {
@@ -78,11 +62,10 @@ namespace Starfall.Entity
         public void MakeBoss()
         {
             IsBoss = true;
-            MaxHP += StageHPList[(int)type] * (GameManager.Instance.Timer.WaveNum * GameManager.Instance.Timer.WaveNum + 7);
+            MaxHP += enemyData.StageHP * (GameManager.Instance.Timer.WaveNum * GameManager.Instance.Timer.WaveNum + 7);
             CurrentHP = MaxHP;
             Maxspeed *= 0.5f;
-            _speed = Maxspeed;
-            SetHPText();
+            speed = Maxspeed;
             transform.localScale *= 2f;
         }
 
@@ -117,9 +100,8 @@ namespace Starfall.Entity
 
             var p = PoolManager.Get(PoolNumber.Effect);
             p.transform.position = transform.position;
-
-            SetHPText();
-            bool dead = CheckIfDead(fatal);
+            
+            var dead = CheckIfDead(fatal);
             if (!mute && !dead)
             {
                 if (critical)
@@ -145,7 +127,6 @@ namespace Starfall.Entity
                 heal_amount = CurrentHP + heal_amount > MaxHP ? MaxHP - CurrentHP : heal_amount;
                 CurrentHP += heal_amount;
                 EffectManager.SetDamageEffect(transform.position, heal_amount, isCritical : false, isFatal : false, isHeal : true);
-                SetHPText();
                 return true;
             }
             else
@@ -248,7 +229,7 @@ namespace Starfall.Entity
                 var collidedarea = collision.gameObject.GetComponent<Area>();
                 if (collidedarea.Slow)
                 {
-                    _speed = Maxspeed * 0.75f;
+                    speed = Maxspeed * 0.75f;
                 }
                 if (collidedarea.Damage)
                 {
@@ -272,7 +253,7 @@ namespace Starfall.Entity
                 var collidedarea = collision.gameObject.GetComponent<Area>();
                 if (collidedarea.Slow)
                 {
-                    _speed = Maxspeed * 0.75f;
+                    speed = Maxspeed * 0.75f;
                 }
                 if (collidedarea.Damage)
                 {
@@ -285,7 +266,7 @@ namespace Starfall.Entity
         {
             if (collision.transform.CompareTag("Area"))
             {
-                _speed = Maxspeed;
+                speed = Maxspeed;
             }
         }
 
@@ -315,14 +296,14 @@ namespace Starfall.Entity
                 if (SlowTime > 0f)
                 {
                     SlowTime -= Time.deltaTime;
-                    _speed = Maxspeed * 0.75f;
+                    speed = Maxspeed * 0.75f;
                     if (SlowTime <= 0f)
                     {
                         SlowTime = 0f;
-                        _speed = Maxspeed;
+                        speed = Maxspeed;
                     }
                 }
-                transform.Translate(moveDirection * _speed * Time.deltaTime);
+                transform.Translate(moveDirection * speed * Time.deltaTime);
                 CheckInvisible();
             }
         }

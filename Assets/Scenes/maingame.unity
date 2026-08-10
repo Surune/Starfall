@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 57462596}
-  - component: {fileID: 57462597}
   m_Layer: 6
   m_Name: Enemies
   m_TagString: Untagged
@@ -148,36 +147,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 318272340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 5.5, y: 12}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!223 &57462597
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 57462594}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 2090745009}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 1
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: -1
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &84386924
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,21 +662,20 @@ MonoBehaviour:
   MeteorList: {fileID: 1320525847}
   DamageCoefficient: 1
   MeteorCoefficient: 1
-  Disabled: 0
-  MakeMeteor: 0
-  SpawnSmall: 0
-  SpawnRandom: 0
   AddHP: 0
   Musicplayer: {fileID: 843723511}
   SfxMeteor: {fileID: 8300000, guid: 1c8a3bd40e8a745deb2e1491db3d64d7, type: 3}
-  ColorList:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0.5882353, b: 0.13725491, a: 1}
-  - {r: 1, g: 0.8235294, b: 0, a: 1}
-  - {r: 0.007843138, g: 0.6862745, b: 0.19607843, a: 1}
-  - {r: 0, g: 0.58431375, b: 1, a: 1}
-  - {r: 0, g: 0.19607843, b: 0.5882353, a: 1}
-  - {r: 0.5294118, g: 0, b: 0.8627451, a: 1}
+  enemyDataList:
+  - {fileID: 11400000, guid: e07f8a3ac3104d30944ab1ced0a0c141, type: 2}
+  - {fileID: 11400000, guid: 0f0c9c84d1a944759494c320ed269207, type: 2}
+  - {fileID: 11400000, guid: e21de5d02ad54c3b8bbaf33e004c6046, type: 2}
+  - {fileID: 11400000, guid: 3dd2e04e300d4454a9f90a815734303c, type: 2}
+  - {fileID: 11400000, guid: ca66f815669c4d4594d17d4b2df6a6b8, type: 2}
+  - {fileID: 11400000, guid: a8365777cb024e5397417e22fbc2edb8, type: 2}
+  - {fileID: 11400000, guid: d09100e6235e4c1884f3f575c0a6fd66, type: 2}
+  Disabled: 0
+  MakeMeteor: 0
+  SpawnRandom: 0
 --- !u!1 &318272336
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,6 +779,7 @@ RectTransform:
   - {fileID: 843723507}
   - {fileID: 3358611859007318832}
   - {fileID: 414417969473313711}
+  - {fileID: 57462596}
   m_Father: {fileID: 2090745010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3420,7 +3396,6 @@ SceneRoots:
   - {fileID: 2090745010}
   - {fileID: 642390536}
   - {fileID: 1848563854}
-  - {fileID: 57462596}
   - {fileID: 1320525849}
   - {fileID: 407333333}
   - {fileID: 2072019953}

@@ -16,8 +16,6 @@ namespace Starfall.Entity
 
         public GameObject Barrier;
         public float SkillCooltimeMax;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private List<Sprite> sprites;
         [SerializeField] private float speed = 3f;
         [SerializeField] private InputActionReference move;
         [HideInInspector] public bool Reloading;

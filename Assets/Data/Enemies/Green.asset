@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7f744c96294c8db2f616d42c6b0c77, type: 3}
+  m_Name: Green
+  m_EditorClassIdentifier: Assembly-CSharp::Starfall.Entity.EnemyData
+  Type: 3
+  BaseHP: 1
+  StageHP: 1
+  Speed: 1.25
+  Color: {r: 1, g: 1, b: 1, a: 1}
+  Sprites:
+  - {fileID: -3831238848325972087, guid: 0c408a84cf7bf4242b8e25281d58a40d, type: 3}
+  - {fileID: -913433427895944537, guid: 0c408a84cf7bf4242b8e25281d58a40d, type: 3}
+  - {fileID: -5923372999613898094, guid: 0c408a84cf7bf4242b8e25281d58a40d, type: 3}
+  - {fileID: 7435836842063698983, guid: 0c408a84cf7bf4242b8e25281d58a40d, type: 3}
