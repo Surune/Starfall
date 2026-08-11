@@ -3,6 +3,7 @@ using TMPro;
 using Starfall.Manager;
 using Starfall.Entity;
 using Starfall.Constants;
+using Starfall.Utils;
 
 public class Spawner : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class Spawner : MonoBehaviour
 
     public GameObject SpawnFinalBoss()
     {
-        foreach (var t in GameManager.GetAllChilds(EnemyList.transform))
+        foreach (var t in EnemyList.transform.GetAllChildren())
         {
             t.gameObject.SetActive(false);
         }

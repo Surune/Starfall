@@ -1,5 +1,6 @@
 using UnityEngine;
 using Starfall.Manager;
+using Starfall.Utils;
 
 namespace Starfall.Entity
 {
@@ -53,7 +54,7 @@ namespace Starfall.Entity
             {
                 if (Udo)
                 {
-                    Transform closest = GameManager.FindClosestTransform(GameManager.GetAllChilds(GameManager.Instance.EnemyList), transform.position);
+                    var closest = Utils.Utility.FindClosestTransform(GameManager.Instance.EnemyList.GetAllChildren(), transform.position);
                     if (closest != null && Vector2.Distance(transform.position, closest.position) < 1f)
                     {
                         transform.position = Vector3.Lerp(transform.position, closest.position, Time.smoothDeltaTime * Speed);

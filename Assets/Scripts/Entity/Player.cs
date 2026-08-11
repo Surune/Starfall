@@ -2,6 +2,7 @@
 using UnityEngine;
 using Starfall.Manager;
 using Starfall.Constants;
+using Starfall.Utils;
 using UnityEngine.InputSystem;
 
 namespace Starfall.Entity
@@ -49,7 +50,7 @@ namespace Starfall.Entity
         public void Magnetism(Transform center)
         {
             var minDist = 1.5f;
-            foreach (var t in GameManager.GetAllChilds(EnemyList.transform))
+            foreach (var t in EnemyList.transform.GetAllChildren())
             {
                 if (t == center)
                 {

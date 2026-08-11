@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 using Starfall.Manager;
 using Starfall.Constants;
+using Starfall.Utils;
 
 namespace Starfall.Entity
 {
@@ -117,6 +116,7 @@ namespace Starfall.Entity
             {
                 PlayerManager.DamageAllEnemy(PlayerManager.damage * PlayerManager.damageCoefficient + PlayerManager.fixDamage);
             }
+            
             return dead;
         }
 
@@ -129,10 +129,8 @@ namespace Starfall.Entity
                 EffectManager.SetDamageEffect(transform.position, heal_amount, isCritical : false, isFatal : false, isHeal : true);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            
+            return false;
         }
 
         bool CheckIfDead(bool fatal = false)
@@ -150,8 +148,8 @@ namespace Starfall.Entity
             {
                 if (type == EnemyType.Green)
                 {
-                    List<Transform> enemies = GameManager.GetAllChilds(GameManager.Instance.EnemyList);
-                    foreach (Transform e in enemies)
+                    var enemies = GameManager.Instance.EnemyList.GetAllChildren();
+                    foreach (var e in enemies)
                     {
                         if (e == transform)
                         {
@@ -162,8 +160,8 @@ namespace Starfall.Entity
                 }
                 else if (type == EnemyType.Violet)
                 {
-                    var fireballs = GameManager.GetAllChilds(GameManager.Instance.FireballList);
-                    foreach (Transform f in fireballs)
+                    var fireballs = GameManager.Instance.FireballList.GetAllChildren();
+                    foreach (var f in fireballs)
                     {
                         f.gameObject.SetActive(false);
                     }
@@ -171,53 +169,55 @@ namespace Starfall.Entity
                 isDead = true;
             }
 
-            if (isDead)
+            if (!isDead)
             {
-                GameManager.Instance.ActiveEnemyNum--;
-                Player.KillNum++;
-
-                if (type == EnemyType.Indigo || MakeMeteor)
-                {
-                    GameManager.Instance.Spawner.SpawnMeteor();
-                }
-
-                var effect = PoolManager.Get(PoolNumber.DamageEffect);
-                effect.transform.position = transform.position;
-                effect.transform.localScale = transform.localScale;
-
-                if (fatal == true && AbilityManager.firm)
-                {
-                    ExpAmount += 1;
-                }
-                if (AbilityManager.burning && type == EnemyType.Red)
-                {
-                    ExpAmount += 1;
-                }
-
-                if (AbilityManager.echo)
-                {
-                    Player.Echoshot(2);
-                }
-                if (AbilityManager.magnet)
-                {
-                    Player.Magnetism(transform);
-                }
-                if (AbilityManager.explode)
-                {
-                    Player.Explode(transform, 1f);
-                }
-
-                //effect.PlayEnemySound(isKilled : true);
-				ExpManager.GetExp(ExpAmount);
-                ScoreManager.GetScore(ExpAmount);
-                if (Random.Range(0, 100) < ItemProb)
-                {
-                    GameObject item = PoolManager.Get(PoolNumber.Item);
-                    item.transform.position = transform.position;
-                    item.GetComponent<DropItem>().SetType((ItemType)Random.Range(0, 4));
-                }
-                gameObject.SetActive(false);
+                return false;
             }
+            
+            GameManager.Instance.ActiveEnemyNum--;
+            Player.KillNum++;
+
+            if (type == EnemyType.Indigo || MakeMeteor)
+            {
+                GameManager.Instance.Spawner.SpawnMeteor();
+            }
+
+            var effect = PoolManager.Get(PoolNumber.DamageEffect);
+            effect.transform.position = transform.position;
+            effect.transform.localScale = transform.localScale;
+
+            if (fatal && AbilityManager.firm)
+            {
+                ExpAmount += 1;
+            }
+            if (AbilityManager.burning && type == EnemyType.Red)
+            {
+                ExpAmount += 1;
+            }
+
+            if (AbilityManager.echo)
+            {
+                Player.Echoshot(2);
+            }
+            if (AbilityManager.magnet)
+            {
+                Player.Magnetism(transform);
+            }
+            if (AbilityManager.explode)
+            {
+                Player.Explode(transform, 1f);
+            }
+
+            //effect.PlayEnemySound(isKilled : true);
+            ExpManager.GetExp(ExpAmount);
+            ScoreManager.GetScore(ExpAmount);
+            if (Random.Range(0, 100) < ItemProb)
+            {
+                var item = PoolManager.Get(PoolNumber.Item);
+                item.transform.position = transform.position;
+                item.GetComponent<DropItem>().SetType((ItemType)Random.Range(0, 4));
+            }
+            gameObject.SetActive(false);
 
             return isDead;
         }
@@ -262,7 +262,7 @@ namespace Starfall.Entity
             }
         }
 
-        void OnTriggerExit2D(Collider2D collision)
+        private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.transform.CompareTag("Area"))
             {
@@ -270,9 +270,9 @@ namespace Starfall.Entity
             }
         }
 
-        void CheckInvisible()
+        private void CheckInvisible()
         {
-            Vector3 worldpos = Camera.main.WorldToViewportPoint(transform.position);
+            var worldpos = Camera.main.WorldToViewportPoint(transform.position);
             if (worldpos.y < 0f)
             {
                 gameObject.SetActive(false);
@@ -289,23 +289,25 @@ namespace Starfall.Entity
             }
         }
 
-        void Update()
+        private void Update()
         {
-            if (GameStateManager.Instance.IsPlaying)
+            if (!GameStateManager.Instance.IsPlaying)
             {
-                if (SlowTime > 0f)
-                {
-                    SlowTime -= Time.deltaTime;
-                    speed = Maxspeed * 0.75f;
-                    if (SlowTime <= 0f)
-                    {
-                        SlowTime = 0f;
-                        speed = Maxspeed;
-                    }
-                }
-                transform.Translate(moveDirection * speed * Time.deltaTime);
-                CheckInvisible();
+                return;
             }
+            
+            if (SlowTime > 0f)
+            {
+                SlowTime -= Time.deltaTime;
+                speed = Maxspeed * 0.75f;
+                if (SlowTime <= 0f)
+                {
+                    SlowTime = 0f;
+                    speed = Maxspeed;
+                }
+            }
+            transform.Translate(moveDirection * speed * Time.deltaTime);
+            CheckInvisible();
         }
     }
 }

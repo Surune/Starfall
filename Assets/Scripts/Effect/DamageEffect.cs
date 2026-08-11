@@ -8,34 +8,34 @@ namespace Starfall.Effect
     {
         static GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
 
-        [SerializeField] TextMeshProUGUI ResourceText;
-        float AccumulatedTime;
-		float Delay;
+        [SerializeField] TMP_Text ResourceText;
+        private float accumulatedTime;
+        private float delay;
 
         public void SetEffectText(string text, Color color)
         {
-			Delay = 0.25f;
-            AccumulatedTime = 0f;
+			delay = 0.25f;
+            accumulatedTime = 0f;
             ResourceText.text = text;
             ResourceText.color = color;
         }
 
-        void Update()
+        private void Update()
         {
             if (!gameObject.activeSelf || !GameStateManager.IsPlaying)
             {
                 return;
             }
 
-            AccumulatedTime += Time.deltaTime;
-            if (AccumulatedTime > Delay)
+            accumulatedTime += Time.deltaTime;
+            if (accumulatedTime > delay)
             {
                 gameObject.SetActive(false);
             }
             else
             {
                 var orig = ResourceText.color;
-                ResourceText.color = new Color(orig.r, orig.g, orig.b, 1 - (AccumulatedTime / Delay));
+                ResourceText.color = new Color(orig.r, orig.g, orig.b, 1 - (accumulatedTime / delay));
             }
         }
     }

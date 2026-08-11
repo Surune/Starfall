@@ -11,9 +11,9 @@ namespace Starfall.Manager
         [SerializeField] TextMeshProUGUI _coinText;
         [SerializeField] AudioClip _sfxPurchase;
         [SerializeField] AudioClip _sfxSelect;
-        int currentPilot = 0;
+        private int currentPilot = 0;
 
-        void Start()
+        private void Start()
         {
             currentPilot = PlayerPrefs.GetInt("currentPilot");
             for (var i = 0; i < _characters.Length; i++)

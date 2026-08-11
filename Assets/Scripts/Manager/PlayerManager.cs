@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Starfall.Entity;
 using Starfall.Constants;
+using Starfall.Utils;
 using Random = UnityEngine.Random;
 
 namespace Starfall.Manager
@@ -78,7 +79,7 @@ namespace Starfall.Manager
         public void DamageAllEnemy(float dmg)
         {
             SfxManager.PlayEnemySound(isCritical : false, isKilled : false);
-            foreach (Transform t in GameManager.GetAllChilds(EnemyList.transform))
+            foreach (var t in EnemyList.transform.GetAllChildren())
             {
                 if (t.gameObject.CompareTag("Enemy"))
                 {

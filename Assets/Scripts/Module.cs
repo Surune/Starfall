@@ -85,7 +85,7 @@ public class Module : MonoBehaviour
 
     public void UpgradeModule()
     {
-        int coins = PlayerPrefs.GetInt("TotalCoin", 0);
+        var coins = PlayerPrefs.GetInt("TotalCoin", 0);
         if (coins >= price && level < MaxLevelList[type-1])
         {
             coins -= price;
@@ -96,7 +96,7 @@ public class Module : MonoBehaviour
             SetPriceText();
             SetDescriptionText();
 
-            foreach (Module module in FindObjectsOfType<Module>())
+            foreach (var module in FindObjectsOfType<Module>())
             {
                 module.SetPriceText();
             }

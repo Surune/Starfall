@@ -4,17 +4,17 @@ namespace Starfall.Effect
 {
     public class EmergeEffect : MonoBehaviour
     {
-        [SerializeField] float delayTime = 3f;
-        float time = 0;
-        SpriteRenderer sprite;
+        [SerializeField] private float delayTime = 3f;
+        private float time = 0;
+        private SpriteRenderer sprite;
 
-        void Start()
+        private void Start()
         {
             sprite = GetComponent<SpriteRenderer>();
-            sprite.color = new Color(1, 1, 1, 0);
+            sprite.color = Color.clear;
         }
 
-        void Update()
+        private void Update()
         {
             if (time < delayTime)
             {

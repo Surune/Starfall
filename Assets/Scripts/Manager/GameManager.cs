@@ -29,7 +29,7 @@ namespace Starfall.Manager
         [HideInInspector] public List<int> AbilityNumbers = new();
         public float CoinCoefficient = 1f;
 
-        void Awake()
+        private void Awake()
         {
             Instance = this;
 
@@ -49,28 +49,7 @@ namespace Starfall.Manager
             // 모듈 8 : 적 속도 -0.5%
             Spawner.SpeedCoefficient -= PlayerPrefs.GetInt("module_8", 0) * 0.005f;
         }
-
-        public static Transform FindClosestTransform(List<Transform> t_list, Vector3 pos)
-        {
-            Transform tMin = null;
-            float minDist = Mathf.Infinity;
-            foreach (Transform t in t_list)
-            {
-                float dist = Vector3.Distance(t.position, pos);
-                if (dist < minDist)
-                {
-                    tMin = t;
-                    minDist = dist;
-                }
-            }
-            return tMin;
-        }
-
-        public static List<Transform> GetAllChilds(Transform _t)
-        {
-            return _t.Cast<Transform>().Where(t => t.gameObject.activeSelf == true).ToList();
-        }
-
+        
         public void GameOver(int coin)
         {
             GetComponent<AudioSource>().Pause();
