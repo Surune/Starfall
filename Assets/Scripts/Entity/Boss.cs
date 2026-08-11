@@ -36,10 +36,10 @@ namespace Starfall.Entity
             EffectManager.SetDamageEffect(transform.position, dmg, critical);
             if (critical && AbilityManager.psychosense)
             {
-                GameObject fireball = PoolManager.Get(PoolNumber.Fireball);
+                GameObject fireball = PoolManager.Get(PoolNumber.Bullet);
                 fireball.transform.position = Player.transform.position;
                 fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                fireball.GetComponent<Fireball>().Damage = 3f;
+                fireball.GetComponent<Bullet>().Damage = 3f;
             }
 
             var p = PoolManager.Get(PoolNumber.Effect);

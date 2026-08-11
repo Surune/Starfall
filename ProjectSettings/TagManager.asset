@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - Area
   - Enemy
@@ -52,3 +52,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Bullet
+    uniqueID: 1087702967
+    locked: 0
+  - name: Character
+    uniqueID: 2768172943
+    locked: 0
+  m_RenderingLayers:
+  - Default

@@ -73,36 +73,36 @@ namespace Starfall.Entity
             Sfx.PlayShoot();
             if (AbilityManager.awaken || AbilityManager.fracture)
             {
-                var fireball_l = PoolManager.Get(PoolNumber.Fireball);
-                fireball_l.transform.rotation = Quaternion.Euler(0, 0, -10);
-                fireball_l.transform.position = transform.position;
-                PlayerManager.SetFireInfo(fireball_l.GetComponent<Fireball>());
+                var bulletLeft = PoolManager.Get(PoolNumber.Bullet);
+                bulletLeft.transform.rotation = Quaternion.Euler(0, 0, -10);
+                bulletLeft.transform.position = transform.position;
+                PlayerManager.SetFireInfo(bulletLeft.GetComponent<Bullet>());
 
-                var fireball_r = PoolManager.Get(PoolNumber.Fireball);
-                fireball_r.transform.rotation = Quaternion.Euler(0, 0, 10);
-                fireball_r.transform.position = transform.position;
-                PlayerManager.SetFireInfo(fireball_r.GetComponent<Fireball>());
+                var bulletRight = PoolManager.Get(PoolNumber.Bullet);
+                bulletRight.transform.rotation = Quaternion.Euler(0, 0, 10);
+                bulletRight.transform.position = transform.position;
+                PlayerManager.SetFireInfo(bulletRight.GetComponent<Bullet>());
             }
             if (AbilityManager.fracture && !AbilityManager.awaken)
             {
                 return;
             }
 
-            var fireball = PoolManager.Get(PoolNumber.Fireball);
-            PlayerManager.SetFireInfo(fireball.GetComponent<Fireball>());
-            fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-            fireball.transform.position = transform.position;
+            var bullet = PoolManager.Get(PoolNumber.Bullet);
+            PlayerManager.SetFireInfo(bullet.GetComponent<Bullet>());
+            bullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+            bullet.transform.position = transform.position;
         }
 
         public void Explode(Transform center, float coeff = 1f)
         {
             for (var i = -2; i <= 2; i++)
             {
-                var fireball = PoolManager.Get(PoolNumber.Fireball);
-                fireball.transform.rotation = Quaternion.Euler(0, 0, 45 * i);
-                fireball.GetComponent<Fireball>().Damage = PlayerManager.damage * PlayerManager.damageCoefficient * coeff;
-                PlayerManager.SetFireInfo(fireball.GetComponent<Fireball>());
-                fireball.transform.position = center.position;
+                var bullet = PoolManager.Get(PoolNumber.Bullet);
+                bullet.transform.rotation = Quaternion.Euler(0, 0, 45 * i);
+                bullet.GetComponent<Bullet>().Damage = PlayerManager.damage * PlayerManager.damageCoefficient * coeff;
+                PlayerManager.SetFireInfo(bullet.GetComponent<Bullet>());
+                bullet.transform.position = center.position;
             }
         }
 

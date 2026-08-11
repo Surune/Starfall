@@ -3,7 +3,7 @@ namespace Starfall.Constants
     public enum PoolNumber
     {
         Enemy = 0,
-        Fireball = 1,
+        Bullet = 1,
         WingBullet = 2,
         Effect = 3,
         Meteor = 4,

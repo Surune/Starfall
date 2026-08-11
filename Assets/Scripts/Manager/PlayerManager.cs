@@ -87,22 +87,22 @@ namespace Starfall.Manager
             }
         }
 
-        public void MakeCritical(Fireball fireball)
+        public void MakeCritical(Bullet bullet)
         {
-            fireball.IsCritical = true;
-            fireball.Damage *= criticalCoefficient;
-            fireball.Burst = ability.burst;
+            bullet.IsCritical = true;
+            bullet.Damage *= criticalCoefficient;
+            bullet.Burst = ability.burst;
             if (ability.nuker && criticalProb >= 1f)
             {
-                fireball.Damage *= criticalProb;
+                bullet.Damage *= criticalProb;
             }
             if (ability.assassination)
             {
-                fireball.Penetrate = true;
+                bullet.Penetrate = true;
             }
         }
 
-        public void SetFireInfo(Fireball fireball)
+        public void SetFireInfo(Bullet bullet)
         {
             shotnum++;
             if (statikk && shotnum % 50 == 0)
@@ -111,36 +111,36 @@ namespace Starfall.Manager
             }
             if (aquaris)
             {
-                fireball.IsCritical = true;
+                bullet.IsCritical = true;
             }
 
             var rand = Random.value;
-            fireball.IsFatal = rand <= fatalProb;
-            fireball.Damage = damage;
+            bullet.IsFatal = rand <= fatalProb;
+            bullet.Damage = damage;
 
             if (rand <= criticalProb || (ability.luckySeven && shotnum % 7 == 0))
             {
-                MakeCritical(fireball);
+                MakeCritical(bullet);
             }
             else
             {
-                fireball.IsCritical = false;
+                bullet.IsCritical = false;
             }
 
             if (ability.third && shotnum % 3 == 0)
             {
-                fireball.Damage += 0.3f;
+                bullet.Damage += 0.3f;
             }
-            fireball.Damage *= damageCoefficient;
+            bullet.Damage *= damageCoefficient;
             if (ability.penetrate)
             {
-                fireball.Penetrate = true;
+                bullet.Penetrate = true;
             }
-            fireball.Psychosink = ability.psychosink;
-            fireball.Beingstronger = ability.beingstronger;
-            fireball.Udo = ability.udo;
-            fireball.Freezing = ability.freezing;
-            fireball.Damage += fixDamage;
+            bullet.Psychosink = ability.psychosink;
+            bullet.Beingstronger = ability.beingstronger;
+            bullet.Udo = ability.udo;
+            bullet.Freezing = ability.freezing;
+            bullet.Damage += fixDamage;
         }
 
         public void GetWing(int num)

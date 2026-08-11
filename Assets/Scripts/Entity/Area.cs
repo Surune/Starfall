@@ -54,21 +54,21 @@ namespace Starfall.Entity
             }
             else if (collision.transform.CompareTag("Bullet"))
             {
-                if (makeCritical && !collision.gameObject.GetComponent<Fireball>().IsCritical)
+                if (makeCritical && !collision.gameObject.GetComponent<Bullet>().IsCritical)
                 {
-                    PlayerManager.MakeCritical(collision.gameObject.GetComponent<Fireball>());
+                    PlayerManager.MakeCritical(collision.gameObject.GetComponent<Bullet>());
                 }
-                else if (unrelenting && collision.gameObject.GetComponent<Fireball>().IsCritical)
+                else if (unrelenting && collision.gameObject.GetComponent<Bullet>().IsCritical)
                 {
-                    collision.gameObject.GetComponent<Fireball>().Damage *= 2f;
+                    collision.gameObject.GetComponent<Bullet>().Damage *= 2f;
                 }
                 else if (fixDamage)
                 {
-                    collision.gameObject.GetComponent<Fireball>().Damage += 1f;
+                    collision.gameObject.GetComponent<Bullet>().Damage += 1f;
                 }
                 else if (swarm)
                 {
-                    collision.gameObject.GetComponent<Fireball>().Psychosink = true;
+                    collision.gameObject.GetComponent<Bullet>().Psychosink = true;
                 }
             }
         }

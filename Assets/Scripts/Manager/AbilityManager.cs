@@ -595,7 +595,7 @@ namespace Starfall.Manager
                     break;
                 case 128: //blank
                     playerManager.fatalProb += 0.05f;
-                    Fireball.FatalDamage += 0.5f;
+                    Bullet.FatalDamage += 0.5f;
                     break;
                 case 129: //contract
                     playerManager.GetWing(1);

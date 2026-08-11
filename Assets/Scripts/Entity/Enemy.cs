@@ -91,10 +91,10 @@ namespace Starfall.Entity
                 }
                 if (AbilityManager.psychosense)
                 {
-                    var fireball = PoolManager.Get(PoolNumber.Fireball);
+                    var fireball = PoolManager.Get(PoolNumber.Bullet);
                     fireball.transform.position = Player.transform.position;
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    fireball.GetComponent<Fireball>().Damage = 3f;
+                    fireball.GetComponent<Bullet>().Damage = 3f;
                 }
             }
 

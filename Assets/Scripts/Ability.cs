@@ -40,26 +40,26 @@ public class Ability : MonoBehaviour
             switch (AbilityID)
             {
                 case 2:
-                    fireball = PoolManager.Get(PoolNumber.Fireball);
+                    fireball = PoolManager.Get(PoolNumber.Bullet);
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
                     fireball.transform.position = Player.transform.position;
-                    fireball.GetComponent<Fireball>().Damage = 1f;
+                    fireball.GetComponent<Bullet>().Damage = 1f;
                     break;
                 case 3:
-                    fireball = PoolManager.Get(PoolNumber.Fireball);
+                    fireball = PoolManager.Get(PoolNumber.Bullet);
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
                     fireball.transform.position = Player.transform.position;
-                    PlayerManager.SetFireInfo(fireball.GetComponent<Fireball>());
+                    PlayerManager.SetFireInfo(fireball.GetComponent<Bullet>());
                     break;
                 case 17:
                     PlayerManager.DamageAllEnemy(PlayerManager.damage * PlayerManager.damageCoefficient + PlayerManager.fixDamage);
                     break;
                 case 21:
-                    fireball = PoolManager.Get(PoolNumber.Fireball);
+                    fireball = PoolManager.Get(PoolNumber.Bullet);
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
                     fireball.transform.position = Player.transform.position;
-                    PlayerManager.SetFireInfo(fireball.GetComponent<Fireball>());
-                    fireball.GetComponent<Fireball>().IsFatal = true;
+                    PlayerManager.SetFireInfo(fireball.GetComponent<Bullet>());
+                    fireball.GetComponent<Bullet>().IsFatal = true;
                     break;
                 case 43:
                     PlayerManager.fixDamage += 0.05f;
@@ -70,10 +70,10 @@ public class Ability : MonoBehaviour
                 case 47:
                     for (int i = 0; i < 6; i++)
                     {
-                        fireball = PoolManager.Get(PoolNumber.Fireball);
+                        fireball = PoolManager.Get(PoolNumber.Bullet);
                         fireball.transform.position = Player.transform.position;
                         fireball.transform.rotation = Quaternion.Euler(0, 0, 5*i-15);
-                        fireball.GetComponent<Fireball>().Damage = 6f;
+                        fireball.GetComponent<Bullet>().Damage = 6f;
                     }
                     break;
                 case 63:
@@ -88,19 +88,19 @@ public class Ability : MonoBehaviour
                 case 77:
                     for (int i = 0; i < 3; i++)
                     {
-                        fireball = PoolManager.Get(PoolNumber.Fireball);
+                        fireball = PoolManager.Get(PoolNumber.Bullet);
                         fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
                         fireball.transform.position = Player.transform.position;
-                        fireball.GetComponent<Fireball>().Damage = 1f;
-                        fireball.GetComponent<Fireball>().Udo = true;
+                        fireball.GetComponent<Bullet>().Damage = 1f;
+                        fireball.GetComponent<Bullet>().Udo = true;
                     }
                     break;
                 case 79:
-                    fireball = PoolManager.Get(PoolNumber.Fireball);
+                    fireball = PoolManager.Get(PoolNumber.Bullet);
                     fireball.transform.rotation = Quaternion.Euler(0, 0, 0);
                     fireball.transform.position = Player.transform.position;
-                    fireball.GetComponent<Fireball>().Damage = 3f;
-                    fireball.GetComponent<Fireball>().Penetrate = true;
+                    fireball.GetComponent<Bullet>().Damage = 3f;
+                    fireball.GetComponent<Bullet>().Penetrate = true;
                     break;
                 case 80:
                     Player.GetComponent<Player>().Reloading = true;
