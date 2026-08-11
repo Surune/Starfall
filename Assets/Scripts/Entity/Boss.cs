@@ -23,7 +23,7 @@ namespace Starfall.Entity
         Vector3 _moveDirection = Vector3.down;
         [SerializeField] TextMeshProUGUI resourceText;
 
-        void Start()
+        private void Start()
         {
             resourceText.text = Mathf.CeilToInt(accumulatedDamage).ToString();
             speed = Maxspeed;
@@ -53,7 +53,7 @@ namespace Starfall.Entity
             return false;
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.transform.CompareTag("Area"))
             {
@@ -77,7 +77,7 @@ namespace Starfall.Entity
             }
         }
 
-        void OnTriggerStay2D(Collider2D collision)
+        private void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.transform.CompareTag("Area"))
             {
@@ -93,7 +93,7 @@ namespace Starfall.Entity
             }
         }
 
-        void OnTriggerExit2D(Collider2D collision)
+        private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.transform.CompareTag("Area"))
             {
@@ -101,22 +101,24 @@ namespace Starfall.Entity
             }
         }
 
-        void Update()
+        private void Update()
         {
-            if (GameStateManager.Instance.IsPlaying)
+            if (!GameStateManager.Instance.IsPlaying)
             {
-                if (SlowTime > 0f)
-                {
-                    SlowTime -= Time.deltaTime;
-                    speed = Maxspeed * 0.75f;
-                    if (SlowTime <= 0f)
-                    {
-                        SlowTime = 0f;
-                        speed = Maxspeed;
-                    }
-                }
-                transform.Translate(_moveDirection * speed * Time.deltaTime);
+                return;
             }
+            
+            if (SlowTime > 0f)
+            {
+                SlowTime -= Time.deltaTime;
+                speed = Maxspeed * 0.75f;
+                if (SlowTime <= 0f)
+                {
+                    SlowTime = 0f;
+                    speed = Maxspeed;
+                }
+            }
+            transform.Translate(_moveDirection * speed * Time.deltaTime);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Starfall.Manager
         [SerializeField] GameObject choicePrefab;
         [HideInInspector] public bool Hextech = false;
 
-        void Start()
+        private void Start()
         {
             Coins = 0;
             ExpCurrent = 0;

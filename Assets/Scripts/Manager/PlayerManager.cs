@@ -38,12 +38,12 @@ namespace Starfall.Manager
         [SerializeField] Transform _wingTransform;
         int shotnum = 0;
 
-        void Start()
+        private void Start()
         {
             SetPlayer();
         }
 
-        void SetPlayer()
+        private void SetPlayer()
         {
             var currentPlayer = PlayerPrefs.GetInt("currentPilot", 1);
             switch (currentPlayer)

@@ -23,7 +23,7 @@ namespace Starfall.Entity
         bool swarm = false;
         public List<GameObject> Enemies;
 
-        void OnEnable()
+        private void OnEnable()
         {
             SetProperty();
             SfxManager.PlayAreaSound(start : true);
@@ -46,7 +46,7 @@ namespace Starfall.Entity
             swarm = isSwarm;
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.transform.CompareTag("Enemy"))
             {
@@ -73,7 +73,7 @@ namespace Starfall.Entity
             }
         }
 
-        void OnTriggerExit2D(Collider2D collision)
+        private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.transform.CompareTag("Enemy"))
             {
@@ -81,37 +81,42 @@ namespace Starfall.Entity
             }
         }
 
-        void Update()
+        private void Update()
         {
-            if (GameStateManager.Instance.IsPlaying)
+            if (!GameStateManager.Instance.IsPlaying)
             {
-                currentTime += Time.deltaTime;
-                if (currentTime >= Duration)
+                return;
+            }
+            
+            currentTime += Time.deltaTime;
+            if (currentTime >= Duration)
+            {
+                if (Damage)
                 {
-                    if (Damage)
+                    for (var i = Enemies.Count - 1; i >= 0; i--)
                     {
-                        for (int i = Enemies.Count - 1; i >= 0; i--)
+                        if(Enemies[i])
                         {
-                            if(Enemies[i] != null)
-                            {
-                                Enemies[i].GetComponent<Enemy>().GetDamage(4, mute: false);
-                            }
+                            Enemies[i].GetComponent<Enemy>().GetDamage(4, mute: false);
                         }
                     }
-                    if (Slow)
+                }
+                if (Slow)
+                {
+                    for (var i = Enemies.Count - 1; i >= 0; i--)
                     {
-                        for (int i = Enemies.Count - 1; i >= 0; i--)
+                        if (Enemies[i])
                         {
-                            if(Enemies[i] != null)  Enemies[i].GetComponent<Enemy>().SlowTime = 3f;
+                            Enemies[i].GetComponent<Enemy>().SlowTime = 3f;
                         }
                     }
-                    SfxManager.PlayAreaSound(start : false);
-                    gameObject.SetActive(false);
                 }
-                else
-                {
-                    Durationimage.fillAmount = currentTime / Duration;
-                }
+                SfxManager.PlayAreaSound(start : false);
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                Durationimage.fillAmount = currentTime / Duration;
             }
         }
     }

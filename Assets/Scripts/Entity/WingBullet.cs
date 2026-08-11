@@ -13,7 +13,7 @@ namespace Starfall.Entity
 
         Vector3 worldPos;
 
-        void Start()
+        private void Start()
         {
             Speed = 20f;
             Damage = 1f;
@@ -21,7 +21,7 @@ namespace Starfall.Entity
             Freezing = false;
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.transform.CompareTag("Enemy"))
             {
@@ -54,8 +54,8 @@ namespace Starfall.Entity
             {
                 if (Udo)
                 {
-                    var closest = Utils.Utility.FindClosestTransform(GameManager.Instance.EnemyList.GetAllChildren(), transform.position);
-                    if (closest != null && Vector2.Distance(transform.position, closest.position) < 1f)
+                    var closest = Utility.FindClosestTransform(GameManager.Instance.EnemyList.GetAllChildren(), transform.position);
+                    if (closest && Vector2.Distance(transform.position, closest.position) < 1f)
                     {
                         transform.position = Vector3.Lerp(transform.position, closest.position, Time.smoothDeltaTime * Speed);
                     }

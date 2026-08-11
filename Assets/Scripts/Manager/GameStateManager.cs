@@ -7,7 +7,7 @@ namespace Starfall.Manager
         public static GameStateManager Instance { get; private set; }
 
         public bool IsPlaying => currentGameState == GameState.Gameplay;
-        GameState currentGameState;
+        private GameState currentGameState;
 
         public GameStateManager()
         {

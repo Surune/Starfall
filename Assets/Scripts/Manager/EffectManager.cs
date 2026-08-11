@@ -1,7 +1,6 @@
 using UnityEngine;
 using Starfall.Effect;
 using Starfall.Constants;
-using UnityEngine.Serialization;
 
 namespace Starfall.Manager
 {

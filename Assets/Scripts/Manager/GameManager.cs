@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Starfall.Entity;
 
@@ -63,7 +62,7 @@ namespace Starfall.Manager
             GetCoin(coin);
         }
 
-        void GetCoin(int bonus)
+        private void GetCoin(int bonus)
         {
             var nowscore = (int)ScoreManager.TotalScore;
 

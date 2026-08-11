@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 1257148149195151008}
   - component: {fileID: 3276114277146092888}
   m_Layer: 0
-  m_Name: WingImage
+  m_Name: WingSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

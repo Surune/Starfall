@@ -1,10 +1,7 @@
 using System;
 using UnityEngine;
-using TMPro;
-using Starfall.Utils;
 using Starfall.Entity;
 using Starfall.Constants;
-using System.Collections;
 
 namespace Starfall.Manager
 {
@@ -31,7 +28,7 @@ namespace Starfall.Manager
 
         void SetSupernova()
         {
-            for (int i = 1; i <= NerfLevel; i++)
+            for (var i = 1; i <= NerfLevel; i++)
             {
                 switch (i)
                 {

@@ -8,7 +8,7 @@ namespace Starfall.Manager
         public float TotalScore = 0;
         [SerializeField] TextMeshProUGUI scoreText;
 
-        void SetScoreText()
+        private void SetScoreText()
         {
             scoreText.text = ((int)TotalScore).ToString();
         }

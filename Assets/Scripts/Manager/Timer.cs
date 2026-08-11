@@ -7,6 +7,7 @@ namespace Starfall.Manager
 {
     public class Timer : MonoBehaviour
     {
+        GameStateManager GameStateManager => GameStateManager.Instance;
         Spawner spawner => GameManager.Instance.Spawner;
 
         public int WaveNum;
@@ -27,9 +28,7 @@ namespace Starfall.Manager
         float waitTimeNow;
         float remainTime;
 
-        GameStateManager GameStateManager => GameStateManager.Instance;
-
-        void Start()
+        private void Start()
         {
             waitTimeNow = 0f;
             remainTime = _timeMax;
@@ -39,7 +38,7 @@ namespace Starfall.Manager
             NextWave();
         }
 
-        void NextWave()
+        private void NextWave()
         {
             RoundNum++;
             if (RoundNum >= ConstantStore.BossPerWave + 1)
@@ -80,13 +79,13 @@ namespace Starfall.Manager
             }
         }
 
-        void SetText(string t, Color c)
+        private void SetText(string t, Color c)
         {
             _text.text = t;
             _text.color = c;
         }
 
-        void Update()
+        private void Update()
         {
             if (!GameStateManager.IsPlaying)
             {

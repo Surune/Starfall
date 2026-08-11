@@ -13,7 +13,7 @@ namespace Starfall.Manager
 
         const int MaxItem = 100;
 
-        void Start()
+        private void Start()
         {
             pools = new List<GameObject>[Prefabs.Length];
 

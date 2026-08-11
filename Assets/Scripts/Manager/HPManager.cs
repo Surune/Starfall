@@ -13,10 +13,10 @@ namespace Starfall.Manager
         SFXManager SfxManager => GameManager.Instance.SfxManager;
         Player Player => GameManager.Instance.Player;
 
-        Slider _healthSlider;
         public float CurrentHP;
         public float MaxHP;
         public GameObject GameOverDisplay;
+        [SerializeField] private Slider hpSlider;
         [SerializeField] private TMP_Text barrierCount;
         public int Barrier = 0;
         [HideInInspector] public bool Meatshield = false;
@@ -30,20 +30,19 @@ namespace Starfall.Manager
         [HideInInspector] public bool Berserk = false;
         [HideInInspector] public bool Capricon = false;
 
-        void Start()
+        private void Start()
         {
-            _healthSlider = GetComponent<Slider>();
             MaxHP = 100f;
             CurrentHP = MaxHP;
             Barrier = 0;
-            _healthSlider.value = CurrentHP;
+            hpSlider.value = CurrentHP;
             PlayerPrefs.SetFloat("nowdeck", 0f);
         }
 
         public void SetHealthBar()
         {
-            _healthSlider.maxValue = MaxHP;
-            _healthSlider.value = CurrentHP;
+            hpSlider.maxValue = MaxHP;
+            hpSlider.value = CurrentHP;
         }
 
         public void GetBarrier(int num)

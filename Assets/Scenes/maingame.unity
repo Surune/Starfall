@@ -1951,9 +1951,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1418295023}
+  - component: {fileID: 1418295024}
   - component: {fileID: 1418295026}
   - component: {fileID: 1418295025}
-  - component: {fileID: 1418295024}
   m_Layer: 6
   m_Name: HPSlider
   m_TagString: Untagged
@@ -2057,6 +2057,7 @@ MonoBehaviour:
   MaxHP: 0
   GameOverDisplay: {fileID: 2416823381450539026, guid: 08389ba2d053d484da07f1f5ee067ac4,
     type: 3}
+  hpSlider: {fileID: 1418295025}
   barrierCount: {fileID: 1172591514}
   Barrier: 0
   Meatshield: 0
