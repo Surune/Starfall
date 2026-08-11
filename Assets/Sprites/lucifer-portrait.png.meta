@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: 37b2989bc01bb8443ab874813771fb56
+guid: 3e165b836a2ccc844a8256d9fc2713aa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4767412250929287013
-    second: angel-sheet_0
+      213: -4508011096794998144
+    second: lucifer-portrait_0
   - first:
-      213: -4883291711153829489
-    second: angel-sheet_1
-  - first:
-      213: -1547565345764524075
-    second: angel-sheet_2
-  - first:
-      213: -260595101364187059
-    second: angel-sheet_3
+      213: 2496158183333252138
+    second: lucifer-portrait_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -109,89 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: angel-red-sheet_0
+      name: lucifer-portrait_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
-        width: 64
-        height: 64
+        x: 7
+        y: 0
+        width: 50
+        height: 54
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: fbf1c4b56d70892489030af9871156f5
-      internalID: 1978818717
+      spriteID: 08ad30cbac35071c0800000000000000
+      internalID: -4508011096794998144
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: angel-red-sheet_1
+      name: lucifer-portrait_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
-        width: 64
-        height: 64
+        x: 23
+        y: 49
+        width: 18
+        height: 7
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 8b30fc9816c6c1b478fcd7eca4ee2518
-      internalID: 32091952
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: angel-red-sheet_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 515683af9875c5f4b830372b189fb842
-      internalID: 383396886
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: angel-red-sheet_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 88cca4873b26cf34889b2bb99be07266
-      internalID: 679572626
+      spriteID: a2c43cc74a224a220800000000000000
+      internalID: 2496158183333252138
       vertices: []
       indices: 
       edges: []
@@ -200,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c29aedb8e89bc9644b442eb6ffc243ac
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -208,14 +158,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      angel-red-sheet_0: 1978818717
-      angel-red-sheet_1: 32091952
-      angel-red-sheet_2: 383396886
-      angel-red-sheet_3: 679572626
+      lucifer-portrait_0: -4508011096794998144
+      lucifer-portrait_1: 2496158183333252138
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

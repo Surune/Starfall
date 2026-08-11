@@ -55,7 +55,6 @@ MonoBehaviour:
   ExpAmount: 0
   MakeMeteor: 0
   type: 0
-  spriteRenderer: {fileID: 3532529171872160012}
   spriteAnimation: {fileID: 7728201364005168941}
   moveDirection: {x: 0, y: -1, z: 0}
 --- !u!50 &6584507950970724060
@@ -120,7 +119,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 40
+  m_Radius: 35
 --- !u!1 &3720777522330542227
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +148,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 300, y: 300, z: 1}
+  m_LocalScale: {x: 200, y: 200, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3984533852386021703}
@@ -199,12 +198,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1526794353
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4767412250929287013, guid: 37b2989bc01bb8443ab874813771fb56,
-    type: 3}
+  m_Sprite: {fileID: 1978818717, guid: 37b2989bc01bb8443ab874813771fb56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
