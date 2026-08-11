@@ -11,7 +11,7 @@ public class SynergyList : MonoBehaviour
     [SerializeField] string[] descriptions;
     [SerializeField] TextMeshProUGUI descriptionText;
 
-    void Start()
+    private void Start()
     {
         for (int i = 0; i < texts.Length; i++)
         {

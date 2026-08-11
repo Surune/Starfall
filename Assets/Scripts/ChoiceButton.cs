@@ -16,7 +16,6 @@ public class ChoiceButton : MonoBehaviour
     [SerializeField] Image synergy1Icon;
     [SerializeField] Image synergy2Background;
     [SerializeField] Image synergy2Icon;
-    [SerializeField] Tween tween;
 
     public void SetAbility(int id)
     {
@@ -48,7 +47,5 @@ public class ChoiceButton : MonoBehaviour
             synergy2Background.color = abilityManager.SynergyColors[second];
             synergy2Icon.sprite = abilityManager.SynergySprites[second];
         }
-
-        tween.DoTween();
     }
 }
