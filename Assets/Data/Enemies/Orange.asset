@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: Assembly-CSharp::Starfall.Entity.EnemyData
   Type: 1
-  BaseHP: 1
-  StageHP: 0.75
+  BaseHP: 2
+  StageHP: 1.5
   Speed: 2
-  Color: {r: 1, g: 1, b: 1, a: 1}
   Sprites:
   - {fileID: 6752181184654964991, guid: 629f9cf51a78103418b199428d50a3a7, type: 3}
   - {fileID: -4839941482162832100, guid: 629f9cf51a78103418b199428d50a3a7, type: 3}

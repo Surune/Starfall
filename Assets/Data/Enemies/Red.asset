@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Red
   m_EditorClassIdentifier: Assembly-CSharp::Starfall.Entity.EnemyData
   Type: 0
-  BaseHP: 0
+  BaseHP: 1
   StageHP: 1
   Speed: 1.25
-  Color: {r: 1, g: 1, b: 1, a: 1}
   Sprites:
   - {fileID: 1978818717, guid: 37b2989bc01bb8443ab874813771fb56, type: 3}
   - {fileID: 32091952, guid: 37b2989bc01bb8443ab874813771fb56, type: 3}

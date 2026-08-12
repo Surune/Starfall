@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Violet
   m_EditorClassIdentifier: Assembly-CSharp::Starfall.Entity.EnemyData
   Type: 6
-  BaseHP: 1
-  StageHP: 1.6
+  BaseHP: 2
+  StageHP: 3.5
   Speed: 2
-  Color: {r: 1, g: 1, b: 1, a: 1}
   Sprites:
   - {fileID: -5280303323671292085, guid: ff57579ed137c2347945f7fc59212fbb, type: 3}
   - {fileID: -6803092489042260385, guid: ff57579ed137c2347945f7fc59212fbb, type: 3}

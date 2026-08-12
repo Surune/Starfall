@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Indigo
   m_EditorClassIdentifier: Assembly-CSharp::Starfall.Entity.EnemyData
   Type: 5
-  BaseHP: 1
-  StageHP: 1.5
+  BaseHP: 2
+  StageHP: 3
   Speed: 1.5
-  Color: {r: 1, g: 1, b: 1, a: 1}
   Sprites:
   - {fileID: -8150424301799636505, guid: 3c4f734a25e6da04c9835ce8cfb70da7, type: 3}
   - {fileID: -613379157615234115, guid: 3c4f734a25e6da04c9835ce8cfb70da7, type: 3}

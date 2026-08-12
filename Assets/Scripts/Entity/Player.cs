@@ -16,8 +16,8 @@ namespace Starfall.Entity
         static SFXManager Sfx => GameManager.Instance.SfxManager;
 
         public GameObject Barrier;
-        public float SkillCooltimeMax;
-        [SerializeField] private float speed = 3f;
+        public float SkillCooltimeMax = 0.2f;
+        [SerializeField] private float speed = 5f;
         [SerializeField] private InputActionReference move;
         [SerializeField] private Transform bulletSpawnPoint;
         [HideInInspector] public bool Reloading;
