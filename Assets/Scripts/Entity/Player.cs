@@ -19,6 +19,7 @@ namespace Starfall.Entity
         public float SkillCooltimeMax;
         [SerializeField] private float speed = 3f;
         [SerializeField] private InputActionReference move;
+        [SerializeField] private Transform bulletSpawnPoint;
         [HideInInspector] public bool Reloading;
         [HideInInspector] public int KillNum = 0;
 
@@ -76,12 +77,12 @@ namespace Starfall.Entity
             {
                 var bulletLeft = PoolManager.Get(PoolNumber.Bullet);
                 bulletLeft.transform.rotation = Quaternion.Euler(0, 0, -10);
-                bulletLeft.transform.position = transform.position;
+                bulletLeft.transform.position = bulletSpawnPoint.position;
                 PlayerManager.SetFireInfo(bulletLeft.GetComponent<Bullet>());
 
                 var bulletRight = PoolManager.Get(PoolNumber.Bullet);
                 bulletRight.transform.rotation = Quaternion.Euler(0, 0, 10);
-                bulletRight.transform.position = transform.position;
+                bulletRight.transform.position = bulletSpawnPoint.position;
                 PlayerManager.SetFireInfo(bulletRight.GetComponent<Bullet>());
             }
             if (AbilityManager.fracture && !AbilityManager.awaken)
@@ -92,7 +93,7 @@ namespace Starfall.Entity
             var bullet = PoolManager.Get(PoolNumber.Bullet);
             PlayerManager.SetFireInfo(bullet.GetComponent<Bullet>());
             bullet.transform.rotation = Quaternion.Euler(0, 0, 0);
-            bullet.transform.position = transform.position;
+            bullet.transform.position = bulletSpawnPoint.position;
         }
 
         public void Explode(Transform center, float coeff = 1f)

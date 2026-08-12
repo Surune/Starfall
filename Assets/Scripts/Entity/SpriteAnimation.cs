@@ -5,9 +5,9 @@ public class SpriteAnimation : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private List<Sprite> sprites;
-    [SerializeField] private int framesPerSprite = 10;
+    const float SpriteAnimationInterval = 0.1f;
     private int spriteIndex;
-    private int frameCount;
+    private float spriteAnimationElapsed;
 
     private void OnValidate()
     {
@@ -18,16 +18,16 @@ public class SpriteAnimation : MonoBehaviour
     {
         sprites = newSprites;
         spriteIndex = 0;
-        frameCount = 0;
+        spriteAnimationElapsed = 0f;
         spriteRenderer.sprite = sprites[spriteIndex];
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        frameCount++;
-        if (frameCount > framesPerSprite)
+        spriteAnimationElapsed += Time.deltaTime;
+        if (spriteAnimationElapsed >= SpriteAnimationInterval)
         {
-            frameCount -= framesPerSprite;
+            spriteAnimationElapsed -= SpriteAnimationInterval;
             spriteIndex = (spriteIndex + 1) % sprites.Count;
             spriteRenderer.sprite = sprites[spriteIndex];
         }

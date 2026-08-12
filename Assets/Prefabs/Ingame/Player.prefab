@@ -244,6 +244,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 2814791888275235023}
   m_maskType: 0
+--- !u!1 &5619235576095136438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 718586202731255286}
+  m_Layer: 6
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &718586202731255286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619235576095136438}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8632443027852433971}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7974674530984849142
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 436225266116687637}
   - component: {fileID: 5698837862360339101}
-  - component: {fileID: 1620658864815913819}
+  - component: {fileID: 6448847720494141803}
   m_Layer: 6
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -337,7 +368,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1620658864815913819
+--- !u!114 &6448847720494141803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -348,14 +379,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec6a99cfd143914418c2c278b5760efc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteAnimation
   spriteRenderer: {fileID: 5698837862360339101}
   sprites:
   - {fileID: 4647910408078526934, guid: 9011ee5bb4e497c4aa71dd799a0bf55f, type: 3}
   - {fileID: 460406814686362122, guid: 9011ee5bb4e497c4aa71dd799a0bf55f, type: 3}
   - {fileID: 5391332467406932972, guid: 9011ee5bb4e497c4aa71dd799a0bf55f, type: 3}
   - {fileID: 5617561471377383779, guid: 9011ee5bb4e497c4aa71dd799a0bf55f, type: 3}
-  framesPerSprite: 10
 --- !u!1 &8522907204975919351
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +421,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 436225266116687637}
+  - {fileID: 718586202731255286}
   - {fileID: 6388315007726109708}
   - {fileID: 6348781276794372943}
   m_Father: {fileID: 0}
@@ -442,6 +473,7 @@ MonoBehaviour:
   SkillCooltimeMax: 0.3
   speed: 3
   move: {fileID: -1680190386980627800, guid: d1b664c115db3164aac2e85d274c6de6, type: 3}
+  bulletSpawnPoint: {fileID: 718586202731255286}
   Reloading: 0
   KillNum: 0
 --- !u!82 &1418901320234954622
