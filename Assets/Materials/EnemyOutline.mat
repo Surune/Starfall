@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteOutline
+  m_Name: EnemyOutline
   m_Shader: {fileID: 4800000, guid: b376352410d24d6199fe7c374c0b121e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -39,7 +39,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0.18039216, g: 0.18039216, b: 0.18039216, a: 0.78431374}
+    - _OutlineColor: {r: 0.89019614, g: 0.70980394, b: 0.14509805, a: 0.78431374}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
