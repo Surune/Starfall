@@ -36,7 +36,7 @@ namespace Starfall.Manager
                         hp.Lethal = true;
                         break;
                     case 19:
-                        spawner.DamageCoefficient -= 0.05f;
+                        Enemy.DamageCoefficient -= 0.05f;
                         break;
                     case 18:
                         Enemy.ItemProb = 1f;

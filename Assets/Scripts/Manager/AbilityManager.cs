@@ -81,7 +81,7 @@ namespace Starfall.Manager
             switch (synergyType)
             {
                 case 1:
-                    spawner.DamageCoefficient += 0.1f;
+                    Enemy.DamageCoefficient += 0.1f;
                     break;
                 case 2:
                     spawner.Disabled = true;

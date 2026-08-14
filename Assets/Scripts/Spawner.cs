@@ -15,15 +15,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject bossPrefab;
     [SerializeField] float boundary;
     [SerializeField] int enemyTypeNum;
-    public TMP_Text ResourceText;
     public float Enemydelay;
     public int Enemynum = 1;
     public float SpeedCoefficient = 1f;
     public GameObject EnemyList;
-    public GameObject MeteorList;
     float maxX, maxY;
     const float Mindelay = 0.005f;
-    public float DamageCoefficient = 1f;
     public float MeteorCoefficient = 1f;
     public float AddHP = 0f;
     public AudioSource Musicplayer;
@@ -36,8 +33,8 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(SpawnEnemy), 0, Enemydelay);
-        maxX = EnemyList.GetComponent<RectTransform>().rect.width/2 * boundary;
-        maxY = EnemyList.GetComponent<RectTransform>().rect.height/2;
+        maxX = 1;
+        maxY = 1;
 
         SpeedCoefficient = 1f;
     }
