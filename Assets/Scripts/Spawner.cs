@@ -33,8 +33,8 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(SpawnEnemy), 0, Enemydelay);
-        maxX = 1;
-        maxY = 1;
+        maxX = 5;
+        maxY = 5;
 
         SpeedCoefficient = 1f;
     }
