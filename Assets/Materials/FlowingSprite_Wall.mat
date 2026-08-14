@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FlowingSpriteBackground
+  m_Name: FlowingSprite_Wall
   m_Shader: {fileID: 4800000, guid: ae1c910db7d064b8782e369cbb82b057, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -55,7 +55,7 @@ Material:
     - _NoiseIntensity: 1
     - _NoiseScale: 16
     - _NoiseStrength: 1
-    - _ScrollSpeed: 0.1
+    - _ScrollSpeed: 0.07
     - _Speed: 0.01
     - _StarDensity: 0
     - _StarSpeed: 0.001
