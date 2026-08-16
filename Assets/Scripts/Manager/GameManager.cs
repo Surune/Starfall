@@ -17,7 +17,6 @@ namespace Starfall.Manager
         public Player Player;
         public Timer Timer;
         public ExpManager ExpManager;
-        public ScoreManager ScoreManager;
         public Spawner Spawner;
         public HPManager HPManager;
 
@@ -64,19 +63,11 @@ namespace Starfall.Manager
 
         private void GetCoin(int bonus)
         {
-            var nowscore = (int)ScoreManager.TotalScore;
-
             if (bonus != 0)
             {
                 CoinCoefficient += 0.05f * NerfManager.NerfLevel;
-                nowscore = Mathf.CeilToInt(nowscore * (1 + 0.05f * NerfManager.NerfLevel));
             }
             var coins = Mathf.CeilToInt((ExpManager.Coins + bonus) * CoinCoefficient);
-            if (nowscore > PlayerPrefs.GetInt("HighScore"))
-            {
-                PlayerPrefs.SetInt("HighScore", nowscore);
-            }
-            PlayerPrefs.SetInt("NowScore", nowscore);
             PlayerPrefs.SetInt("Coin", coins);
             var totalcoin = PlayerPrefs.GetInt("TotalCoin") + coins;
             PlayerPrefs.SetInt("TotalCoin", totalcoin);

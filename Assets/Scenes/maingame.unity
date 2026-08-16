@@ -2509,7 +2509,6 @@ MonoBehaviour:
   Player: {fileID: 114533110205664265}
   Timer: {fileID: 1819767169}
   ExpManager: {fileID: 1686277751}
-  ScoreManager: {fileID: 843723512}
   Spawner: {fileID: 169681007}
   HPManager: {fileID: 1418295026}
   EnemyList: {fileID: 57462596}

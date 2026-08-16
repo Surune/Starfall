@@ -9,9 +9,6 @@ public class GameOver : MonoBehaviour
 
     void Start()
     {
-        string text = $"Now Score : {PlayerPrefs.GetInt("NowScore")}";
-        text += $"\n\nHigh Score : {PlayerPrefs.GetInt("HighScore")}";
-        text += $"\n\nCoins : {PlayerPrefs.GetInt("TotalCoin")} (+{PlayerPrefs.GetInt("Coin")})";
-        scoreText.text = text;
+        scoreText.text = $"\n\nCoins : {PlayerPrefs.GetInt("TotalCoin")} (+{PlayerPrefs.GetInt("Coin")})";
     }
 }

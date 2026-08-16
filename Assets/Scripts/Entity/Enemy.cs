@@ -7,7 +7,6 @@ namespace Starfall.Entity
 {
     public class Enemy : MonoBehaviour
     {
-        static ScoreManager ScoreManager => GameManager.Instance.ScoreManager;
         static ExpManager ExpManager => GameManager.Instance.ExpManager;
         static EffectManager EffectManager => GameManager.Instance.EffectManager;
         static SFXManager SfxManager => GameManager.Instance.SfxManager;
@@ -210,7 +209,6 @@ namespace Starfall.Entity
 
             //effect.PlayEnemySound(isKilled : true);
             ExpManager.GetExp(ExpAmount);
-            ScoreManager.GetScore(ExpAmount);
             if (Random.Range(0, 100) < ItemProb)
             {
                 var item = PoolManager.Get(PoolNumber.Item);
@@ -241,7 +239,6 @@ namespace Starfall.Entity
                 HpManager.GetDamage(-Mathf.CeilToInt(CurrentHP));
                 GameManager.Instance.ActiveEnemyNum -= 1;
                 ExpManager.GetExp(ExpAmount);
-                ScoreManager.GetScore(ExpAmount);
                 gameObject.SetActive(false);
             }
         }
