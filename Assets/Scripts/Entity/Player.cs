@@ -24,16 +24,23 @@ namespace Starfall.Entity
         [HideInInspector] public int KillNum = 0;
 
         const float MinDelay = 0.0005f;
+        Rigidbody2D _rigidbody;
+        Vector2 _moveDirection;
 
         private void Awake()
         {
+            _rigidbody = GetComponent<Rigidbody2D>();
             InvokeRepeating(nameof(Shoot), 0f, SkillCooltimeMax);
         }
 
         private void Update()
         {
-            var moveDir = (Vector3)move.action.ReadValue<Vector2>();
-            transform.position += moveDir * (Time.deltaTime * speed);
+            _moveDirection = move.action.ReadValue<Vector2>();
+        }
+
+        private void FixedUpdate()
+        {
+            _rigidbody.MovePosition(_rigidbody.position + _moveDirection * (Time.fixedDeltaTime * speed));
         }
 
         public void ChangeSkillCool(float newcooltime)

@@ -563,7 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Barrier: {fileID: 8924247385278304201}
   SkillCooltimeMax: 0.2
-  speed: 5
+  speed: 3
   move: {fileID: -1680190386980627800, guid: d1b664c115db3164aac2e85d274c6de6, type: 3}
   bulletSpawnPoint: {fileID: 718586202731255286}
   Reloading: 0
