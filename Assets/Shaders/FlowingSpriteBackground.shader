@@ -17,15 +17,16 @@ Shader "Custom/FlowingSpriteBackground"
         Tags
         {
             "Queue"="Transparent"
+            "IgnoreProjector"="True"
             "RenderType"="Transparent"
             "PreviewType"="Plane"
-            "CanUseSpriteAtlas"="True"
+            "CanUseSpriteAtlas"="False"
         }
 
         Cull Off
         Lighting Off
         ZWrite Off
-        Blend One OneMinusSrcAlpha
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
@@ -44,9 +45,7 @@ Shader "Custom/FlowingSpriteBackground"
                 float2 scrollUV = i.texcoord;
                 scrollUV.y = frac(scrollUV.y + _Time.y * _ScrollSpeed);
 
-                fixed4 color = SampleSpriteTexture(scrollUV) * i.color;
-                color.rgb *= color.a;
-                return color;
+                return SampleSpriteTexture(scrollUV) * i.color;
             }
             ENDCG
         }
