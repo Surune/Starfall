@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7217b6dc743c4d2b91f1a3e8d5c0ab46, type: 3}
+  m_Name: whispers_of_doom
+  m_EditorClassIdentifier: 
+  Type: 9
+  Name: Whispers of Doom
+  Description: "\uCE58\uBA85\uD0C0 \uD655\uB960\uC774 100%\uAC00 \uB428"
+  Icon: {fileID: 21300000, guid: 888073f3d4804214aaf1ea654a58d084, type: 3}
+  Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  Requirement: 4
+  Modifiers: []
+  Effect: 3

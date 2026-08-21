@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1518295127f00a43801913029687118, type: 3}
+  m_Name: SoundDictionary
+  m_EditorClassIdentifier: Assembly-CSharp::SoundDictionary
+  sounds:
+  - soundType: 1
+    audioClip: {fileID: 8300000, guid: 77dc52b4b7ba341f7916e098d5ba3f59, type: 3}
+  - soundType: 2
+    audioClip: {fileID: 8300000, guid: 16b879c2ee864bb43b7a92db6641ffaa, type: 3}
+  - soundType: 3
+    audioClip: {fileID: 8300000, guid: 7fdc8e00589fc4ec1a4328752899de78, type: 3}
+  - soundType: 100
+    audioClip: {fileID: 8300000, guid: 8fc919dda459b4519bf4198d2bf2b1c7, type: 3}
+  - soundType: 101
+    audioClip: {fileID: 8300000, guid: 474e9b74904aa44f08e385b57c93edd2, type: 3}
+  - soundType: 102
+    audioClip: {fileID: 8300000, guid: a6c8de7c7cf60e14e9126e54ac6ec281, type: 3}
+  - soundType: 103
+    audioClip: {fileID: 8300000, guid: 640883152c6294d47b72eb0999df5193, type: 3}
+  - soundType: 104
+    audioClip: {fileID: 8300000, guid: 129a395714ce5be44936a3215a8a0dc0, type: 3}
+  - soundType: 105
+    audioClip: {fileID: 8300000, guid: 1035940f3e4d24ef18ac18f30f738ac7, type: 3}
+  - soundType: 106
+    audioClip: {fileID: 8300000, guid: 9256433073f2d4524abb85981eb77b8c, type: 3}
+  - soundType: 107
+    audioClip: {fileID: 8300000, guid: ef8228d5d67667e49a2db35464176a65, type: 3}
+  - soundType: 110
+    audioClip: {fileID: 8300000, guid: d922e0f55ad1f4568bb5c7f32b02529d, type: 3}
+  - soundType: 111
+    audioClip: {fileID: 8300000, guid: a37b41a2962c0421c92f89c5b5dae5f2, type: 3}
+  - soundType: 112
+    audioClip: {fileID: 8300000, guid: d5e9f5f62996b4988aa3ff6c429174e7, type: 3}
+  - soundType: 113
+    audioClip: {fileID: 8300000, guid: 347b43d76f982472caa2e161f59c8e42, type: 3}
+  - soundType: 114
+    audioClip: {fileID: 8300000, guid: 1c8a3bd40e8a745deb2e1491db3d64d7, type: 3}
+  - soundType: 200
+    audioClip: {fileID: 8300000, guid: d5c91d0a36d0f7e44b0de8ec82bb1708, type: 3}
+  - soundType: 201
+    audioClip: {fileID: 8300000, guid: a827d56a1c759a44b8e9848d0667c702, type: 3}
+  - soundType: 202
+    audioClip: {fileID: 8300000, guid: 523a4bf1a56bb4c728e08b9c9197d5e3, type: 3}

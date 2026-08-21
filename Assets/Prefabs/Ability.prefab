@@ -59,10 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca837dbb50b433b4b8d5fd05fdf87484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityImage: {fileID: 6045356690711974738}
-  SkillCooltimeMax: 20
-  AbilityID: 0
-  AbilityType: 1
+  abilityIcon: {fileID: 6045356690711974738}
 --- !u!1 &4992367736048529208
 GameObject:
   m_ObjectHideFlags: 0

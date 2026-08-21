@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fc2ec0617743388c4b6c2a9f1d78ab, type: 3}
+  m_Name: SynergyDatabase
+  m_EditorClassIdentifier: 
+  Synergies:
+  - {fileID: 11400000, guid: c1c8e5ac0c6a2bc44b8b36a515ac65ca, type: 2}
+  - {fileID: 11400000, guid: e06c5d645f8319b4b97215f2d91e746f, type: 2}
+  - {fileID: 11400000, guid: e0d7f7feba3382f42b66da5ed7a841e5, type: 2}
+  - {fileID: 11400000, guid: ca9dcd10ab2ccee4788ba97ce72c3314, type: 2}
+  - {fileID: 11400000, guid: 266ba0fac26bf7b43aedc47f5cddfbde, type: 2}
+  - {fileID: 11400000, guid: 9df4550c76fbb2743bfee57bcf259536, type: 2}
+  - {fileID: 11400000, guid: 4f632b58a7e28c9409908058adea8306, type: 2}
+  - {fileID: 11400000, guid: d4361acd367710a4cab53179f1ec8375, type: 2}
+  - {fileID: 11400000, guid: b403d54c0381e924192bb1b61f4d2ca9, type: 2}
+  - {fileID: 11400000, guid: 926318a0f49f6184f82c0d716330c5e2, type: 2}

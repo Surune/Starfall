@@ -531,7 +531,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refresh: 0
-  fixDamage: 0
   damage: 1
   damageCoefficient: 1
   criticalProb: 0
@@ -566,6 +565,7 @@ MonoBehaviour:
   speed: 3
   move: {fileID: -1680190386980627800, guid: d1b664c115db3164aac2e85d274c6de6, type: 3}
   bulletSpawnPoint: {fileID: 718586202731255286}
+  rigidBody: {fileID: 9147304832470819048}
   Reloading: 0
   KillNum: 0
 --- !u!82 &1418901320234954622
