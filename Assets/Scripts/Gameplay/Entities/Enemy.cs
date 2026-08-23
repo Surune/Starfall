@@ -12,7 +12,6 @@ namespace Gameplay.Entities
 {
     public class Enemy : MonoBehaviour, IDependencyInjectable, IPoolable, IDamageable
     {
-        private ExpManager expManager;
         private EffectManager effectManager;
         private GameStateManager gameStateManager;
         private PoolManager poolManager;
@@ -28,7 +27,6 @@ namespace Gameplay.Entities
         [HideInInspector] public float SlowTime = 0f;
         [HideInInspector] public float MaxHP = 2f;
         public float CurrentHP = 2f;
-        [HideInInspector] public int ExpAmount = 0;
         public static float DamageCoefficient = 1f;
         public static float ItemProb = 3f;
 
@@ -40,7 +38,6 @@ namespace Gameplay.Entities
 
         public void InjectDependency(GameDependencies dependencies)
         {
-            expManager = dependencies.ExpManager;
             effectManager = dependencies.EffectManager;
             gameStateManager = dependencies.GameStateManager;
             poolManager = dependencies.PoolManager;
@@ -178,7 +175,6 @@ namespace Gameplay.Entities
             effect.transform.localScale = transform.localScale;
 
             //effect.PlayEnemySound(isKilled : true);
-            expManager.GetExp(ExpAmount);
             if (Random.Range(0, 100) < ItemProb)
             {
                 var item = poolManager.Spawn<DropItem>();
@@ -195,7 +191,6 @@ namespace Gameplay.Entities
             if (collision.transform.CompareTag("Player"))
             {
                 hpManager.GetDamage(-Mathf.CeilToInt(CurrentHP));
-                expManager.GetExp(ExpAmount);
                 DespawnFromGame();
             }
         }

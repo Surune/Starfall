@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,10 @@ namespace UI
 {
 public class Choice : MonoBehaviour
 {
+    public Action OnSelected = () => { };
+
     Player Player => GameManager.Instance.Player;
     PlayerManager PlayerManager => GameManager.Instance.PlayerManager;
-    ExpManager ExpManager => GameManager.Instance.ExpManager;
     AbilityManager AbilityManager => GameManager.Instance.AbilityManager;
     SoundManager Sound => GameManager.Instance.SoundManager;
     GameStateManager GameStateManager => GameManager.Instance.GameStateManager;
@@ -29,9 +31,9 @@ public class Choice : MonoBehaviour
     private void Start()
     {
         abilityChoices = new AbilityData[buttons.Length];
-
-        GameManager.Instance.ActiveChoiceNum += 1;
+        
         GameStateManager.SetState(GameState.Paused);
+        Sound.PlaySFX(SoundKey.Choice);
 
         SetRefreshText();
         SetChoicenum();
@@ -74,13 +76,9 @@ public class Choice : MonoBehaviour
     public void Clicked(int i)
     {
         AbilityManager.Choiced(abilityChoices[i]);
-        GameManager.Instance.ActiveChoiceNum--;
         Sound.PlaySFX(SoundKey.Select);
-        ExpManager.SetText();
-        if (GameManager.Instance.ActiveChoiceNum == 0)
-        {
-            GameStateManager.SetState(GameState.Gameplay);
-        }
+        GameStateManager.SetState(GameState.Gameplay);
+        OnSelected();
 
         Destroy(canvas);
     }

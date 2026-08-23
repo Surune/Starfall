@@ -13,7 +13,6 @@ namespace Gameplay.Managers
         Timer timer => GameManager.Instance.Timer;
         PlayerManager playerManager => GameManager.Instance.PlayerManager;
         HPManager hp => GameManager.Instance.HPManager;
-        ExpManager exp => GameManager.Instance.ExpManager;
 
         public int NerfLevel;
         public int HighestLevel;
@@ -81,16 +80,12 @@ namespace Gameplay.Managers
                     case 3:
                         timer.Addition -= 1;
                         break;
-                    case 2:
-                        exp.ExpMax += 5;
-                        break;
                     case 1:
                         hp.MaxHP = 80f;
                         hp.CurrentHP = 80f;
                         break;
                 }
             }
-            exp.SetText();
         }
 
         public void Cleared()

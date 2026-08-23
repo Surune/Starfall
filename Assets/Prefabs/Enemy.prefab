@@ -52,7 +52,6 @@ MonoBehaviour:
   SlowTime: 0
   MaxHP: 2
   CurrentHP: 2
-  ExpAmount: 0
   type: 0
   spriteAnimation: {fileID: 7728201364005168941}
   moveDirection: {x: 0, y: -1, z: 0}

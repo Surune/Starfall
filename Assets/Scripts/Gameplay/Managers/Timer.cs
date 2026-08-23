@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using TMPro;
 using Audio;
 using Core.Constants;
 using Gameplay.Spawning;
+using UI;
 
 namespace Gameplay.Managers
 {
@@ -25,20 +27,15 @@ namespace Gameplay.Managers
 
         [SerializeField] TMP_Text _text;
         [SerializeField] Color[] _colors;
+        [SerializeField] private GameObject choicePrefab;
         
         private WaveState waveState;
-        private float remainWaitTime;
-        private float remainWaveTime;
         private float remainSpawnDelay;
         private int remainingEnemies;
-        private const float maxWaitTime = 3f;
-        private const float waveTime = 3f;
         [SerializeField] private float spawnDelay = 0.5f;
         
         private void Start()
         {
-            remainWaitTime = 0f;
-            remainWaveTime = waveTime;
             remainSpawnDelay = 0f;
             WaveNum = 1;
             RoundNum = 0;
@@ -65,7 +62,6 @@ namespace Gameplay.Managers
             {
                 // Normal
                 SetText($"Wave {WaveNum}-{RoundNum}", _colors[0]);
-                remainWaveTime = waveTime;
                 BeginSpawning(WaveNum * WaveNum + RoundNum + Addition);
                 Sound.PlaySFX(SoundKey.Wave);
             }
@@ -73,7 +69,6 @@ namespace Gameplay.Managers
             {
                 // Boss
                 SetText($"Wave {WaveNum}-Boss", _colors[1]);
-                remainWaveTime = waveTime + WaveNum;
                 BeginSpawning(WaveNum * WaveNum + 1);
                 Sound.PlaySFX(SoundKey.Boss);
             }
@@ -81,11 +76,32 @@ namespace Gameplay.Managers
             waveState = WaveState.Spawning;
         }
 
-        private void BeginWaiting(float waitTime)
+        private async Task BeginWaiting(float waitTime)
         {
             waveState = WaveState.Waiting;
             SetText("Wait...", _colors[2]);
-            remainWaitTime = waitTime;
+            GameManager.Instance.Coins += 5;
+
+            while (waitTime > 0f)
+            {
+                await Task.Yield();
+
+                if (GameStateManager.IsPlaying)
+                {
+                    waitTime -= Time.deltaTime;
+                }
+            }
+        }
+
+        public void ShowChoice()
+        {
+            Instantiate(choicePrefab, Vector3.zero, Quaternion.identity);
+        }
+
+        private void ShowWaveChoice()
+        {
+            var choice = Instantiate(choicePrefab, Vector3.zero, Quaternion.identity).GetComponent<Choice>();
+            choice.OnSelected = NextWave;
         }
 
         private void BeginSpawning(int enemyCount)
@@ -115,13 +131,10 @@ namespace Gameplay.Managers
                 case WaveState.Combat:
                     UpdateCombat();
                     break;
-                case WaveState.Waiting:
-                    UpdateWaiting();
-                    break;
             }
         }
 
-        private void UpdateSpawning()
+        private async void UpdateSpawning()
         {
             if (remainingEnemies > 0)
             {
@@ -137,35 +150,22 @@ namespace Gameplay.Managers
 
             if (GameManager.Instance.ActiveEnemyNum == 0)
             {
-                BeginWaiting(0.25f);
+                await BeginWaiting(0.25f);
+                ShowWaveChoice();
                 return;
             }
 
             waveState = WaveState.Combat;
         }
 
-        private void UpdateCombat()
+        private async void UpdateCombat()
         {
             if (GameManager.Instance.ActiveEnemyNum == 0)
             {
-                BeginWaiting(0.25f);
-                return;
-            }
-
-            remainWaveTime -= Time.deltaTime;
-            if (remainWaveTime <= 0)
-            {
-                BeginWaiting(maxWaitTime);
+                await BeginWaiting(0.25f);
+                ShowWaveChoice();
             }
         }
 
-        private void UpdateWaiting()
-        {
-            remainWaitTime -= Time.deltaTime;
-            if (remainWaitTime <= 0)
-            {
-                NextWave();
-            }
-        }
     }
 }

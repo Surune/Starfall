@@ -9,7 +9,6 @@ namespace Gameplay.Managers
     {
         public AbilityManager AbilityManager { get; }
         public EffectManager EffectManager { get; }
-        public ExpManager ExpManager { get; }
         public GameStateManager GameStateManager { get; }
         public HPManager HPManager { get; }
         public Player Player { get; }
@@ -21,11 +20,10 @@ namespace Gameplay.Managers
         public Action EnemySpawned { get; }
         public Action EnemyRemoved { get; }
 
-        public GameDependencies(AbilityManager abilityManager, EffectManager effectManager, ExpManager expManager, GameStateManager gameStateManager, HPManager hpManager, Player player, PlayerManager playerManager, PoolManager poolManager, SoundManager soundManager, Spawner spawner, Timer timer, Action enemySpawned, Action enemyRemoved)
+        public GameDependencies(AbilityManager abilityManager, EffectManager effectManager, GameStateManager gameStateManager, HPManager hpManager, Player player, PlayerManager playerManager, PoolManager poolManager, SoundManager soundManager, Spawner spawner, Timer timer, Action enemySpawned, Action enemyRemoved)
         {
             AbilityManager = abilityManager;
             EffectManager = effectManager;
-            ExpManager = expManager;
             GameStateManager = gameStateManager;
             HPManager = hpManager;
             Player = player;

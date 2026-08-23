@@ -15,7 +15,6 @@ namespace Gameplay.Managers
         Player player => GameManager.Instance.Player;
         HPManager hp => GameManager.Instance.HPManager;
         SoundManager Sound => GameManager.Instance.SoundManager;
-        ExpManager exp => GameManager.Instance.ExpManager;
         Spawner Spawner => GameManager.Instance.Spawner;
         
         public int refresh = 0;
@@ -48,9 +47,7 @@ namespace Gameplay.Managers
             switch (currentPlayer)
             {
                 case 1:
-                    exp.Coins = -5;
-                    exp.ExpCurrent = exp.ExpMax;
-                    exp.LevelUp();
+                    GameManager.Instance.Timer.ShowChoice();
                     break;
                 case 2:
                     criticalProb += 0.2f;
@@ -72,7 +69,6 @@ namespace Gameplay.Managers
             {
                 GameStateManager.Instance.SetState(GameState.Gameplay);
             }
-            exp.SetText();
         }
 
         public void DamageAllEnemy(float dmg)

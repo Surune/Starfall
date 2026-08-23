@@ -101,12 +101,10 @@ public class Spawner : MonoBehaviour, IDependencyInjectable
         if (timer.RoundNum % ConstantStore.BossPerWave != 0)
         {
             enemy.IsBoss = false;
-            enemy.ExpAmount = 1;
         }
         else
         {
             enemy.MakeBoss();
-            enemy.ExpAmount = timer.WaveNum + 1;
         }
         enemy.MaxHP = enemy.MaxHP + AddHP > 1 ? enemy.MaxHP + AddHP : 1f;
         enemy.CurrentHP = enemy.MaxHP;

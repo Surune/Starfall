@@ -22,14 +22,13 @@ namespace Gameplay.Managers
         public NerfManager NerfManager;
         public Player Player;
         public Timer Timer;
-        public ExpManager ExpManager;
         public Spawner Spawner;
         public HPManager HPManager;
 
         [SerializeField] private SoundDictionary soundDictionary;
         [SerializeField] private GameObject gameClearDisplay;
-        [HideInInspector] public int ActiveChoiceNum = 0;
         [HideInInspector] public int ActiveEnemyNum = 0;
+        [HideInInspector] public int Coins = 0;
         [HideInInspector] public List<AbilityData> SelectedAbilities = new();
         public float CoinCoefficient = 1f;
         private GameDependencies dependencies;
@@ -38,7 +37,7 @@ namespace Gameplay.Managers
         {
             Instance = this;
             SoundManager = new(soundDictionary);
-            dependencies = new GameDependencies(AbilityManager, EffectManager, ExpManager, GameStateManager, HPManager, Player, PlayerManager, PoolManager, SoundManager, Spawner, Timer, RegisterEnemySpawned, RegisterEnemyRemoved);
+            dependencies = new GameDependencies(AbilityManager, EffectManager, GameStateManager, HPManager, Player, PlayerManager, PoolManager, SoundManager, Spawner, Timer, RegisterEnemySpawned, RegisterEnemyRemoved);
             PoolManager.SetObjectInitializer(ConfigurePooledObject);
             Spawner.InjectDependency(dependencies);
             Player.InjectDependency(dependencies);
@@ -98,7 +97,7 @@ namespace Gameplay.Managers
                 CoinCoefficient += 0.05f * NerfManager.NerfLevel;
             }
             
-            var coins = Mathf.CeilToInt((ExpManager.Coins + bonus) * CoinCoefficient);
+            var coins = Mathf.CeilToInt((Coins + bonus) * CoinCoefficient);
             PlayerPrefs.SetInt("Coin", coins);
             
             var totalcoin = PlayerPrefs.GetInt("TotalCoin") + coins;

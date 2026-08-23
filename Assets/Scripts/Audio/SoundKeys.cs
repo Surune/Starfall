@@ -1,5 +1,4 @@
 
-using Gameplay.Collectibles;
 using Gameplay.Entities;
 
 namespace Audio
@@ -15,8 +14,7 @@ namespace Audio
         // 100~199 : Ingame
         Item = 100,
         Synergy = 101,
-        Levelup = 102,
-        Exp = 103,
+        Choice = 102,
         Shoot = 104,
         Upgrade = 105,
         Barrier = 106,
