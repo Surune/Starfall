@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.3}
   m_SizeDelta: {x: 0, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6006353139603833746
@@ -537,7 +537,6 @@ MonoBehaviour:
   criticalCoefficient: 1.5
   fatalProb: 0
   shotSpeedCoefficient: 1
-  criticalCount: 0
   statikk: 0
   aquaris: 0
   repair: 0
@@ -562,6 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Barrier: {fileID: 8924247385278304201}
   SkillCooltimeMax: 0.2
+  BulletCount: 1
   speed: 3
   move: {fileID: -1680190386980627800, guid: d1b664c115db3164aac2e85d274c6de6, type: 3}
   bulletSpawnPoint: {fileID: 718586202731255286}
@@ -754,8 +754,8 @@ Transform:
   m_GameObject: {fileID: 8924247385278304201}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 45, z: 0}
-  m_LocalScale: {x: 150, y: 150, z: 6}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8463038517948851306}
