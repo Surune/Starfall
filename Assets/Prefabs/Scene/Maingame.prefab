@@ -166,6 +166,8 @@ MonoBehaviour:
   Spawner: {fileID: 0}
   HPManager: {fileID: 0}
   soundDictionary: {fileID: 11400000, guid: be3eb89315d1bc2488b7bdc3d62f5ec8, type: 2}
+  gameClearDisplay: {fileID: 604441896254273576, guid: 3fb8969b4aa4548fa8a7ac435327f9a9,
+    type: 3}
   ActiveChoiceNum: 0
   ActiveEnemyNum: 0
   SelectedAbilities: []

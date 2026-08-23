@@ -15,11 +15,9 @@ public class Spawner : MonoBehaviour, IDependencyInjectable
     private Timer timer;
     private SoundManager sound;
 
-    [SerializeField] GameObject bossPrefab;
     [SerializeField] float boundary;
     [SerializeField] int enemyTypeNum;
     public float SpeedCoefficient = 1f;
-    public GameObject EnemyList;
     public float MeteorCoefficient = 1f;
     public float AddHP = 0f;
     [SerializeField] EnemyData[] enemyDataList;
@@ -83,22 +81,6 @@ public class Spawner : MonoBehaviour, IDependencyInjectable
         meteor.transform.position = new Vector3(dependencies.Player.transform.position.x, maxY, 0f);
         meteor.speed *= MeteorCoefficient;
         return meteor.gameObject;
-    }
-
-    public GameObject SpawnFinalBoss()
-    {
-        foreach (var activeEnemy in activeEnemies)
-        {
-            activeEnemy.gameObject.SetActive(false);
-        }
-        activeEnemies.Clear();
-        activeTargets.Clear();
-        var enemy = Instantiate(bossPrefab, new Vector3(0f, maxY, 0f), Quaternion.identity);
-        enemy.transform.SetParent(EnemyList.transform);
-        activeTargets.Add(enemy.transform);
-        enemy.GetComponent<Boss>().InjectDependency(dependencies);
-        dependencies.EnemySpawned();
-        return enemy;
     }
 
     private Enemy SpawnEnemyWithType(int type, Vector3 pos)

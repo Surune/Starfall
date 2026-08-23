@@ -24,7 +24,6 @@ namespace Audio
         Refresh = 110,
         Wave = 111,
         Boss = 112,
-        FinalBoss = 113,
         Meteor = 114,
         // 200~201 : Enemy
         EnemyHit = 200,

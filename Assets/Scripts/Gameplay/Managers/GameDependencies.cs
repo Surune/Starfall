@@ -20,9 +20,8 @@ namespace Gameplay.Managers
         public Timer Timer { get; }
         public Action EnemySpawned { get; }
         public Action EnemyRemoved { get; }
-        public Action<int> GameCompleted { get; }
 
-        public GameDependencies(AbilityManager abilityManager, EffectManager effectManager, ExpManager expManager, GameStateManager gameStateManager, HPManager hpManager, Player player, PlayerManager playerManager, PoolManager poolManager, SoundManager soundManager, Spawner spawner, Timer timer, Action enemySpawned, Action enemyRemoved, Action<int> gameCompleted)
+        public GameDependencies(AbilityManager abilityManager, EffectManager effectManager, ExpManager expManager, GameStateManager gameStateManager, HPManager hpManager, Player player, PlayerManager playerManager, PoolManager poolManager, SoundManager soundManager, Spawner spawner, Timer timer, Action enemySpawned, Action enemyRemoved)
         {
             AbilityManager = abilityManager;
             EffectManager = effectManager;
@@ -37,7 +36,6 @@ namespace Gameplay.Managers
             Timer = timer;
             EnemySpawned = enemySpawned;
             EnemyRemoved = enemyRemoved;
-            GameCompleted = gameCompleted;
         }
     }
 }

@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using Audio;
 using Core.Constants;
-using Gameplay.Entities;
 using Gameplay.Spawning;
 
 namespace Gameplay.Managers
@@ -13,8 +12,7 @@ namespace Gameplay.Managers
         {
             Spawning,
             Combat,
-            Waiting,
-            FinalBoss
+            Waiting
         }
 
         GameStateManager GameStateManager => GameStateManager.Instance;
@@ -50,6 +48,12 @@ namespace Gameplay.Managers
 
         private void NextWave()
         {
+            if (WaveNum == 7 && RoundNum == ConstantStore.BossPerWave)
+            {
+                GameManager.Instance.GameClear(0);
+                return;
+            }
+
             RoundNum++;
             if (RoundNum >= ConstantStore.BossPerWave + 1)
             {
@@ -57,38 +61,24 @@ namespace Gameplay.Managers
                 WaveNum++;
             }
 
-            if (WaveNum == 8)
+            if (RoundNum % ConstantStore.BossPerWave != 0)
             {
-                if (RoundNum == 1)
-                {
-                    Spawner.SpawnFinalBoss();
-                    SetText("SOMETHING BIG IS COMING...!", _colors[2]);
-                    Sound.PlaySFX(SoundKey.FinalBoss);
-                    RoundNum = 2;
-                    waveState = WaveState.FinalBoss;
-                }
+                // Normal
+                SetText($"Wave {WaveNum}-{RoundNum}", _colors[0]);
+                remainWaveTime = waveTime;
+                BeginSpawning(WaveNum * WaveNum + RoundNum + Addition);
+                Sound.PlaySFX(SoundKey.Wave);
             }
             else
             {
-                if (RoundNum % ConstantStore.BossPerWave != 0)
-                {
-                    // Normal
-                    SetText($"Wave {WaveNum}-{RoundNum}", _colors[0]);
-                    remainWaveTime = waveTime;
-                    BeginSpawning(WaveNum * WaveNum + RoundNum + Addition);
-                    Sound.PlaySFX(SoundKey.Wave);
-                }
-                else
-                {
-                    // Boss
-                    SetText($"Wave {WaveNum}-Boss", _colors[1]);
-                    remainWaveTime = waveTime + WaveNum;
-                    BeginSpawning(WaveNum * WaveNum + 1);
-                    Sound.PlaySFX(SoundKey.Boss);
-                }
-
-                waveState = WaveState.Spawning;
+                // Boss
+                SetText($"Wave {WaveNum}-Boss", _colors[1]);
+                remainWaveTime = waveTime + WaveNum;
+                BeginSpawning(WaveNum * WaveNum + 1);
+                Sound.PlaySFX(SoundKey.Boss);
             }
+
+            waveState = WaveState.Spawning;
         }
 
         private void BeginWaiting(float waitTime)

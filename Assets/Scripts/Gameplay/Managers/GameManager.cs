@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Audio;
+using Core.Constants;
 using Data.Abilities;
 using Gameplay.Entities;
 using Gameplay.Spawning;
@@ -26,6 +27,7 @@ namespace Gameplay.Managers
         public HPManager HPManager;
 
         [SerializeField] private SoundDictionary soundDictionary;
+        [SerializeField] private GameObject gameClearDisplay;
         [HideInInspector] public int ActiveChoiceNum = 0;
         [HideInInspector] public int ActiveEnemyNum = 0;
         [HideInInspector] public List<AbilityData> SelectedAbilities = new();
@@ -36,7 +38,7 @@ namespace Gameplay.Managers
         {
             Instance = this;
             SoundManager = new(soundDictionary);
-            dependencies = new GameDependencies(AbilityManager, EffectManager, ExpManager, GameStateManager, HPManager, Player, PlayerManager, PoolManager, SoundManager, Spawner, Timer, RegisterEnemySpawned, RegisterEnemyRemoved, CompleteGame);
+            dependencies = new GameDependencies(AbilityManager, EffectManager, ExpManager, GameStateManager, HPManager, Player, PlayerManager, PoolManager, SoundManager, Spawner, Timer, RegisterEnemySpawned, RegisterEnemyRemoved);
             PoolManager.SetObjectInitializer(ConfigurePooledObject);
             Spawner.InjectDependency(dependencies);
             Player.InjectDependency(dependencies);
@@ -74,11 +76,6 @@ namespace Gameplay.Managers
             ActiveEnemyNum--;
         }
 
-        public void CompleteGame(int coin)
-        {
-            GameClear(coin);
-        }
-        
         public void GameOver(int coin)
         {
             GetComponent<AudioSource>().Pause();
@@ -90,6 +87,8 @@ namespace Gameplay.Managers
             GetComponent<AudioSource>().Pause();
             NerfManager.Cleared();
             GetCoin(coin);
+            GameStateManager.SetState(GameState.Paused);
+            Instantiate(gameClearDisplay, Vector3.zero, Quaternion.identity);
         }
 
         private void GetCoin(int bonus)
