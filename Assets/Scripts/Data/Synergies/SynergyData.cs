@@ -6,10 +6,9 @@ namespace Data.Synergies
 {
     public enum SynergyEffect
     {
-        None,
-        DisableSpawner,
-        EnableStatikk,
-        SetCriticalProbabilityToOne
+        None = 0,
+        EnableStatikk = 1, 
+        SetCriticalProbabilityToOne = 2,
     }
 
     [CreateAssetMenu(menuName = "Starfall/Synergy Data", fileName = "SynergyData")]

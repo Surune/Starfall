@@ -76,9 +76,6 @@ namespace Gameplay.Managers
             ApplyModifiers(synergy.Modifiers);
             switch (synergy.Effect)
             {
-                case SynergyEffect.DisableSpawner:
-                    spawner.Disabled = true;
-                    break;
                 case SynergyEffect.EnableStatikk:
                     playerManager.statikk = true;
                     break;

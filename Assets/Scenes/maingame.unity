@@ -415,7 +415,6 @@ MonoBehaviour:
   boundary: 0.9
   enemyTypeNum: 7
   SpeedCoefficient: 1
-  AddHP: 0
   enemyDataList:
   - {fileID: 11400000, guid: e07f8a3ac3104d30944ab1ced0a0c141, type: 2}
   - {fileID: 11400000, guid: 0f0c9c84d1a944759494c320ed269207, type: 2}
@@ -424,7 +423,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca66f815669c4d4594d17d4b2df6a6b8, type: 2}
   - {fileID: 11400000, guid: a8365777cb024e5397417e22fbc2edb8, type: 2}
   - {fileID: 11400000, guid: d09100e6235e4c1884f3f575c0a6fd66, type: 2}
-  Disabled: 0
   SpawnRandom: 0
 --- !u!1 &393064475
 GameObject:

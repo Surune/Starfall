@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 3
   Name: Swarmer
-  Description: "40\uBC88\uC9F8 \uACF5\uACA9\uB9C8\uB2E4 \uBAA8\uB4E0 \uC801\uC5D0\uAC8C \uD53C\uD574\uB97C 1 \uC90C"
+  Description: "40\uBC88\uC9F8 \uACF5\uACA9\uB9C8\uB2E4 \uBAA8\uB4E0 \uC801\uC5D0\uAC8C
+    \uD53C\uD574\uB97C 1 \uC90C"
   Icon: {fileID: 21300000, guid: af628e0ce65179044af90c82d30f7554, type: 3}
   Color: {r: 1, g: 0.8235294, b: 0, a: 1}
   Requirement: 4
   Modifiers: []
-  Effect: 2
+  Effect: 1

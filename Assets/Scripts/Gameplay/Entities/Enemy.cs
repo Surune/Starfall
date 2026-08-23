@@ -20,7 +20,7 @@ namespace Gameplay.Entities
         private Player player;
         private Timer timer;
         private Spawner spawner;
-        private System.Action enemyRemoved;
+        private Action enemyRemoved;
 
         public bool IsBoss { get; set; }
         [HideInInspector] public float Maxspeed = 10f;

@@ -55,7 +55,6 @@ namespace Gameplay.Managers
             // 모듈 6 : 코인 획득량 + 1%
             CoinCoefficient += 0.01f * PlayerPrefs.GetInt("module_6");
             // 모듈 7 : 적 체력 -0.05
-            Spawner.AddHP -= PlayerPrefs.GetInt("module_7") * 0.05f;
             // 모듈 8 : 적 속도 -0.5%
             Spawner.SpeedCoefficient -= PlayerPrefs.GetInt("module_8", 0) * 0.005f;
         }

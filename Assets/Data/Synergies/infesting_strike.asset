@@ -19,4 +19,4 @@ MonoBehaviour:
   Color: {r: 1, g: 0.5882353, b: 0.13725491, a: 1}
   Requirement: 4
   Modifiers: []
-  Effect: 1
+  Effect: 0

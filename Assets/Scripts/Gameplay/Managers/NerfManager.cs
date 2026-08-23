@@ -56,9 +56,6 @@ namespace Gameplay.Managers
                         playerManager.criticalCoefficient -= 0.05f;
                         playerManager.criticalProb -= 0.05f;
                         break;
-                    case 12:
-                        spawner.AddHP += 2;
-                        break;
                     case 9:
                         playerManager.damage -= 0.05f;
                         break;
