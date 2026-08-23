@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Audio;
 using Core.Constants;
 using Data.Enemies;
 using Gameplay.Entities;
@@ -13,16 +12,13 @@ public class Spawner : MonoBehaviour, IDependencyInjectable
     private GameDependencies dependencies;
     private PoolManager poolManager;
     private Timer timer;
-    private SoundManager sound;
 
     [SerializeField] float boundary;
     [SerializeField] int enemyTypeNum;
     public float SpeedCoefficient = 1f;
-    public float MeteorCoefficient = 1f;
     public float AddHP = 0f;
     [SerializeField] EnemyData[] enemyDataList;
     [HideInInspector] public bool Disabled = false;
-    [HideInInspector] public bool MakeMeteor = false;
     [HideInInspector] public bool SpawnRandom = false;
     private readonly List<Enemy> activeEnemies = new();
     private readonly List<Transform> activeTargets = new();
@@ -66,21 +62,6 @@ public class Spawner : MonoBehaviour, IDependencyInjectable
         this.dependencies = dependencies;
         poolManager = dependencies.PoolManager;
         timer = dependencies.Timer;
-        sound = dependencies.SoundManager;
-    }
-
-    public GameObject SpawnMeteor()
-    {
-        if (Disabled)
-        {
-            return null;
-        }
-        
-        sound.PlaySFX(SoundKey.Meteor);
-        var meteor = poolManager.Spawn<Meteor>();
-        meteor.transform.position = new Vector3(dependencies.Player.transform.position.x, maxY, 0f);
-        meteor.speed *= MeteorCoefficient;
-        return meteor.gameObject;
     }
 
     private Enemy SpawnEnemyWithType(int type, Vector3 pos)
@@ -127,7 +108,6 @@ public class Spawner : MonoBehaviour, IDependencyInjectable
             enemy.MakeBoss();
             enemy.ExpAmount = timer.WaveNum + 1;
         }
-        enemy.MakeMeteor = MakeMeteor;
         enemy.MaxHP = enemy.MaxHP + AddHP > 1 ? enemy.MaxHP + AddHP : 1f;
         enemy.CurrentHP = enemy.MaxHP;
         dependencies.EnemySpawned();

@@ -29,7 +29,6 @@ namespace Gameplay.Entities
         [HideInInspector] public float MaxHP = 2f;
         public float CurrentHP = 2f;
         [HideInInspector] public int ExpAmount = 0;
-        [HideInInspector] public bool MakeMeteor = false;
         public static float DamageCoefficient = 1f;
         public static float ItemProb = 3f;
 
@@ -57,7 +56,6 @@ namespace Gameplay.Entities
         {
             IsBoss = false;
             SlowTime = 0f;
-            MakeMeteor = false;
             transform.localScale = Vector3.one;
         }
 
@@ -175,11 +173,6 @@ namespace Gameplay.Entities
             
             player.KillNum++;
 
-            if (type == EnemyType.Indigo || MakeMeteor)
-            {
-                spawner.SpawnMeteor();
-            }
-
             var effect = poolManager.Spawn<DamageEffect>();
             effect.transform.position = transform.position;
             effect.transform.localScale = transform.localScale;
@@ -220,7 +213,6 @@ namespace Gameplay.Entities
             if (worldpos.y < 0f)
             {
                 DespawnFromGame();
-                spawner.SpawnMeteor();
             }
             else if (worldpos.x < 0f)
             {

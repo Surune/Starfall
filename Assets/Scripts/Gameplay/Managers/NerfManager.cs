@@ -60,12 +60,6 @@ namespace Gameplay.Managers
                     case 12:
                         spawner.AddHP += 2;
                         break;
-                    case 11:
-                        spawner.MeteorCoefficient *= 1.25f;
-                        break;
-                    case 10:
-                        spawner.MakeMeteor = true;
-                        break;
                     case 9:
                         playerManager.damage -= 0.05f;
                         break;
