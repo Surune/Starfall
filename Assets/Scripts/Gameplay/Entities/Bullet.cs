@@ -1,14 +1,15 @@
 using UnityEngine;
 using Gameplay.Managers;
-using Gameplay.Spawning;
+using Gameplay.Projectiles;
 
 namespace Gameplay.Entities
 {
     public class Bullet : MonoBehaviour, IDependencyInjectable, IPoolable
     {
         private PlayerManager playerManager;
-        private Spawner spawner;
         private GameStateManager gameStateManager;
+        private ProjectileNavigator navigator;
+        private ProjectileTargetResolver targetResolver;
 
         public static float FatalDamage = 2f;
 
@@ -19,17 +20,15 @@ namespace Gameplay.Entities
         public bool Penetrate = false;
         public bool IsFatal = false;
         public bool Psychosink = false;
-        public bool Beingstronger = false;
         public bool Burst = false;
         public bool Freezing = false;
-
-        private Vector3 worldPos;
 
         public void InjectDependency(GameDependencies dependencies)
         {
             playerManager = dependencies.PlayerManager;
-            spawner = dependencies.Spawner;
             gameStateManager = dependencies.GameStateManager;
+            navigator = new ProjectileNavigator(dependencies.Spawner);
+            targetResolver = new ProjectileTargetResolver();
         }
 
         public void OnSpawn()
@@ -39,7 +38,6 @@ namespace Gameplay.Entities
             Penetrate = false;
             IsFatal = false;
             Psychosink = false;
-            Beingstronger = false;
             Burst = false;
             Freezing = false;
         }
@@ -50,9 +48,15 @@ namespace Gameplay.Entities
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.transform.CompareTag("Enemy") || collision.transform.CompareTag("Boss"))
+            if (targetResolver.IsObstacle(collision))
             {
-                var target = collision.gameObject.GetComponent<IDamageable>();
+                gameObject.SetActive(false);
+                return;
+            }
+
+            if (targetResolver.IsTarget(collision))
+            {
+                var target = targetResolver.GetDamageable(collision);
                 if (IsFatal)
                 {
                     target.ApplyDamage(target.IsBoss ? Damage * FatalDamage : Damage, fatal : !target.IsBoss);
@@ -87,35 +91,7 @@ namespace Gameplay.Entities
 
         private void FixedUpdate()
         {
-            worldPos = Camera.main.WorldToViewportPoint(transform.position);
-            if (worldPos.x < 0f || worldPos.x > 1f || worldPos.y < 0f || worldPos.y > 1f)
-            {
-                gameObject.SetActive(false);
-            }
-            else if (gameStateManager.IsPlaying)
-            {
-                if (Udo)
-                {
-                    var closest = spawner.FindClosestTarget(transform.position);
-                    if (closest && Vector2.Distance(transform.position, closest.position) < 1f)
-                    {
-                        transform.position = Vector3.Lerp(transform.position, closest.position, Time.smoothDeltaTime * Speed);
-                    }
-                    else
-                    {
-                        transform.Translate(0, Time.smoothDeltaTime * Speed, 0);
-                    }
-                }
-                else
-                {
-                    transform.Translate(0, Time.smoothDeltaTime * Speed, 0);
-                }
-
-                if (Beingstronger)
-                {
-                    Damage += Damage * Time.smoothDeltaTime;
-                }
-            }
+            navigator.Move(transform, gameStateManager.IsPlaying, Speed, Udo);
         }
     }
 }
