@@ -46,9 +46,6 @@ namespace Gameplay.Managers
             var currentPlayer = PlayerPrefs.GetInt("currentPilot", 1);
             switch (currentPlayer)
             {
-                case 1:
-                    GameManager.Instance.Timer.ShowChoice();
-                    break;
                 case 2:
                     criticalProb += 0.2f;
                     break;
@@ -65,10 +62,8 @@ namespace Gameplay.Managers
                     GameManager.Instance.CoinCoefficient += 0.5f;
                     break;
             }
-            if (currentPlayer != 1)
-            {
-                GameStateManager.Instance.SetState(GameState.Gameplay);
-            }
+
+            GameStateManager.Instance.SetState(GameState.Gameplay);
         }
 
         public void DamageAllEnemy(float dmg)

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 using TMPro;
 using Audio;
@@ -14,7 +13,8 @@ namespace Gameplay.Managers
         {
             Spawning,
             Combat,
-            Waiting
+            Waiting,
+            Choosing
         }
 
         GameStateManager GameStateManager => GameStateManager.Instance;
@@ -31,16 +31,19 @@ namespace Gameplay.Managers
         
         private WaveState waveState;
         private float remainSpawnDelay;
+        private float remainWaitingTime;
         private int remainingEnemies;
+        private bool hasSpawnedEnemy;
         [SerializeField] private float spawnDelay = 0.5f;
+        private const float ChoiceDelay = 0.25f;
         
         private void Start()
         {
             remainSpawnDelay = 0f;
             WaveNum = 1;
-            RoundNum = 0;
+            RoundNum = 1;
             Addition = 0;
-            NextWave();
+            BeginWave();
         }
 
         private void NextWave()
@@ -58,6 +61,11 @@ namespace Gameplay.Managers
                 WaveNum++;
             }
 
+            BeginWave();
+        }
+
+        private void BeginWave()
+        {
             if (RoundNum % ConstantStore.BossPerWave != 0)
             {
                 // Normal
@@ -76,30 +84,17 @@ namespace Gameplay.Managers
             waveState = WaveState.Spawning;
         }
 
-        private async Task BeginWaiting(float waitTime)
+        private void BeginWaiting()
         {
             waveState = WaveState.Waiting;
+            remainWaitingTime = ChoiceDelay;
             SetText("Wait...", _colors[2]);
             GameManager.Instance.Coins += 5;
-
-            while (waitTime > 0f)
-            {
-                await Task.Yield();
-
-                if (GameStateManager.IsPlaying)
-                {
-                    waitTime -= Time.deltaTime;
-                }
-            }
-        }
-
-        public void ShowChoice()
-        {
-            Instantiate(choicePrefab, Vector3.zero, Quaternion.identity);
         }
 
         private void ShowWaveChoice()
         {
+            waveState = WaveState.Choosing;
             var choice = Instantiate(choicePrefab, Vector3.zero, Quaternion.identity).GetComponent<Choice>();
             choice.OnSelected = NextWave;
         }
@@ -108,6 +103,7 @@ namespace Gameplay.Managers
         {
             remainingEnemies = enemyCount;
             remainSpawnDelay = 0f;
+            hasSpawnedEnemy = false;
         }
 
         private void SetText(string t, Color c)
@@ -131,10 +127,13 @@ namespace Gameplay.Managers
                 case WaveState.Combat:
                     UpdateCombat();
                     break;
+                case WaveState.Waiting:
+                    UpdateWaiting();
+                    break;
             }
         }
 
-        private async void UpdateSpawning()
+        private void UpdateSpawning()
         {
             if (remainingEnemies > 0)
             {
@@ -144,25 +143,27 @@ namespace Gameplay.Managers
                     Spawner.SpawnWaveEnemy();
                     remainingEnemies--;
                     remainSpawnDelay = spawnDelay;
+                    hasSpawnedEnemy = true;
                 }
-                return;
-            }
-
-            if (GameManager.Instance.ActiveEnemyNum == 0)
-            {
-                await BeginWaiting(0.25f);
-                ShowWaveChoice();
                 return;
             }
 
             waveState = WaveState.Combat;
         }
 
-        private async void UpdateCombat()
+        private void UpdateCombat()
         {
-            if (GameManager.Instance.ActiveEnemyNum == 0)
+            if (hasSpawnedEnemy && GameManager.Instance.ActiveEnemyNum == 0)
             {
-                await BeginWaiting(0.25f);
+                BeginWaiting();
+            }
+        }
+
+        private void UpdateWaiting()
+        {
+            remainWaitingTime -= Time.deltaTime;
+            if (remainWaitingTime <= 0f)
+            {
                 ShowWaveChoice();
             }
         }

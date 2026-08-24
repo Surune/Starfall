@@ -412,7 +412,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec20303763454c15bb962bcab38ea5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundary: 0.9
   enemyTypeNum: 7
   SpeedCoefficient: 1
   enemyDataList:
