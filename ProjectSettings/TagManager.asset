@@ -9,10 +9,9 @@ TagManager:
   - Bullet
   - Background
   - Effect
-  - background
-  - effect
   - Wing
   - Item
+  - Obstacle
   layers:
   - Default
   - TransparentFX
