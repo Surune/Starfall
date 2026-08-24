@@ -1,10 +1,11 @@
 using UnityEngine;
 using Gameplay.Managers;
 using Gameplay.Projectiles;
+using Gameplay.Spawning;
 
 namespace Gameplay.Entities
 {
-    public class Bullet : MonoBehaviour, IDependencyInjectable, IPoolable
+    public class Bullet : MonoBehaviour, IPoolable
     {
         private PlayerManager playerManager;
         private GameStateManager gameStateManager;
@@ -23,11 +24,11 @@ namespace Gameplay.Entities
         public bool Burst = false;
         public bool Freezing = false;
 
-        public void InjectDependency(GameDependencies dependencies)
+        public void Initialize(PlayerManager playerManager, GameStateManager gameStateManager, Spawner spawner)
         {
-            playerManager = dependencies.PlayerManager;
-            gameStateManager = dependencies.GameStateManager;
-            navigator = new ProjectileNavigator(dependencies.Spawner);
+            this.playerManager = playerManager;
+            this.gameStateManager = gameStateManager;
+            navigator = new ProjectileNavigator(spawner);
             targetResolver = new ProjectileTargetResolver();
         }
 

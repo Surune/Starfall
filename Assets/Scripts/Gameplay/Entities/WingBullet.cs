@@ -1,10 +1,11 @@
 using UnityEngine;
 using Gameplay.Managers;
 using Gameplay.Projectiles;
+using Gameplay.Spawning;
 
 namespace Gameplay.Entities
 {
-    public class WingBullet : MonoBehaviour, IDependencyInjectable, IPoolable
+    public class WingBullet : MonoBehaviour, IPoolable
     {
         public static float Speed = 20f;
         public static float Damage = 1f;
@@ -15,10 +16,10 @@ namespace Gameplay.Entities
         private ProjectileNavigator navigator;
         private ProjectileTargetResolver targetResolver;
 
-        public void InjectDependency(GameDependencies dependencies)
+        public void Initialize(GameStateManager gameStateManager, Spawner spawner)
         {
-            gameStateManager = dependencies.GameStateManager;
-            navigator = new ProjectileNavigator(dependencies.Spawner);
+            this.gameStateManager = gameStateManager;
+            navigator = new ProjectileNavigator(spawner);
             targetResolver = new ProjectileTargetResolver();
         }
 

@@ -3,7 +3,7 @@ using Gameplay.Managers;
 
 namespace Gameplay.Entities
 {
-    public class Wing : MonoBehaviour, IDependencyInjectable
+    public class Wing : MonoBehaviour
     {
         private const float MinDelay = 0.0005f;
         
@@ -13,10 +13,10 @@ namespace Gameplay.Entities
         public static float CriticalProb = 0f;
         public static bool Freezing = false;
 
-        public void InjectDependency(GameDependencies dependencies)
+        public void Initialize(PoolManager poolManager, GameStateManager gameStateManager)
         {
-            poolManager = dependencies.PoolManager;
-            gameStateManager = dependencies.GameStateManager;
+            this.poolManager = poolManager;
+            this.gameStateManager = gameStateManager;
         }
 
         private void Start()

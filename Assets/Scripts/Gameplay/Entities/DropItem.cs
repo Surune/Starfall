@@ -7,7 +7,7 @@ using Gameplay.Managers;
 
 namespace Gameplay.Entities
 {
-    public class DropItem : MonoBehaviour, IDependencyInjectable, IPoolable
+    public class DropItem : MonoBehaviour, IPoolable
     {
         private HPManager hpManager;
         private PlayerManager playerManager;
@@ -21,12 +21,12 @@ namespace Gameplay.Entities
         [SerializeField] private Vector3 direction;
         [SerializeField] private float speed = 1f;
 
-        public void InjectDependency(GameDependencies dependencies)
+        public void Initialize(HPManager hpManager, PlayerManager playerManager, SoundManager sound, GameStateManager gameStateManager)
         {
-            hpManager = dependencies.HPManager;
-            playerManager = dependencies.PlayerManager;
-            sound = dependencies.SoundManager;
-            gameStateManager = dependencies.GameStateManager;
+            this.hpManager = hpManager;
+            this.playerManager = playerManager;
+            this.sound = sound;
+            this.gameStateManager = gameStateManager;
         }
 
         private void Update()

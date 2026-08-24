@@ -6,9 +6,8 @@ using Utilities;
 
 namespace Gameplay.Entities
 {
-    public class Player : MonoBehaviour, IDependencyInjectable
+    public class Player : MonoBehaviour
     {
-        private AbilityManager abilityManager;
         private PlayerManager playerManager;
         private PoolManager poolManager;
         private SoundManager sound;
@@ -27,13 +26,12 @@ namespace Gameplay.Entities
         private const float MinDelay = 0.0005f;
         private Vector2 moveDir;
 
-        public void InjectDependency(GameDependencies dependencies)
+        public void Initialize(PlayerManager playerManager, PoolManager poolManager, SoundManager sound, GameStateManager gameStateManager)
         {
-            abilityManager = dependencies.AbilityManager;
-            playerManager = dependencies.PlayerManager;
-            poolManager = dependencies.PoolManager;
-            sound = dependencies.SoundManager;
-            gameStateManager = dependencies.GameStateManager;
+            this.playerManager = playerManager;
+            this.poolManager = poolManager;
+            this.sound = sound;
+            this.gameStateManager = gameStateManager;
         }
 
         private void Awake()

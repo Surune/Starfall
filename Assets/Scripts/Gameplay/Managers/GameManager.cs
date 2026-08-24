@@ -4,6 +4,7 @@ using UnityEngine;
 using Audio;
 using Core.Constants;
 using Data.Abilities;
+using Gameplay.Effects;
 using Gameplay.Entities;
 using Gameplay.Spawning;
 using UI;
@@ -31,17 +32,14 @@ namespace Gameplay.Managers
         [HideInInspector] public int Coins = 0;
         [HideInInspector] public List<AbilityData> SelectedAbilities = new();
         public float CoinCoefficient = 1f;
-        private GameDependencies dependencies;
-
         private void Awake()
         {
             Instance = this;
             SoundManager = new(soundDictionary);
-            dependencies = new GameDependencies(AbilityManager, EffectManager, GameStateManager, HPManager, Player, PlayerManager, PoolManager, SoundManager, Spawner, Timer, RegisterEnemySpawned, RegisterEnemyRemoved);
             PoolManager.SetObjectInitializer(ConfigurePooledObject);
-            InjectDependency(Spawner);
-            InjectDependency(Player);
-            InjectDependency(EffectManager);
+            Spawner.Initialize(PoolManager, Timer, RegisterEnemySpawned);
+            Player.Initialize(PlayerManager, PoolManager, SoundManager, GameStateManager);
+            EffectManager.Initialize(PoolManager);
 
             // 업그레이드 적용
             // 모듈 1 : 공격력 +0.02
@@ -59,14 +57,34 @@ namespace Gameplay.Managers
             Spawner.SpeedCoefficient -= PlayerPrefs.GetInt("module_8", 0) * 0.005f;
         }
 
-        public void InjectDependency(IDependencyInjectable injectable)
+        public void ConfigureWing(Wing wing)
         {
-            injectable.InjectDependency(dependencies);
+            wing.Initialize(PoolManager, GameStateManager);
         }
 
         private void ConfigurePooledObject(Component pooledComponent)
         {
-            InjectDependency((IDependencyInjectable)pooledComponent);
+            switch (pooledComponent)
+            {
+                case Enemy enemy:
+                    var deathResolver = new EnemyDeathResolver(EffectManager, PoolManager, Player, Spawner, Timer, RegisterEnemyRemoved);
+                    enemy.Initialize(EffectManager, GameStateManager, HPManager, SoundManager, Timer, deathResolver);
+                    break;
+                case Bullet bullet:
+                    bullet.Initialize(PlayerManager, GameStateManager, Spawner);
+                    break;
+                case WingBullet wingBullet:
+                    wingBullet.Initialize(GameStateManager, Spawner);
+                    break;
+                case DropItem dropItem:
+                    dropItem.Initialize(HPManager, PlayerManager, SoundManager, GameStateManager);
+                    break;
+                case DamageEffect damageEffect:
+                    damageEffect.Initialize(GameStateManager);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(pooledComponent));
+            }
         }
 
         public void RegisterEnemySpawned()

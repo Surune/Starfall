@@ -1,17 +1,19 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Core.Constants;
 using Data.Enemies;
 using Gameplay.Entities;
 using Gameplay.Managers;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.Spawning
 {
-    public class Spawner : MonoBehaviour, IDependencyInjectable
+    public class Spawner : MonoBehaviour
     {
-        private GameDependencies dependencies;
         private PoolManager poolManager;
         private Timer timer;
+        private Action enemySpawned;
 
         [SerializeField] int enemyTypeNum;
         public float SpeedCoefficient = 1f;
@@ -48,11 +50,11 @@ namespace Gameplay.Spawning
             activeEnemies.Remove(enemy);
         }
 
-        public void InjectDependency(GameDependencies dependencies)
+        public void Initialize(PoolManager poolManager, Timer timer, Action enemySpawned)
         {
-            this.dependencies = dependencies;
-            poolManager = dependencies.PoolManager;
-            timer = dependencies.Timer;
+            this.poolManager = poolManager;
+            this.timer = timer;
+            this.enemySpawned = enemySpawned;
         }
 
         public void SpawnItem()
@@ -83,7 +85,7 @@ namespace Gameplay.Spawning
             {
                 enemy.MakeBoss();
             }
-            dependencies.EnemySpawned();
+            enemySpawned();
         }
 
         private Enemy SpawnEnemyWithType(int type, Vector3 pos)

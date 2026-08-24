@@ -3,13 +3,13 @@ using Gameplay.Effects;
 
 namespace Gameplay.Managers
 {
-    public class EffectManager : MonoBehaviour, IDependencyInjectable
+    public class EffectManager : MonoBehaviour
     {
         private PoolManager pool;
 
-        public void InjectDependency(GameDependencies dependencies)
+        public void Initialize(PoolManager poolManager)
         {
-            pool = dependencies.PoolManager;
+            pool = poolManager;
         }
 
         public void SetDamageEffect(Vector3 pos, float dmg, bool isCritical = false, bool isFatal = false, bool isHeal = false)

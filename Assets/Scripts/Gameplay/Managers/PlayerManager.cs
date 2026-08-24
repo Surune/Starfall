@@ -114,7 +114,7 @@ namespace Gameplay.Managers
             for (int i = 0; i < num; i++)
             {
                 var wing = Instantiate(wingPrefab, wingContent);
-                GameManager.Instance.InjectDependency(wing);
+                GameManager.Instance.ConfigureWing(wing);
                 Wings.Add(wing);
             }
         }

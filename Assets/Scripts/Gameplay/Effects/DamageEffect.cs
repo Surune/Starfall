@@ -4,7 +4,7 @@ using Gameplay.Managers;
 
 namespace Gameplay.Effects
 {
-    public class DamageEffect : MonoBehaviour, IDependencyInjectable, IPoolable
+    public class DamageEffect : MonoBehaviour, IPoolable
     {
         private GameStateManager gameStateManager;
 
@@ -12,9 +12,9 @@ namespace Gameplay.Effects
         private float accumulatedTime;
         private const float Delay = 0.25f;
 
-        public void InjectDependency(GameDependencies dependencies)
+        public void Initialize(GameStateManager gameStateManager)
         {
-            gameStateManager = dependencies.GameStateManager;
+            this.gameStateManager = gameStateManager;
         }
 
         public void OnSpawn()
