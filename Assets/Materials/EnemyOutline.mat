@@ -11,8 +11,10 @@ Material:
   m_Shader: {fileID: 4800000, guid: b376352410d24d6199fe7c374c0b121e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_ValidKeywords:
+  - _TINTBLEND_MULTIPLY
+  m_InvalidKeywords:
+  - _OUTLINETINTBLEND_REPLACE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -33,13 +35,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - PixelSnap: 0
     - _EnableExternalAlpha: 0
+    - _OutlineTintBlend: 0
     - _OutlineWidth: 1
+    - _TintBlend: 0
+    - _TintSourceRange: 0.35
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 0.78431374}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintSourceColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
