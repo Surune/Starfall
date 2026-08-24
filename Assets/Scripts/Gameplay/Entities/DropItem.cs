@@ -12,7 +12,8 @@ namespace Gameplay.Entities
         private HPManager hpManager;
         private PlayerManager playerManager;
         private SoundManager sound;
-        private Camera mainCamera;
+        private GameStateManager gameStateManager;
+        private Camera mainCamera => Camera.main;
         
         [SerializeField] private SpriteRenderer spriteRenderer;
         public Sprite[] ItemSprites;
@@ -20,14 +21,17 @@ namespace Gameplay.Entities
         [SerializeField] private Vector3 direction;
         [SerializeField] private float speed = 1f;
 
-        private void Start()
+        public void InjectDependency(GameDependencies dependencies)
         {
-            mainCamera = Camera.main;
+            hpManager = dependencies.HPManager;
+            playerManager = dependencies.PlayerManager;
+            sound = dependencies.SoundManager;
+            gameStateManager = dependencies.GameStateManager;
         }
 
         private void Update()
         {
-            if (GameStateManager.Instance.IsPlaying)
+            if (gameStateManager.IsPlaying)
             {
                 transform.position += direction * Time.deltaTime * speed;
             }
@@ -38,13 +42,6 @@ namespace Gameplay.Entities
             {
                 gameObject.SetActive(false);
             }
-        }
-
-        public void InjectDependency(GameDependencies dependencies)
-        {
-            hpManager = dependencies.HPManager;
-            playerManager = dependencies.PlayerManager;
-            sound = dependencies.SoundManager;
         }
 
         public void OnSpawn()

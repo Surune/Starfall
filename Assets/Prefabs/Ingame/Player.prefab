@@ -143,9 +143,9 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1526794353
+  m_SortingLayer: 2
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &9165679189947933784
@@ -544,9 +544,9 @@ MonoBehaviour:
   dagaz: 0
   reinforce: 0
   Wings: []
-  _wingPrefab: {fileID: 1052885400797702919, guid: 6421f791da15e472e8b1fc7ad72335c6,
+  wingPrefab: {fileID: 7714419705523720735, guid: 6421f791da15e472e8b1fc7ad72335c6,
     type: 3}
-  _wingTransform: {fileID: 6348781276794372943}
+  wingContent: {fileID: 6348781276794372943}
 --- !u!114 &6735363029215328602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,9 +806,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1526794353
+  m_SortingLayer: 2
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: dbbf77c7cd792497a9dc1d3841b948cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}

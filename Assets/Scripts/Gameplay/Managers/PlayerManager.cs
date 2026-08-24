@@ -32,8 +32,8 @@ namespace Gameplay.Managers
         public bool reinforce = false;
         public List<Wing> Wings;
 
-        [SerializeField] GameObject _wingPrefab;
-        [SerializeField] Transform _wingTransform;
+        [SerializeField] Wing wingPrefab;
+        [SerializeField] Transform wingContent;
         int shotnum = 0;
 
         private void Start()
@@ -113,8 +113,9 @@ namespace Gameplay.Managers
         {
             for (int i = 0; i < num; i++)
             {
-                var w = Instantiate(_wingPrefab, _wingTransform);
-                Wings.Add(w.GetComponent<Wing>());
+                var wing = Instantiate(wingPrefab, wingContent);
+                GameManager.Instance.InjectDependency(wing);
+                Wings.Add(wing);
             }
         }
     }

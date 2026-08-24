@@ -39,9 +39,9 @@ namespace Gameplay.Managers
             SoundManager = new(soundDictionary);
             dependencies = new GameDependencies(AbilityManager, EffectManager, GameStateManager, HPManager, Player, PlayerManager, PoolManager, SoundManager, Spawner, Timer, RegisterEnemySpawned, RegisterEnemyRemoved);
             PoolManager.SetObjectInitializer(ConfigurePooledObject);
-            Spawner.InjectDependency(dependencies);
-            Player.InjectDependency(dependencies);
-            EffectManager.InjectDependency(dependencies);
+            InjectDependency(Spawner);
+            InjectDependency(Player);
+            InjectDependency(EffectManager);
 
             // 업그레이드 적용
             // 모듈 1 : 공격력 +0.02
@@ -59,9 +59,14 @@ namespace Gameplay.Managers
             Spawner.SpeedCoefficient -= PlayerPrefs.GetInt("module_8", 0) * 0.005f;
         }
 
+        public void InjectDependency(IDependencyInjectable injectable)
+        {
+            injectable.InjectDependency(dependencies);
+        }
+
         private void ConfigurePooledObject(Component pooledComponent)
         {
-            ((IDependencyInjectable)pooledComponent).InjectDependency(dependencies);
+            InjectDependency((IDependencyInjectable)pooledComponent);
         }
 
         public void RegisterEnemySpawned()
