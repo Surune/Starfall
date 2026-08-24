@@ -10,7 +10,6 @@ namespace Audio
         Select = 1,
         Fail = 2,
         Purchase = 3,
-        MoveScene = 4,
         // 100~199 : Ingame
         Item = 100,
         Synergy = 101,

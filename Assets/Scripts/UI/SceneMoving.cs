@@ -1,40 +1,28 @@
 using UnityEngine;
-using Audio;
-using Gameplay.Managers;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
     public class SceneMoving : MonoBehaviour
     {
-        public void Goto_MainGame()
+        public static void Goto_Lobby()
         {
-            GotoScene("maingame");
+            GotoScene("lobby");
         }
 
-        public void Goto_Start()
-        {
-            GotoScene("start");
-        }
-
-        public void Goto_Ready()
+        public static void Goto_Ready()
         {
             GotoScene("ready");
         }
 
-        public void Goto_Options()
+        public static void Goto_MainGame()
         {
-            GotoScene("options");
+            GotoScene("maingame");
         }
-
-        public void Goto_Howtoplay()
+        
+        private static void GotoScene(string sceneName)
         {
-            GotoScene("howtoplay");
-        }
-
-        private void GotoScene(string sceneName)
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
-            GameManager.Instance.SoundManager.PlaySFX(SoundKey.MoveScene);
+            SceneManager.LoadScene(sceneName);
         }
     }
 }
