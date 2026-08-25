@@ -1,5 +1,4 @@
 using UnityEngine;
-using Mirror;
 using Gameplay.Managers;
 
 namespace Gameplay.Entities
@@ -44,15 +43,7 @@ namespace Gameplay.Entities
                 return;
             }
             
-            if (NetworkClient.active || NetworkServer.active)
-            {
-                GameManager.Instance.Player.ShootWing(transform.position);
-                return;
-            }
-
-            var fireball = poolManager.Spawn<WingBullet>();
-            fireball.transform.rotation = Quaternion.identity;
-            fireball.transform.position = transform.position;
+            GameManager.Instance.Player.ShootWing(transform.position);
         }
     }
 }

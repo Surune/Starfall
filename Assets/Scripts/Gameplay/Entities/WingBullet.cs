@@ -37,22 +37,9 @@ namespace Gameplay.Entities
             transform.SetParent(GameManager.Instance.PoolManager.EntitiesTransform);
         }
 
-        private void Start()
-        {
-            if (NetworkClient.active || NetworkServer.active)
-            {
-                return;
-            }
-
-            Speed = 20f;
-            Damage = 1f;
-            Udo = false;
-            Freezing = false;
-        }
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (NetworkClient.active && !isServer)
+            if (!isServer)
             {
                 return;
             }
@@ -77,7 +64,7 @@ namespace Gameplay.Entities
 
         private void FixedUpdate()
         {
-            if (NetworkClient.active && !isServer)
+            if (!isServer)
             {
                 return;
             }
@@ -87,13 +74,7 @@ namespace Gameplay.Entities
 
         private void Despawn()
         {
-            if (NetworkServer.active)
-            {
-                NetworkServer.Destroy(gameObject);
-                return;
-            }
-
-            gameObject.SetActive(false);
+            NetworkServer.Destroy(gameObject);
         }
     }
 }

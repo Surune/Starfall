@@ -39,7 +39,7 @@ namespace Gameplay.Managers
 
         private void Start()
         {
-            if ((NetworkClient.active || NetworkServer.active) && !GetComponent<Player>().isOwned)
+            if (!GetComponent<Player>().isOwned)
             {
                 return;
             }
@@ -59,7 +59,7 @@ namespace Gameplay.Managers
                     player.ChangeSkillCool(player.SkillCooltimeMax * 0.8f);
                     break;
                 case 4:
-                    hp.GetBarrier(5);
+                    GetComponent<PlayerHPManager>().GetBarrier(5);
                     break;
                 case 5:
                     damage += 1f;

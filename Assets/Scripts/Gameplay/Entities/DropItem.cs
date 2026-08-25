@@ -33,7 +33,7 @@ namespace Gameplay.Entities
 
         private void Update()
         {
-            if (NetworkClient.active && !isServer)
+            if (!isServer)
             {
                 return;
             }
@@ -77,7 +77,7 @@ namespace Gameplay.Entities
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (NetworkClient.active && !isServer)
+            if (!isServer)
             {
                 return;
             }
@@ -93,7 +93,7 @@ namespace Gameplay.Entities
                     playerManager.GetWing(1);
                     break;
                 case ItemType.Barrier:
-                    hpManager.GetBarrier(1);
+                    other.GetComponent<PlayerHPManager>().GetBarrier(1);
                     break;
                 case ItemType.HP:
                     hpManager.ChangeHP(10);
@@ -115,7 +115,7 @@ namespace Gameplay.Entities
             }
             if (playerManager.dagaz)
             {
-                hpManager.GetBarrier(1);
+                other.GetComponent<PlayerHPManager>().GetBarrier(1);
             }
             if (playerManager.reinforce)
             {
@@ -127,13 +127,7 @@ namespace Gameplay.Entities
 
         private void Despawn()
         {
-            if (NetworkServer.active)
-            {
-                NetworkServer.Destroy(gameObject);
-                return;
-            }
-
-            gameObject.SetActive(false);
+            NetworkServer.Destroy(gameObject);
         }
     }
 }

@@ -15,11 +15,6 @@ namespace UI
             GotoScene("ready");
         }
 
-        public static void Goto_MainGame()
-        {
-            GotoScene("maingame");
-        }
-        
         private static void GotoScene(string sceneName)
         {
             SceneManager.LoadScene(sceneName);

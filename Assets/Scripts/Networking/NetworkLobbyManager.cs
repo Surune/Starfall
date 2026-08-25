@@ -1,3 +1,4 @@
+using System.Collections;
 using Mirror;
 using UnityEngine;
 
@@ -30,6 +31,22 @@ namespace Networking
             onlineScene = RoomScene;
             autoCreatePlayer = true;
             StartClient();
+        }
+
+        public void StartSoloGame(string playerName)
+        {
+            StartHostGame(playerName);
+            StartCoroutine(StartSoloMatch());
+        }
+
+        private IEnumerator StartSoloMatch()
+        {
+            while (roomSlots.Count == 0)
+            {
+                yield return null;
+            }
+
+            StartMatch();
         }
 
         public void StartMatch()

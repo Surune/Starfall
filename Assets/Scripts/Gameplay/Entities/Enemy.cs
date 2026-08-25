@@ -9,9 +9,7 @@ namespace Gameplay.Entities
 {
     public class Enemy : NetworkBehaviour, IPoolable, IDamageable
     {
-        private EffectManager effectManager;
         private GameStateManager gameStateManager;
-        private HPManager hpManager;
         private SoundManager sound;
         private Timer timer;
         private EnemyDeathResolver deathResolver;
@@ -40,11 +38,9 @@ namespace Gameplay.Entities
             spriteAnimation.enabled = false;
         }
 
-        public void Initialize(EffectManager effectManager, GameStateManager gameStateManager, HPManager hpManager, SoundManager sound, Timer timer, EnemyDeathResolver deathResolver)
+        public void Initialize(GameStateManager gameStateManager, SoundManager sound, Timer timer, EnemyDeathResolver deathResolver)
         {
-            this.effectManager = effectManager;
             this.gameStateManager = gameStateManager;
-            this.hpManager = hpManager;
             this.sound = sound;
             this.timer = timer;
             this.deathResolver = deathResolver;
@@ -68,7 +64,7 @@ namespace Gameplay.Entities
 
         private void Start()
         {
-            if (NetworkClient.active && !isServer)
+            if (!isServer)
             {
                 enabled = false;
                 return;
@@ -107,7 +103,7 @@ namespace Gameplay.Entities
         public bool GetDamage(float dmg, bool critical = false, bool mute = false, bool fatal = false)
         {
             dmg = health.TakeDamage(dmg * DamageCoefficient);
-            effectManager.SetDamageEffect(transform.position, dmg, isCritical : critical, isFatal : fatal);
+            RpcShowDamageEffect(transform.position, dmg, critical, fatal, false);
             
             var dead = deathResolver.TryResolve(this, type, fatal, ItemProb);
             if (!mute && !dead)
@@ -123,6 +119,12 @@ namespace Gameplay.Entities
             GetDamage(damage, critical, mute, fatal);
         }
 
+        [ClientRpc]
+        private void RpcShowDamageEffect(Vector3 position, float damage, bool critical, bool fatal, bool heal)
+        {
+            GameManager.Instance.EffectManager.SetDamageEffect(position, damage, isCritical : critical, isFatal : fatal, isHeal : heal);
+        }
+
         public void ApplySlow(float duration)
         {
             movement.ApplySlow(duration);
@@ -133,7 +135,7 @@ namespace Gameplay.Entities
             var healedAmount = health.Heal(healAmount);
             if (healedAmount > 0f)
             {
-                effectManager.SetDamageEffect(transform.position, healedAmount, isCritical : false, isFatal : false, isHeal : true);
+                RpcShowDamageEffect(transform.position, healedAmount, false, false, true);
                 return true;
             }
 
@@ -142,21 +144,21 @@ namespace Gameplay.Entities
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (NetworkClient.active && !isServer)
+            if (!isServer)
             {
                 return;
             }
 
             if (collision.transform.CompareTag("Player"))
             {
-                hpManager.GetDamage(-Mathf.CeilToInt(health.Current));
+                collision.GetComponent<PlayerHPManager>().GetDamage(Mathf.CeilToInt(health.Current));
                 deathResolver.Despawn(this);
             }
         }
 
         private void Update()
         {
-            if (NetworkClient.active && !isServer)
+            if (!isServer)
             {
                 return;
             }

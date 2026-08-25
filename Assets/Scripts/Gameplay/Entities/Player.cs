@@ -47,44 +47,23 @@ namespace Gameplay.Entities
             this.gameStateManager = gameStateManager;
         }
 
-        private void Awake()
-        {
-            if (!NetworkClient.active && !NetworkServer.active)
-            {
-                InvokeRepeating(nameof(Shoot), 0f, SkillCooltimeMax);
-            }
-        }
-
         private void Update()
         {
-            if (NetworkClient.active || NetworkServer.active)
+            if (!isOwned)
             {
-                if (!isOwned)
-                {
-                    return;
-                }
-
-                moveDir = move.action.ReadValue<Vector2>();
-                CmdSetMove(moveDir);
                 return;
             }
 
             moveDir = move.action.ReadValue<Vector2>();
+            CmdSetMove(moveDir);
         }
 
         private void FixedUpdate()
         {
-            if (NetworkClient.active || NetworkServer.active)
+            if (isServer)
             {
-                if (isServer)
-                {
-                    rigidBody.MovePosition(rigidBody.position + moveDir * (Time.fixedDeltaTime * speed));
-                }
-
-                return;
+                rigidBody.MovePosition(rigidBody.position + moveDir * (Time.fixedDeltaTime * speed));
             }
-
-            rigidBody.MovePosition(rigidBody.position + moveDir * (Time.fixedDeltaTime * speed));
         }
 
         public override void OnStartLocalPlayer()
@@ -186,21 +165,16 @@ namespace Gameplay.Entities
                 return;
             }
 
-            if (NetworkClient.active || NetworkServer.active)
+            if (isServer)
             {
-                if (isServer)
-                {
-                    ServerShoot();
-                }
-                else if (isOwned)
-                {
-                    CmdShoot();
-                }
-
+                ServerShoot();
                 return;
             }
 
-            SpawnBullets();
+            if (isOwned)
+            {
+                CmdShoot();
+            }
         }
 
         [Command]
@@ -211,21 +185,16 @@ namespace Gameplay.Entities
 
         public void ShootWing(Vector3 position)
         {
-            if (NetworkClient.active || NetworkServer.active)
+            if (isServer)
             {
-                if (isServer)
-                {
-                    ServerShootWing(position);
-                }
-                else if (isOwned)
-                {
-                    CmdShootWing(position);
-                }
-
+                ServerShootWing(position);
                 return;
             }
 
-            ServerShootWing(position);
+            if (isOwned)
+            {
+                CmdShootWing(position);
+            }
         }
 
         [Command]
@@ -266,21 +235,16 @@ namespace Gameplay.Entities
 
         public void Explode(Transform center, float coeff = 1f)
         {
-            if (NetworkClient.active || NetworkServer.active)
+            if (isServer)
             {
-                if (isServer)
-                {
-                    ServerExplode(center.position, coeff);
-                }
-                else if (isOwned)
-                {
-                    CmdExplode(center.position, coeff);
-                }
-
+                ServerExplode(center.position, coeff);
                 return;
             }
 
-            SpawnExplosion(center.position, coeff);
+            if (isOwned)
+            {
+                CmdExplode(center.position, coeff);
+            }
         }
 
         [Command]

@@ -11,15 +11,13 @@ namespace Gameplay.Entities
 {
     public sealed class EnemyDeathResolver
     {
-        private readonly EffectManager effectManager;
         private readonly PoolManager poolManager;
         private readonly Spawner spawner;
         private readonly Timer timer;
         private readonly Action enemyRemoved;
 
-        public EnemyDeathResolver(EffectManager effectManager, PoolManager poolManager, Spawner spawner, Timer timer, Action enemyRemoved)
+        public EnemyDeathResolver(PoolManager poolManager, Spawner spawner, Timer timer, Action enemyRemoved)
         {
-            this.effectManager = effectManager;
             this.poolManager = poolManager;
             this.spawner = spawner;
             this.timer = timer;
@@ -74,13 +72,7 @@ namespace Gameplay.Entities
         {
             spawner.RemoveActiveEnemy(enemy);
             enemyRemoved();
-            if (NetworkServer.active)
-            {
-                NetworkServer.Destroy(enemy.gameObject);
-                return;
-            }
-
-            enemy.gameObject.SetActive(false);
+            NetworkServer.Destroy(enemy.gameObject);
         }
     }
 }

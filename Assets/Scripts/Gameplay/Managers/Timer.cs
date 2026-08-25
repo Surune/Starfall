@@ -102,14 +102,7 @@ namespace Gameplay.Managers
         private void ShowWaveChoice()
         {
             waveState = WaveState.Choosing;
-            if (NetworkServer.active)
-            {
-                ShowNetworkChoice();
-                return;
-            }
-
-            var choice = Instantiate(choicePrefab, Vector3.zero, Quaternion.identity);
-            choice.OnSelected = NextWave;
+            ShowNetworkChoice();
         }
 
         private void ShowNetworkChoice()
@@ -208,7 +201,7 @@ namespace Gameplay.Managers
 
         private void Update()
         {
-            if (NetworkClient.active && !NetworkServer.active)
+            if (!NetworkServer.active)
             {
                 return;
             }

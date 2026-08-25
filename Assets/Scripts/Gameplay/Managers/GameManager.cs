@@ -80,8 +80,8 @@ namespace Gameplay.Managers
             switch (pooledComponent)
             {
                 case Enemy enemy:
-                    var deathResolver = new EnemyDeathResolver(EffectManager, PoolManager, Spawner, Timer, RegisterEnemyRemoved);
-                    enemy.Initialize(EffectManager, GameStateManager, HPManager, SoundManager, Timer, deathResolver);
+                    var deathResolver = new EnemyDeathResolver(PoolManager, Spawner, Timer, RegisterEnemyRemoved);
+                    enemy.Initialize(GameStateManager, SoundManager, Timer, deathResolver);
                     break;
                 case Bullet bullet:
                     bullet.Initialize(PlayerManager, GameStateManager, Spawner);

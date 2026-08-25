@@ -26,7 +26,8 @@ namespace UI
 
             if (!NetworkClient.isConnected)
             {
-                SceneMoving.Goto_MainGame();
+                startButton.interactable = false;
+                NetworkLobbyManager.Instance.StartSoloGame("Pilot");
             }
         }
     }

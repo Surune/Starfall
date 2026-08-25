@@ -39,7 +39,7 @@ namespace Gameplay.Managers
         public T Spawn<T>(Action<T> configure) where T : Component
         {
             var poolType = typeof(T);
-            if (NetworkServer.active && Prefabs[prefabIndexes[poolType]].TryGetComponent<NetworkIdentity>(out _))
+            if (Prefabs[prefabIndexes[poolType]].TryGetComponent<NetworkIdentity>(out _))
             {
                 var networkObject = Instantiate(Prefabs[prefabIndexes[poolType]], EntitiesTransform);
                 var networkComponent = networkObject.GetComponent<T>();
@@ -64,7 +64,7 @@ namespace Gameplay.Managers
 
         public void Release(GameObject gameObject)
         {
-            if (NetworkServer.active && gameObject.TryGetComponent<NetworkIdentity>(out _))
+            if (gameObject.TryGetComponent<NetworkIdentity>(out _))
             {
                 NetworkServer.Destroy(gameObject);
                 return;

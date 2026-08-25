@@ -53,11 +53,15 @@ namespace Gameplay.Managers
             hpSlider.value = CurrentHP;
         }
 
+        public void SetHealthBar(float currentHP, float maxHP)
+        {
+            hpSlider.maxValue = maxHP;
+            hpSlider.value = currentHP;
+        }
+
         public void GetBarrier(int num)
         {
-            Barrier += num;
-            Player.Barrier.SetActive(true);
-            barrierCount.text = Barrier.ToString();
+            Player.GetComponent<PlayerHPManager>().GetBarrier(num);
         }
 
         public bool ChangeHP(int delta)
