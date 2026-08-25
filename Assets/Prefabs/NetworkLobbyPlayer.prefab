@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1227572930440589602
+--- !u!1 &7819930033414289152
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3491203413753412809}
-  - component: {fileID: 4926085382990591053}
-  - component: {fileID: 7373443034247446145}
+  - component: {fileID: 7819930033414289153}
+  - component: {fileID: 7819930033414289154}
+  - component: {fileID: 7819930033414289155}
   m_Layer: 0
-  m_Name: NetworkLobbyState
+  m_Name: NetworkLobbyPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3491203413753412809
+--- !u!4 &7819930033414289153
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1227572930440589602}
+  m_GameObject: {fileID: 7819930033414289152}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -33,32 +33,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4926085382990591053
+--- !u!114 &7819930033414289154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1227572930440589602}
+  m_GameObject: {fileID: 7819930033414289152}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Mirror::Mirror.NetworkIdentity
   m_SceneId: 0
-  _assetId: 3359776973
+  _assetId: 1987259473
   m_ServerOnly: 0
   m_Visibility: 0
   m_HasSpawned: 0
---- !u!114 &7373443034247446145
+--- !u!114 &7819930033414289155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1227572930440589602}
+  m_GameObject: {fileID: 7819930033414289152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ff7d0c2e0b8492e8af6e1c7994c0d7a, type: 3}
+  m_Script: {fileID: 11500000, guid: 187c6eacd96f4b35bc2b09f9844f86dc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Networking.NetworkLobbyState
+  m_EditorClassIdentifier: Assembly-CSharp::Networking.NetworkLobbyPlayer
+  showRoomGUI: 0
+  readyToBegin: 0
+  index: 0

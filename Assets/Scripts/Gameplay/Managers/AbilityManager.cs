@@ -6,6 +6,8 @@ using Audio;
 using Data.Abilities;
 using Data.Synergies;
 using Gameplay.Abilities;
+using Gameplay.Entities;
+using Gameplay.Spawning;
 
 namespace Gameplay.Managers
 {
@@ -26,8 +28,6 @@ namespace Gameplay.Managers
 
         private void Awake()
         {
-            modifierApplier = new AbilityModifierApplier(GameManager.Instance.Player, GameManager.Instance.HPManager, GameManager.Instance.Spawner, GameManager.Instance.PlayerManager, GameManager.Instance);
-            
             synergyDataByType = new Dictionary<AbilitySynergy, SynergyData>();
             synergyCountByType = new Dictionary<AbilitySynergy, int>();
             foreach (var synergy in synergyDatabase.Synergies)
@@ -35,6 +35,11 @@ namespace Gameplay.Managers
                 synergyDataByType.Add(synergy.Type, synergy);
                 synergyCountByType.Add(synergy.Type, 0);
             }
+        }
+
+        public void Initialize(Player player, PlayerManager playerManager, HPManager hpManager, Spawner spawner, GameManager gameManager)
+        {
+            modifierApplier = new AbilityModifierApplier(player, hpManager, spawner, playerManager, gameManager);
         }
 
         public SynergyData GetSynergyData(AbilitySynergy synergyType)

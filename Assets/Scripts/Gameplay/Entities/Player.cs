@@ -1,12 +1,14 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Audio;
 using Gameplay.Managers;
+using Networking;
 using Utilities;
 
 namespace Gameplay.Entities
 {
-    public class Player : MonoBehaviour
+    public class Player : NetworkBehaviour
     {
         private PlayerManager playerManager;
         private PoolManager poolManager;
@@ -26,6 +28,11 @@ namespace Gameplay.Entities
         private const float MinDelay = 0.0005f;
         private Vector2 moveDir;
 
+        [SyncVar(hook = nameof(OnDisplayNameChanged))]
+        private string displayName;
+
+        public string DisplayName => displayName;
+
         public void Initialize(PlayerManager playerManager, PoolManager poolManager, SoundManager sound, GameStateManager gameStateManager)
         {
             this.playerManager = playerManager;
@@ -36,17 +43,74 @@ namespace Gameplay.Entities
 
         private void Awake()
         {
-            InvokeRepeating(nameof(Shoot), 0f, SkillCooltimeMax);
+            if (!NetworkClient.active && !NetworkServer.active)
+            {
+                InvokeRepeating(nameof(Shoot), 0f, SkillCooltimeMax);
+            }
         }
 
         private void Update()
         {
+            if (NetworkClient.active || NetworkServer.active)
+            {
+                if (!isOwned)
+                {
+                    return;
+                }
+
+                moveDir = move.action.ReadValue<Vector2>();
+                CmdSetMove(moveDir);
+                return;
+            }
+
             moveDir = move.action.ReadValue<Vector2>();
         }
 
         private void FixedUpdate()
         {
+            if (NetworkClient.active || NetworkServer.active)
+            {
+                if (isServer)
+                {
+                    rigidBody.MovePosition(rigidBody.position + moveDir * (Time.fixedDeltaTime * speed));
+                }
+
+                return;
+            }
+
             rigidBody.MovePosition(rigidBody.position + moveDir * (Time.fixedDeltaTime * speed));
+        }
+
+        public override void OnStartLocalPlayer()
+        {
+            GameManager.Instance.SetLocalPlayer(this);
+            CmdSetDisplayName(NetworkSessionManager.Instance.LocalPlayerName);
+            gameObject.name = NetworkSessionManager.Instance.LocalPlayerName;
+            InvokeRepeating(nameof(Shoot), 0f, SkillCooltimeMax);
+        }
+
+        public override void OnStartClient()
+        {
+            transform.SetParent(GameManager.Instance.transform);
+        }
+
+        [Command]
+        private void CmdSetMove(Vector2 direction)
+        {
+            moveDir = direction;
+        }
+
+        [Command]
+        private void CmdSetDisplayName(string value)
+        {
+            displayName = value;
+            gameObject.name = value;
+        }
+
+        private void OnDisplayNameChanged(string _, string value)
+        {
+            displayName = value;
+            gameObject.name = value;
         }
 
         public void ChangeSkillCool(float newcooltime)

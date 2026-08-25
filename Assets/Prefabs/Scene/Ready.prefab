@@ -753,6 +753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9054859246233419507}
   - component: {fileID: 6537914071063657132}
+  - component: {fileID: 1000000000000000003}
   - component: {fileID: 7886499238022370487}
   m_Layer: 0
   m_Name: Network Session
@@ -785,16 +786,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 9054859246233419506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51fb419b5e4e4e6fb830b6d3ea30f1a9, type: 3}
+  m_Script: {fileID: 11500000, guid: f61fd2d1bff24bf3a3dfb25bd00d6c56, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Networking.NetworkSessionManager
+  m_EditorClassIdentifier: Assembly-CSharp::Networking.NetworkLobbyManager
   dontDestroyOnLoad: 1
   runInBackground: 1
   headlessStartMode: 0
   editorAutoStart: 0
   sendRate: 60
   offlineScene: Assets/Scenes/lobby.unity
-  onlineScene: Assets/Scenes/maingame.unity
+  onlineScene: 
   offlineSceneLoadDelay: 0
   transport: {fileID: 7886499238022370487}
   networkAddress: localhost
@@ -802,12 +803,11 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 2180925294183413936, guid: 2e00a2a378504449b767323e1e7d8a43,
+  playerPrefab: {fileID: 8522907204975919351, guid: 85425eab51a064808886356a3a04687e,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 1227572930440589602, guid: c45e8e1b33bc4bd6910a4654fb978c13, type: 3}
+  spawnPrefabs: []
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -823,10 +823,27 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  gameSceneName: maingame
-  maximumPlayers: 4
-  lobbyPrefab: {fileID: 7373443034247446145, guid: c45e8e1b33bc4bd6910a4654fb978c13,
+  showRoomGUI: 0
+  minPlayers: 1
+  roomPlayerPrefab: {fileID: 7819930033414289155, guid: 7ba2da8687514eaf99e2180ee945a284,
     type: 3}
+  RoomScene: Assets/Scenes/ready.unity
+  GameplayScene: Assets/Scenes/maingame.unity
+  _allPlayersReady: 0
+  clientIndex: 0
+  sessionManager: {fileID: 1000000000000000003}
+--- !u!114 &1000000000000000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9054859246233419506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fb419b5e4e4e6fb830b6d3ea30f1a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Networking.NetworkSessionManager
 --- !u!114 &7886499238022370487
 MonoBehaviour:
   m_ObjectHideFlags: 0

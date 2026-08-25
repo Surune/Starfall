@@ -38,8 +38,20 @@ namespace Gameplay.Managers
             SoundManager = new(soundDictionary);
             PoolManager.SetObjectInitializer(ConfigurePooledObject);
             Spawner.Initialize(PoolManager, Timer, RegisterEnemySpawned);
-            Player.Initialize(PlayerManager, PoolManager, SoundManager, GameStateManager);
             EffectManager.Initialize(PoolManager);
+        }
+
+        public void SetLocalPlayer(Player player)
+        {
+            Player = player;
+            PlayerManager = player.GetComponent<PlayerManager>();
+            ConfigurePlayer(player);
+            AbilityManager.Initialize(player, PlayerManager, HPManager, Spawner, this);
+        }
+
+        private void ConfigurePlayer(Player player)
+        {
+            player.Initialize(PlayerManager, PoolManager, SoundManager, GameStateManager);
 
             // 업그레이드 적용
             // 모듈 1 : 공격력 +0.02

@@ -10,7 +10,7 @@ namespace Networking
 
         private void OnGUI()
         {
-            var sessionManager = NetworkSessionManager.Instance;
+            var lobbyManager = NetworkLobbyManager.Instance;
             var panel = new Rect(Screen.width * 0.5f - 220f, Screen.height * 0.5f - 150f, 440f, 300f);
 
             GUI.Box(panel, "MULTIPLAYER");
@@ -19,9 +19,10 @@ namespace Networking
                 GUI.Label(new Rect(panel.x + 24f, panel.y + 48f, 392f, 28f), "Connected. Waiting for the game to start.");
                 GUI.Label(new Rect(panel.x + 24f, panel.y + 82f, 392f, 24f), "PLAYERS");
                 var y = panel.y + 108f;
-                foreach (var playerName in NetworkLobbyState.CurrentPlayerNames)
+                foreach (var player in lobbyManager.roomSlots)
                 {
-                    GUI.Label(new Rect(panel.x + 40f, y, 376f, 24f), playerName);
+                    var lobbyPlayer = player.GetComponent<NetworkLobbyPlayer>();
+                    GUI.Label(new Rect(panel.x + 40f, y, 376f, 24f), lobbyPlayer.DisplayName);
                     y += 24f;
                 }
 
@@ -29,11 +30,11 @@ namespace Networking
                 {
                     if (NetworkServer.active)
                     {
-                        sessionManager.StopHost();
+                        lobbyManager.StopHost();
                     }
                     else
                     {
-                        sessionManager.StopClient();
+                        lobbyManager.StopClient();
                     }
                 }
 
@@ -46,11 +47,11 @@ namespace Networking
             address = GUI.TextField(new Rect(panel.x + 24f, panel.y + 144f, 392f, 30f), address);
             if (GUI.Button(new Rect(panel.x + 24f, panel.y + 196f, 188f, 36f), "HOST GAME"))
             {
-                sessionManager.StartHostGame(playerName);
+                lobbyManager.StartHostGame(playerName);
             }
             if (GUI.Button(new Rect(panel.x + 228f, panel.y + 196f, 188f, 36f), "JOIN GAME"))
             {
-                sessionManager.StartClientGame(address, playerName);
+                lobbyManager.StartClientGame(address, playerName);
             }
         }
     }

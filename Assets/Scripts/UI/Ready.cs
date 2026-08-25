@@ -20,7 +20,7 @@ namespace UI
         {
             if (NetworkServer.active)
             {
-                NetworkSessionManager.Instance.StartMatch();
+                NetworkLobbyManager.Instance.StartMatch();
                 return;
             }
 

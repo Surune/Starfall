@@ -935,18 +935,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973851586}
   m_CullTransparentMesh: 1
---- !u!114 &1172591514 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 34434869985894317, guid: e79f9e28e847576409ca3a807a282ac5,
-    type: 3}
-  m_PrefabInstance: {fileID: 3523821222051495972}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshPro
 --- !u!1 &1311705326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1097,7 @@ MonoBehaviour:
   GameOverDisplay: {fileID: 2416823381450539026, guid: 08389ba2d053d484da07f1f5ee067ac4,
     type: 3}
   hpSlider: {fileID: 1418295025}
-  barrierCount: {fileID: 1172591514}
+  barrierCount: {fileID: 0}
   Barrier: 0
   Meatshield: 0
   Porcupine: 0
@@ -1198,7 +1186,7 @@ Transform:
   m_GameObject: {fileID: 1597058252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1470,7 +1458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390176ab0d0ce4ec382b0a9914d3f9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Abilities: []
   abilityPrefab: {fileID: 6287887570584329648, guid: 04b4d0527b121c345ae06ff679816ea0,
     type: 3}
   content: {fileID: 3358611857695525003}

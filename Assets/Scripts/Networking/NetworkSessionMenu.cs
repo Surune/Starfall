@@ -5,12 +5,12 @@ namespace Networking
 {
     public sealed class NetworkSessionMenu : MonoBehaviour
     {
-        private NetworkSessionManager sessionManager;
+        private NetworkLobbyManager lobbyManager;
         private string address = "localhost";
 
         private void Awake()
         {
-            sessionManager = GetComponent<NetworkSessionManager>();
+            lobbyManager = GetComponent<NetworkLobbyManager>();
         }
 
         private void OnGUI()
@@ -22,11 +22,11 @@ namespace Networking
                 {
                     if (NetworkServer.active)
                     {
-                        sessionManager.StopHost();
+                        lobbyManager.StopHost();
                     }
                     else
                     {
-                        sessionManager.StopClient();
+                        lobbyManager.StopClient();
                     }
                 }
                 return;
@@ -37,11 +37,11 @@ namespace Networking
             address = GUI.TextField(new Rect(32f, 70f, 228f, 24f), address);
             if (GUI.Button(new Rect(32f, 104f, 108f, 32f), "Host"))
             {
-                sessionManager.StartHostGame("Pilot");
+                lobbyManager.StartHostGame("Pilot");
             }
             if (GUI.Button(new Rect(152f, 104f, 108f, 32f), "Join"))
             {
-                sessionManager.StartClientGame(address, "Pilot");
+                lobbyManager.StartClientGame(address, "Pilot");
             }
         }
     }
