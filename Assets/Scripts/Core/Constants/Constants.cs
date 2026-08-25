@@ -1,7 +1,7 @@
 
 namespace Core.Constants
 {
-    public class ConstantStore
+    public class Constants
     {
         public static string SoundMute = "soundMuted";
 
@@ -16,6 +16,8 @@ namespace Core.Constants
 
         public static string[] CHARACTER_DESCRIPTION_LiST = {"시작시 능력 선택", "치명타 확률 +20%", "연사 간격 -20%", "보호막 +5", "대미지 +1", "코인 획득량 +50%"};
 
-        public static int BossPerWave = 7;
+        public const int BossPerWave = 7;
+
+        public const int ChoiceCount = 4;
     }
 }

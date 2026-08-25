@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7cbaaf28edc4e1e8a8f5a1d6690295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 5396439615826227106}
   abilityIcon: {fileID: 3828984490654968901}
   nameText: {fileID: 1886256321003604032}
   descriptionText: {fileID: 712399923614704078}

@@ -1250,7 +1250,7 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 0.98039216}
   - {r: 1, g: 0.11764706, b: 0, a: 1}
   - {r: 0, g: 0.7735849, b: 0.014948435, a: 1}
-  choicePrefab: {fileID: 3548057871866741776, guid: 78de2513facd344e1809abcd7093a101,
+  choicePrefab: {fileID: 557296818061295273, guid: 78de2513facd344e1809abcd7093a101,
     type: 3}
   spawnDelay: 0.5
 --- !u!222 &1819767170

@@ -57,6 +57,16 @@ namespace Gameplay.Managers
             return abilityDatabase.Abilities[Random.Range(0, AbilityCount)];
         }
 
+        public AbilityData GetAbility(int index)
+        {
+            return abilityDatabase.Abilities[index];
+        }
+
+        public int GetAbilityIndex(AbilityData ability)
+        {
+            return abilityDatabase.Abilities.IndexOf(ability);
+        }
+
         private void GetSynergy(AbilitySynergy synergyType)
         {
             if (synergyType == AbilitySynergy.None)

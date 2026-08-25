@@ -564,6 +564,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Barrier: {fileID: 8924247385278304201}
+  barrierCount: {fileID: 9165679189947933784}
   SkillCooltimeMax: 0.2
   BulletCount: 1
   speed: 3

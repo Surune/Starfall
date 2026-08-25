@@ -42,6 +42,11 @@ namespace Gameplay.Managers
             PlayerPrefs.SetFloat("nowdeck", 0f);
         }
 
+        public void SetPlayer(Player player)
+        {
+            barrierCount = player.BarrierCount;
+        }
+
         public void SetHealthBar()
         {
             hpSlider.maxValue = MaxHP;

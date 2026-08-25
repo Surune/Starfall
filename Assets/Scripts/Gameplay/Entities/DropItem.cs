@@ -1,4 +1,5 @@
 using System;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 using Audio;
@@ -7,7 +8,7 @@ using Gameplay.Managers;
 
 namespace Gameplay.Entities
 {
-    public class DropItem : MonoBehaviour, IPoolable
+    public class DropItem : NetworkBehaviour, IPoolable
     {
         private HPManager hpManager;
         private PlayerManager playerManager;
@@ -17,6 +18,7 @@ namespace Gameplay.Entities
         
         [SerializeField] private SpriteRenderer spriteRenderer;
         public Sprite[] ItemSprites;
+        [SyncVar(hook = nameof(OnTypeChanged))]
         public ItemType Type = 0;
         [SerializeField] private Vector3 direction;
         [SerializeField] private float speed = 1f;
@@ -31,6 +33,11 @@ namespace Gameplay.Entities
 
         private void Update()
         {
+            if (NetworkClient.active && !isServer)
+            {
+                return;
+            }
+
             if (gameStateManager.IsPlaying)
             {
                 transform.position += direction * Time.deltaTime * speed;
@@ -40,7 +47,7 @@ namespace Gameplay.Entities
             var screenPosition = mainCamera.WorldToScreenPoint(objectPosition);
             if (screenPosition.x < 0f || screenPosition.x > Screen.width || screenPosition.y < 0f || screenPosition.y > Screen.height)
             {
-                gameObject.SetActive(false);
+                Despawn();
             }
         }
 
@@ -52,14 +59,29 @@ namespace Gameplay.Entities
         {
         }
 
+        public override void OnStartClient()
+        {
+            transform.SetParent(GameManager.Instance.PoolManager.EntitiesTransform);
+        }
+
         public void SetType(ItemType n)
         {
             Type = n;
             spriteRenderer.sprite = ItemSprites[(int)n];
         }
 
+        private void OnTypeChanged(ItemType _, ItemType value)
+        {
+            spriteRenderer.sprite = ItemSprites[(int)value];
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (NetworkClient.active && !isServer)
+            {
+                return;
+            }
+
             if (!other.transform.CompareTag("Player"))
             {
                 return;
@@ -100,6 +122,17 @@ namespace Gameplay.Entities
                 playerManager.criticalProb += 0.1f;
             }
             sound.PlaySFX(SoundKey.Item);
+            Despawn();
+        }
+
+        private void Despawn()
+        {
+            if (NetworkServer.active)
+            {
+                NetworkServer.Destroy(gameObject);
+                return;
+            }
+
             gameObject.SetActive(false);
         }
     }

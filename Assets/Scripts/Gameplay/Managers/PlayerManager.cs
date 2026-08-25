@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -38,6 +39,11 @@ namespace Gameplay.Managers
 
         private void Start()
         {
+            if ((NetworkClient.active || NetworkServer.active) && !GetComponent<Player>().isOwned)
+            {
+                return;
+            }
+
             SetPlayer();
         }
 

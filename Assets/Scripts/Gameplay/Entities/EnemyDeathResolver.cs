@@ -1,4 +1,5 @@
 using System;
+using Mirror;
 using UnityEngine;
 using Core.Constants;
 using Gameplay.Effects;
@@ -12,16 +13,14 @@ namespace Gameplay.Entities
     {
         private readonly EffectManager effectManager;
         private readonly PoolManager poolManager;
-        private readonly Player player;
         private readonly Spawner spawner;
         private readonly Timer timer;
         private readonly Action enemyRemoved;
 
-        public EnemyDeathResolver(EffectManager effectManager, PoolManager poolManager, Player player, Spawner spawner, Timer timer, Action enemyRemoved)
+        public EnemyDeathResolver(EffectManager effectManager, PoolManager poolManager, Spawner spawner, Timer timer, Action enemyRemoved)
         {
             this.effectManager = effectManager;
             this.poolManager = poolManager;
-            this.player = player;
             this.spawner = spawner;
             this.timer = timer;
             this.enemyRemoved = enemyRemoved;
@@ -52,7 +51,7 @@ namespace Gameplay.Entities
                 throw new NotImplementedException();
             }
 
-            player.KillNum++;
+            GameManager.Instance.Player.KillNum++;
 
             var effect = poolManager.Spawn<DamageEffect>();
             effect.transform.position = enemy.transform.position;
@@ -60,9 +59,11 @@ namespace Gameplay.Entities
 
             if (Random.Range(0, 100) < itemProbability)
             {
-                var item = poolManager.Spawn<DropItem>();
-                item.transform.position = enemy.transform.position;
-                item.SetType((ItemType)Random.Range(0, 4));
+                poolManager.Spawn<DropItem>(item =>
+                {
+                    item.transform.position = enemy.transform.position;
+                    item.SetType((ItemType)Random.Range(0, 4));
+                });
             }
 
             Despawn(enemy);
@@ -73,6 +74,12 @@ namespace Gameplay.Entities
         {
             spawner.RemoveActiveEnemy(enemy);
             enemyRemoved();
+            if (NetworkServer.active)
+            {
+                NetworkServer.Destroy(enemy.gameObject);
+                return;
+            }
+
             enemy.gameObject.SetActive(false);
         }
     }

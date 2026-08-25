@@ -12,8 +12,8 @@ public class Character : MonoBehaviour
     public TMP_Text Description;
     public Image Image;
 
-    string[] NameList => ConstantStore.CHARACTER_NAME_LIST;
-    string[] DescriptionList => ConstantStore.CHARACTER_DESCRIPTION_LiST;
+    string[] NameList => Constants.CHARACTER_NAME_LIST;
+    string[] DescriptionList => Constants.CHARACTER_DESCRIPTION_LiST;
 
     public Color[] ColorList;
 

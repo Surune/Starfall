@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
 namespace Gameplay.Managers
@@ -32,7 +33,23 @@ namespace Gameplay.Managers
 
         public T Spawn<T>() where T : Component
         {
+            return Spawn<T>(_ => { });
+        }
+
+        public T Spawn<T>(Action<T> configure) where T : Component
+        {
             var poolType = typeof(T);
+            if (NetworkServer.active && Prefabs[prefabIndexes[poolType]].TryGetComponent<NetworkIdentity>(out _))
+            {
+                var networkObject = Instantiate(Prefabs[prefabIndexes[poolType]], EntitiesTransform);
+                var networkComponent = networkObject.GetComponent<T>();
+                objectInitializer(networkComponent);
+                ((IPoolable)networkComponent).OnSpawn();
+                configure(networkComponent);
+                NetworkServer.Spawn(networkObject);
+                return networkComponent;
+            }
+
             var available = availableObjects[poolType];
             var pooledObject = available.Count > 0
                 ? available.Dequeue()
@@ -40,12 +57,19 @@ namespace Gameplay.Managers
 
             pooledObject.gameObject.SetActive(true);
             pooledObject.NotifySpawned();
-
-            return pooledObject.GetComponent<T>();
+            var pooledComponent = pooledObject.GetComponent<T>();
+            configure(pooledComponent);
+            return pooledComponent;
         }
 
         public void Release(GameObject gameObject)
         {
+            if (NetworkServer.active && gameObject.TryGetComponent<NetworkIdentity>(out _))
+            {
+                NetworkServer.Destroy(gameObject);
+                return;
+            }
+
             gameObject.SetActive(false);
         }
 

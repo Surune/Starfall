@@ -45,6 +45,7 @@ namespace Gameplay.Managers
         {
             Player = player;
             PlayerManager = player.GetComponent<PlayerManager>();
+            HPManager.SetPlayer(player);
             ConfigurePlayer(player);
             AbilityManager.Initialize(player, PlayerManager, HPManager, Spawner, this);
         }
@@ -79,7 +80,7 @@ namespace Gameplay.Managers
             switch (pooledComponent)
             {
                 case Enemy enemy:
-                    var deathResolver = new EnemyDeathResolver(EffectManager, PoolManager, Player, Spawner, Timer, RegisterEnemyRemoved);
+                    var deathResolver = new EnemyDeathResolver(EffectManager, PoolManager, Spawner, Timer, RegisterEnemyRemoved);
                     enemy.Initialize(EffectManager, GameStateManager, HPManager, SoundManager, Timer, deathResolver);
                     break;
                 case Bullet bullet:

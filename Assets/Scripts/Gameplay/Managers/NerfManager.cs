@@ -87,7 +87,7 @@ namespace Gameplay.Managers
 
         public void Cleared()
         {
-            if (NerfLevel == HighestLevel && HighestLevel < ConstantStore.NERF_TEXT_LIST.Length)
+            if (NerfLevel == HighestLevel && HighestLevel < Constants.NERF_TEXT_LIST.Length)
             {
                 PlayerPrefs.SetInt("highestLevel", HighestLevel + 1);
             }

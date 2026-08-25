@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 using Gameplay.Managers;
 using Gameplay.Projectiles;
@@ -5,7 +6,7 @@ using Gameplay.Spawning;
 
 namespace Gameplay.Entities
 {
-    public class Bullet : MonoBehaviour, IPoolable
+    public class Bullet : NetworkBehaviour, IPoolable
     {
         private PlayerManager playerManager;
         private GameStateManager gameStateManager;
@@ -47,11 +48,21 @@ namespace Gameplay.Entities
         {
         }
 
+        public override void OnStartClient()
+        {
+            transform.SetParent(GameManager.Instance.PoolManager.EntitiesTransform);
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (NetworkClient.active && !isServer)
+            {
+                return;
+            }
+
             if (targetResolver.IsObstacle(collision))
             {
-                gameObject.SetActive(false);
+                Despawn();
                 return;
             }
 
@@ -81,7 +92,7 @@ namespace Gameplay.Entities
                 }
                 if (!Penetrate || target.IsBoss)
                 {
-                    gameObject.SetActive(false);
+                    Despawn();
                 }
                 else
                 {
@@ -92,7 +103,23 @@ namespace Gameplay.Entities
 
         private void FixedUpdate()
         {
+            if (NetworkClient.active && !isServer)
+            {
+                return;
+            }
+
             navigator.Move(transform, gameStateManager.IsPlaying, Speed, Udo);
+        }
+
+        private void Despawn()
+        {
+            if (NetworkServer.active)
+            {
+                NetworkServer.Destroy(gameObject);
+                return;
+            }
+
+            gameObject.SetActive(false);
         }
     }
 }

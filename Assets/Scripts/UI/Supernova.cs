@@ -42,7 +42,7 @@ public class Supernova : MonoBehaviour
         }
         else
         {
-            DescriptionText.text = $"{ConstantStore.NERF_TEXT_LIST[currentLevel-1]}\n클리어 시 코인, 점수 {5 * currentLevel}%";
+            DescriptionText.text = $"{Constants.NERF_TEXT_LIST[currentLevel-1]}\n클리어 시 코인, 점수 {5 * currentLevel}%";
         }
     }
 

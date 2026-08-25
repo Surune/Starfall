@@ -25,6 +25,11 @@ namespace Gameplay.Spawning
 
         public IReadOnlyList<Enemy> ActiveEnemies => activeEnemies;
 
+        public EnemyData GetEnemyData(int index)
+        {
+            return enemyDataList[index];
+        }
+
         public Transform FindClosestTarget(Vector3 position)
         {
             Transform closest = null;
@@ -59,9 +64,11 @@ namespace Gameplay.Spawning
 
         public void SpawnItem()
         {
-            var item = poolManager.Spawn<DropItem>();
-            item.transform.position = new Vector3(Random.Range(-MaxX, MaxX), MaxY, 0f);
-            item.SetType((ItemType)Random.Range(0, 4));
+            poolManager.Spawn<DropItem>(item =>
+            {
+                item.transform.position = new Vector3(Random.Range(-MaxX, MaxX), MaxY, 0f);
+                item.SetType((ItemType)Random.Range(0, 4));
+            });
         }
 
         public void SpawnWaveEnemy()
@@ -76,29 +83,25 @@ namespace Gameplay.Spawning
                 ran = Random.Range(0, timer.WaveNum < enemyTypeNum ? timer.WaveNum : enemyTypeNum);
             }
 
-            var enemy = SpawnEnemyWithType(ran, new Vector3(Random.Range(-MaxX, MaxX), MaxY, 0f));
-            if (timer.RoundNum % ConstantStore.BossPerWave != 0)
-            {
-                enemy.IsBoss = false;
-            }
-            else
-            {
-                enemy.MakeBoss();
-            }
+            SpawnEnemyWithType(ran, new Vector3(Random.Range(-MaxX, MaxX), MaxY, 0f), timer.RoundNum % Constants.BossPerWave == 0);
             enemySpawned();
         }
 
-        private Enemy SpawnEnemyWithType(int type, Vector3 pos)
+        private void SpawnEnemyWithType(int type, Vector3 pos, bool isBoss)
         {
-            var e = poolManager.Spawn<Enemy>();
             var enemyData = enemyDataList[type];
-            e.transform.localPosition = pos;
-            e.transform.localScale = Vector3.one;
-
-            e.Maxspeed = enemyData.Speed * SpeedCoefficient;
-            e.SetType(enemyData);
-            activeEnemies.Add(e);
-            return e;
+            var enemy = poolManager.Spawn<Enemy>(e =>
+            {
+                e.transform.position = pos;
+                e.transform.localScale = Vector3.one;
+                e.Maxspeed = enemyData.Speed * SpeedCoefficient;
+                e.SetType(enemyData, type);
+                if (isBoss)
+                {
+                    e.MakeBoss();
+                }
+            });
+            activeEnemies.Add(enemy);
         }
     }
 }

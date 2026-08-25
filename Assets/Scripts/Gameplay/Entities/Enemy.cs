@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 using Audio;
 using Core.Constants;
@@ -6,7 +7,7 @@ using Gameplay.Managers;
 
 namespace Gameplay.Entities
 {
-    public class Enemy : MonoBehaviour, IPoolable, IDamageable
+    public class Enemy : NetworkBehaviour, IPoolable, IDamageable
     {
         private EffectManager effectManager;
         private GameStateManager gameStateManager;
@@ -31,6 +32,14 @@ namespace Gameplay.Entities
         [SerializeField] private SpriteAnimation spriteAnimation;
         private EnemyData enemyData;
 
+        [SyncVar(hook = nameof(OnEnemyDataIndexChanged))]
+        private int enemyDataIndex = -1;
+
+        private void Awake()
+        {
+            spriteAnimation.enabled = false;
+        }
+
         public void Initialize(EffectManager effectManager, GameStateManager gameStateManager, HPManager hpManager, SoundManager sound, Timer timer, EnemyDeathResolver deathResolver)
         {
             this.effectManager = effectManager;
@@ -52,18 +61,39 @@ namespace Gameplay.Entities
         {
         }
 
+        public override void OnStartClient()
+        {
+            transform.SetParent(GameManager.Instance.PoolManager.EntitiesTransform);
+        }
+
         private void Start()
         {
+            if (NetworkClient.active && !isServer)
+            {
+                enabled = false;
+                return;
+            }
+
             enabled = gameStateManager.IsPlaying;
         }
 
-        public void SetType(EnemyData data)
+        public void SetType(EnemyData data, int dataIndex)
         {
+            enemyDataIndex = dataIndex;
             enemyData = data;
             type = enemyData.Type;
             spriteAnimation.SetSprites(enemyData.Sprites);
+            spriteAnimation.enabled = true;
             health.SetMaximum(enemyData.BaseHP + enemyData.StageHP * (timer.WaveNum * timer.WaveNum + timer.RoundNum - 1));
             movement.Configure(type, Camera.main, transform.position);
+        }
+
+        private void OnEnemyDataIndexChanged(int _, int value)
+        {
+            var data = GameManager.Instance.Spawner.GetEnemyData(value);
+            type = data.Type;
+            spriteAnimation.SetSprites(data.Sprites);
+            spriteAnimation.enabled = true;
         }
 
         public void MakeBoss()
@@ -112,6 +142,11 @@ namespace Gameplay.Entities
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (NetworkClient.active && !isServer)
+            {
+                return;
+            }
+
             if (collision.transform.CompareTag("Player"))
             {
                 hpManager.GetDamage(-Mathf.CeilToInt(health.Current));
@@ -121,6 +156,11 @@ namespace Gameplay.Entities
 
         private void Update()
         {
+            if (NetworkClient.active && !isServer)
+            {
+                return;
+            }
+
             if (!gameStateManager.IsPlaying)
             {
                 return;
