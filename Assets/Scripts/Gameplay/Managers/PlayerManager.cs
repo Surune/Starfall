@@ -37,6 +37,8 @@ namespace Gameplay.Managers
         [SerializeField] Transform wingContent;
         int shotnum = 0;
 
+        public Transform WingContent => wingContent;
+
         private void Start()
         {
             if (!GetComponent<Player>().isOwned)
@@ -117,10 +119,17 @@ namespace Gameplay.Managers
 
         public void GetWing(int num)
         {
-            for (int i = 0; i < num; i++)
+            player.SpawnWings(num);
+        }
+
+        [Server]
+        public void ServerSpawnWings(int num)
+        {
+            for (var i = 0; i < num; i++)
             {
-                var wing = Instantiate(wingPrefab, wingContent);
-                GameManager.Instance.ConfigureWing(wing);
+                var wing = Instantiate(wingPrefab, wingContent.position, Quaternion.identity, wingContent);
+                wing.SetOwner(GetComponent<Player>());
+                NetworkServer.Spawn(wing.gameObject);
                 Wings.Add(wing);
             }
         }

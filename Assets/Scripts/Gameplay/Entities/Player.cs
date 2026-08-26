@@ -197,6 +197,26 @@ namespace Gameplay.Entities
             }
         }
 
+        public void SpawnWings(int count)
+        {
+            if (isServer)
+            {
+                playerManager.ServerSpawnWings(count);
+                return;
+            }
+
+            if (isOwned)
+            {
+                CmdSpawnWings(count);
+            }
+        }
+
+        [Command]
+        private void CmdSpawnWings(int count)
+        {
+            playerManager.ServerSpawnWings(count);
+        }
+
         [Command]
         private void CmdShootWing(Vector3 position)
         {

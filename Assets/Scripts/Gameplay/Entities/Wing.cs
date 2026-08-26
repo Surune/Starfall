@@ -1,14 +1,16 @@
+using Mirror;
 using UnityEngine;
 using Gameplay.Managers;
 
 namespace Gameplay.Entities
 {
-    public class Wing : MonoBehaviour
+    public class Wing : NetworkBehaviour
     {
         private const float MinDelay = 0.0005f;
         
         private PoolManager poolManager;
         private GameStateManager gameStateManager;
+        [SyncVar(hook = nameof(OnOwnerChanged))] private Player owner;
         public static float SkillCooltimeMax = 1f;
         public static float CriticalProb = 0f;
         public static bool Freezing = false;
@@ -19,9 +21,35 @@ namespace Gameplay.Entities
             this.gameStateManager = gameStateManager;
         }
 
-        private void Start()
+        public void SetOwner(Player player)
         {
+            owner = player;
+        }
+
+        public override void OnStartServer()
+        {
+            Initialize(GameManager.Instance.PoolManager, GameManager.Instance.GameStateManager);
             InvokeRepeating(nameof(Shoot), 0f, SkillCooltimeMax);
+        }
+
+        public override void OnStartClient()
+        {
+            AttachToOwner();
+        }
+
+        private void OnOwnerChanged(Player _, Player value)
+        {
+            AttachToOwner(value);
+        }
+
+        private void AttachToOwner()
+        {
+            AttachToOwner(owner);
+        }
+
+        private void AttachToOwner(Player player)
+        {
+            transform.SetParent(player.GetComponent<PlayerManager>().WingContent, false);
         }
 
         public void ChangeSkillCool(float newcooltime)
@@ -43,7 +71,7 @@ namespace Gameplay.Entities
                 return;
             }
             
-            GameManager.Instance.Player.ShootWing(transform.position);
+            owner.ShootWing(transform.parent.position);
         }
     }
 }

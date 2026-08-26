@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7838399760615281708}
   - component: {fileID: 7714419705523720735}
+  - component: {fileID: 709348722193702101}
   m_Layer: 0
   m_Name: Wing
   m_TagString: Wing
@@ -45,6 +46,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43da472e5a60e4b0d8faef9ecdf9891f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &709348722193702101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052885400797702919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Mirror::Mirror.NetworkIdentity
+  sceneId: 0
+  _assetId: 1016774587
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &2629250524223753342
 GameObject:
   m_ObjectHideFlags: 0
